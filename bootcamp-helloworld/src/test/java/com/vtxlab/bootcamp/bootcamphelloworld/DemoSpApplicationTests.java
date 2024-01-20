@@ -1,4 +1,4 @@
-package com.dsd.dss.demosp;
+package com.vtxlab.bootcamp.bootcamphelloworld;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

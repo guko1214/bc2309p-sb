@@ -1,4 +1,4 @@
-package com.dsd.dss.demosp;
+package com.vtxlab.bootcamp.bootcamphelloworld;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoSpApplication {
 
 	public static void main(String[] args) {
+		System.out.println("hello");
 		SpringApplication.run(DemoSpApplication.class, args);
 	}
 

@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "DemoSpApplication",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcamphelloworld.DemoSpApplication",
+      "projectName": "demo-sp"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-DemoSpApplication<demo-sp>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.dsd.dss.demosp.DemoSpApplication",
+      "projectName": "demo-sp",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
