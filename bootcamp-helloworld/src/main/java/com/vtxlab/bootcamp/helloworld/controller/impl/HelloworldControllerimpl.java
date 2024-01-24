@@ -1,4 +1,4 @@
-package com.vtxlab.bootcamp.bootcamphelloworld.controller;
+package com.vtxlab.bootcamp.helloworld.controller.impl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,57 +7,57 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.vtxlab.bootcamp.bootcamphelloworld.model.Cat;
-import com.vtxlab.bootcamp.bootcamphelloworld.model.Cinema;
-import com.vtxlab.bootcamp.bootcamphelloworld.model.Film;
-import com.vtxlab.bootcamp.bootcamphelloworld.model.Food;
-import com.vtxlab.bootcamp.bootcamphelloworld.model.ShoppingMall;
+import org.springframework.web.bind.annotation.RestController;
+import com.vtxlab.bootcamp.helloworld.controller.HelloworldController;
+import com.vtxlab.bootcamp.helloworld.model.Cat;
+import com.vtxlab.bootcamp.helloworld.model.Cinema;
+import com.vtxlab.bootcamp.helloworld.model.Film;
+import com.vtxlab.bootcamp.helloworld.model.Food;
+import com.vtxlab.bootcamp.helloworld.model.ShoppingMall;
 
-@Controller
-@ResponseBody
+// @Controller
+// @ResponseBody
+@RestController // @Controller + @ResponseBody
 @RequestMapping(value = "/api/v1")
-public class HelloworldController {
+public class HelloworldControllerimpl implements HelloworldController {
 
 
-
-  //@GetMapping(value = "/api/v1/helloworld") // path
-  @GetMapping(value = "/helloworld") // path
+  @Override
   public String helloworld() {
     return "hello world. This is my first app.";
   }
 
-  // @GetMapping(value = "/api/v1/sleep") // path
-  @GetMapping(value = "/sleep") // path // path end should be noun
+  @Override
   public String sleepString() {
     return "I'm sleeping";
   }  
 
-  @GetMapping(value = "/testint") // path 
+  @Override
   public int testint() {
     return 8765;
   }
 
-  @GetMapping(value = "/testinteger") // path 
+  @Override
   public Integer testInteger() {
-    return 8768765;
+    return Integer.valueOf(8768765);
   }
 
-  @GetMapping(value = "/testdouble") // path 
+  @Override
   public double testdouble() {
     return 2.498d;
   }
 
-  @GetMapping(value = "/testchar") // path 
+  @Override
   public char testchar() {
     return 'd';
   }
 
-  @GetMapping(value = "/testCharacter") // path 
+  @Override
   public Character testcharacter() {
-    return 'd';
+    return Character.valueOf('d');
   }  
 
-  @GetMapping(value = "/cat") // path 
+  @Override
   public  Cat cat() {
     List<String> chklist = new ArrayList<>();
     chklist.add("Food");
@@ -70,7 +70,7 @@ public class HelloworldController {
     return cat;
   } 
 
-  @GetMapping(value = "/catString") // path 
+  @Override
   public  String catToString() {
     List<String> chklist = new ArrayList<>();
     chklist.add("Food");
@@ -83,7 +83,7 @@ public class HelloworldController {
     return cat.toString();
   } 
 
-  @GetMapping(value = "/shoppingmall")
+  @Override
   public ShoppingMall mall() {
 
     Film filma = new Film("film A",LocalDate.of(2022,1,1));
@@ -98,7 +98,7 @@ public class HelloworldController {
     return mall;
   }
 
-  @GetMapping(value = "/shoppingmallString")
+  @Override
   public String mallString() {
 
     Film filma = new Film("film A",LocalDate.of(2022,1,1));
@@ -111,6 +111,6 @@ public class HelloworldController {
 
     ShoppingMall mall = new ShoppingMall("K11", 19000,cinemaa,shopCategory);
     return mall.toString();
-  }  
+  }
 
 }

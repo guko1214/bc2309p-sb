@@ -1,5 +1,6 @@
-package com.vtxlab.bootcamp.bootcamphelloworld.model;
+package com.vtxlab.bootcamp.helloworld.model;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,6 +14,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Food {
+public class Cat {
   public String name;
+  private List<String> chkList;
+  public Food food;
+
 }

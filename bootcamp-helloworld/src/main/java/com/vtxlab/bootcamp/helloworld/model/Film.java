@@ -1,4 +1,4 @@
-package com.vtxlab.bootcamp.bootcamphelloworld.model;
+package com.vtxlab.bootcamp.helloworld.model;
 
 import java.time.LocalDate;
 import lombok.EqualsAndHashCode;

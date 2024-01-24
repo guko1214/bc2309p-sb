@@ -1,10 +1,10 @@
-package com.vtxlab.bootcamp.bootcamphelloworld;
+package com.vtxlab.bootcamp.hello;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoSpApplicationTests {
+class HelloApplicationTests {
 
 	@Test
 	void contextLoads() {
