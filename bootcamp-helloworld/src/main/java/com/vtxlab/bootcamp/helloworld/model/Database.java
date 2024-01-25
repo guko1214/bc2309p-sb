@@ -22,4 +22,20 @@ public class Database {
     return strings[index];
   }
 
+  public static String[] getNames(int fromIdx, int toIdx) {
+    if (fromIdx < 0 || fromIdx > dbLength - 1 || toIdx < 0
+        || toIdx > dbLength - 1 || fromIdx > toIdx)
+        throw new IllegalArgumentException();
+    String[] arr = new String[toIdx - fromIdx + 1];
+    // int pos = fromIdx;
+    // for (int i = 0; i < toIdx +1; i++) {
+    //   arr[i] = strings[pos++];
+    // }
+    int idx =0;
+    for (int i = fromIdx; i < toIdx + 1; i++) {
+      arr[idx++] = strings[i];
+    }
+    return arr;
+  }
+  
 }
