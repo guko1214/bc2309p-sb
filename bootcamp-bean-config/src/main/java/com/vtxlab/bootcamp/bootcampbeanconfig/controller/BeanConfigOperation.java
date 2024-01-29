@@ -7,4 +7,7 @@ public interface BeanConfigOperation {
   @GetMapping(value = "/superman")
   CharSequence getSuperman();
 
+  @GetMapping(value = "/superwoman")
+  CharSequence getSuperwoman();
+
 }

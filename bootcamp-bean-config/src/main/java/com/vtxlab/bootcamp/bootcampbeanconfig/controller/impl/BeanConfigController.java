@@ -17,10 +17,17 @@ public class BeanConfigController implements BeanConfigOperation {
   @Autowired
   private CharSequence superman;
 
+  @Autowired
+  private CharSequence superwoman;  
+
   @Override
   public CharSequence getSuperman() {
     return this.superman;
   }
 
+  @Override
+  public CharSequence getSuperwoman() {
+    return this.superwoman;
+  }
 
 }
