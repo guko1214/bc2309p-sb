@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-// @Getter
+@Getter
 // @Builder
 public class ApiResponse<T> {
   
@@ -35,15 +35,15 @@ public class ApiResponse<T> {
       this.message = syscode.getMessage();
       return this;
    }
-    // public ApiResponseBuilder<T> code(final String code) {
-    //    this.code = code;
-    //    return this;
-    // }
+   //  public ApiResponseBuilder<T> code(final String code) {
+   //     this.code = code;
+   //     return this;
+   //  }
  
-    // public ApiResponseBuilder<T> message(final String message) {
-    //    this.message = message;
-    //    return this;
-    // }
+   //  public ApiResponseBuilder<T> message(final String message) {
+   //     this.message = message;
+   //     return this;
+   //  }
  
     public ApiResponseBuilder<T> data(final T data) {
        this.data = data;

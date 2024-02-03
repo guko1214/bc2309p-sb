@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.BcUtil;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.Scheme;
@@ -11,6 +12,7 @@ import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.Comment;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.Post;
 import com.vtxlab.bootcamp.bootcampsbforum.service.CommentService;
 
+@Service
 public class CommentJPHServiceHolder implements CommentService {
   
   @Value("${api.jsonPlaceHolder.domain}")
