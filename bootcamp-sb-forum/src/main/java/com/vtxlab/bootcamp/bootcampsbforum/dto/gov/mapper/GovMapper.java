@@ -54,16 +54,16 @@ public class GovMapper {
         return false;
       })
     .map( c2 -> {
-      for (PostDTO postDTO : postDTOs) {
-        if (c2.getPostId() == postDTO.getId()) {
+      //for (PostDTO postDTO : postDTOs) {
+      //  if (c2.getPostId() == postDTO.getId()) {
           return CommentDTO.builder()
                .postId(c2.getPostId())
              .id(c2.getId())
              .body(c2.getBody())
              .build();
-        }
-      }
-      return null;
+      //  }
+     // }
+     // return null;
     })
     .collect(Collectors.toList());
 
