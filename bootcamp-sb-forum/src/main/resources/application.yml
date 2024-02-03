@@ -1,2 +1,10 @@
+# String url = "https://jsonplaceholder.typicode.com/users";
+api:
+  jsonPlaceHolder:
+    domain: "jsonplaceholder.typicode.com"
+    endpoints:
+      users: "/users"
+      posts: "/posts"
+      comments: "/comments"
 server:
   port: 8080

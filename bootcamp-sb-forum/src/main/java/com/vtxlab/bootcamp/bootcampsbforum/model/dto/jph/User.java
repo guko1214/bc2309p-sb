@@ -1,4 +1,4 @@
-package com.vtxlab.bootcamp.bootcampsbforum.model;
+package com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
