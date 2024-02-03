@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration // one of the @Component
 public class AppConfig {
   
-  @Bean
+  @Bean(name = "superm")
   String superman() {
     return "Superman!!!";
   }
 
-  @Bean
+  @Bean(name = "supern")
   String superwoman() {
     return "Superwoman!!!";
   }

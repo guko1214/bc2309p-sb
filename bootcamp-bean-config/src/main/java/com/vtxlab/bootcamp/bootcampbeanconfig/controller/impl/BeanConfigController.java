@@ -3,6 +3,7 @@ package com.vtxlab.bootcamp.bootcampbeanconfig.controller.impl;
 import org.springframework.web.bind.annotation.RestController;
 import com.vtxlab.bootcamp.bootcampbeanconfig.controller.BeanConfigOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BeanConfigController implements BeanConfigOperation {
   
   @Autowired
-  private CharSequence superman;
+  @Qualifier(value = "supern")
+  private String superman;
 
   @Override
-  public CharSequence getSuperman() {
+  public String getSuperman() {
     return this.superman;
   }
 

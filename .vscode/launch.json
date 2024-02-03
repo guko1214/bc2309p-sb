@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "UserController",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbforum.Controller.impl.UserController",
+      "projectName": "demo-sb-forum"
+    },
+    {
+      "type": "java",
       "name": "DemoSpApplication",
       "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.bootcamphelloworld.DemoSpApplication",
