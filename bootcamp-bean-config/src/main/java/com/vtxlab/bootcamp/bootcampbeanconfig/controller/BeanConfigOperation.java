@@ -9,4 +9,7 @@ public interface BeanConfigOperation {
 
 
 
+  @GetMapping(value = "/superwoman")
+  CharSequence getSuperwoman();
+
 }

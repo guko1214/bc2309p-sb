@@ -12,6 +12,13 @@
       "name": "DemoSpApplication",
       "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.bootcamphelloworld.DemoSpApplication",
+      "projectName": "bootcamp-helloworld"
+    },
+    {
+      "type": "java",
+      "name": "DemoSpApplication",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcamphelloworld.DemoSpApplication",
       "projectName": "demo-sp"
     },
     {

@@ -34,8 +34,8 @@ public interface DatabaseController {
       defaultValue = "10") int toIndex);
 
 
-  // db/idx/update/2?name=Mary
-  @GetMapping(value = {"db/udpate/idx/{idx}"})
+  // db/update/idx/2?name=Mary
+  @GetMapping(value = {"db/update/idx/{idx}"})
   String updateName(@PathVariable(name = "idx") int index, //
       @RequestParam(value = "name")String name);
 

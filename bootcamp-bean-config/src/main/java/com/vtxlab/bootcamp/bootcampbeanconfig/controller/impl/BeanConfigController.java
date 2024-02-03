@@ -19,10 +19,17 @@ public class BeanConfigController implements BeanConfigOperation {
   @Qualifier(value = "supern")
   private String superman;
 
+  @Autowired
+  private CharSequence superwoman;  
+
   @Override
   public String getSuperman() {
     return this.superman;
   }
 
+  @Override
+  public CharSequence getSuperwoman() {
+    return this.superwoman;
+  }
 
 }
