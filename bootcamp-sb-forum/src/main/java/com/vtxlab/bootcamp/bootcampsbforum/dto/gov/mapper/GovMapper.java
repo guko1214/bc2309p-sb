@@ -46,7 +46,7 @@ public class GovMapper {
 
     List<CommentDTO> commentDTOs = comments.stream()
     .filter(c -> {
-        for (PostDTO postDTO : postDTOs) {
+        for (PostDTO postDTO : postDTOs) {       
           if (c.getPostId() == postDTO.getId()) {
             return true;
           }
@@ -75,5 +75,35 @@ public class GovMapper {
     .commentDTOs(commentDTOs)
     .build();
  }
-      
+
+  public static UserCommentDTO userCommentDTOmap2(User e,List<Post> posts ,List<Comment> comments) {
+    List<PostDTO> postDTOs = posts.stream()
+    .filter(p -> p.getUserId() == e.getId())
+    .map( p -> {
+      return PostDTO.builder()
+      .id(p.getId())
+      .title(p.getTitle())
+      .build();
+    })
+    .collect(Collectors.toList());
+
+    List<CommentDTO> commentDTOs = comments.stream()
+    .filter(c -> c.getEmail().equals(e.getEmail()))
+    .map( c2 -> {
+          return CommentDTO.builder()
+                .postId(c2.getPostId())
+              .id(c2.getId())
+              .body(c2.getBody())
+              .build();
+    })
+    .collect(Collectors.toList());
+
+    return UserCommentDTO.builder()
+    .id(e.getId())
+    .username(e.getName())
+    .email(e.getEmail())
+    .phone(e.getPhone())
+    .commentDTOs(commentDTOs)
+    .build();
+  }
 }
