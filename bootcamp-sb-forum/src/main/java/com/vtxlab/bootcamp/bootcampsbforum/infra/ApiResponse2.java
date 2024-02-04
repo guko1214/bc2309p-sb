@@ -6,13 +6,13 @@ import lombok.Getter;
 
 @Getter
 // @Builder
-public class ApiResponse<T> {
+public class ApiResponse2<T> {
   
   private String code;
   private String message;
   private T data;
   
-  public ApiResponse(String code, String message, T data) {
+  public ApiResponse2(String code, String message, T data) {
    this.code = code;
    this.message = message;
    this.data = data;
@@ -35,23 +35,14 @@ public class ApiResponse<T> {
       this.message = syscode.getMessage();
       return this;
    }
-   //  public ApiResponseBuilder<T> code(final String code) {
-   //     this.code = code;
-   //     return this;
-   //  }
  
-   //  public ApiResponseBuilder<T> message(final String message) {
-   //     this.message = message;
-   //     return this;
-   //  }
- 
-    public ApiResponseBuilder<T> data(final T data) {
-       this.data = data;
-       return this;
-    }
- 
-    public ApiResponse<T> build() {
-       return new ApiResponse(this.code, this.message, this.data);
+   public ApiResponseBuilder<T> data(final T data) {
+      this.data = data;
+      return this;
+   }
+
+    public ApiResponse2<T> build() {
+       return new ApiResponse2(this.code, this.message, this.data);
     }
  
     public String toString() {
