@@ -1,7 +1,7 @@
-package com.vtxlab.bootcamp.bootcampsbforum.Controller.impl;
+package com.vtxlab.bootcamp.bootcampsbforum.controller.impl;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.vtxlab.bootcamp.bootcampsbforum.Controller.PostOperation;
+import com.vtxlab.bootcamp.bootcampsbforum.controller.PostOperation;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.Post;
 import com.vtxlab.bootcamp.bootcampsbforum.service.PostService;
 import com.vtxlab.bootcamp.bootcampsbforum.service.impl.PostJPHServiceHolder;

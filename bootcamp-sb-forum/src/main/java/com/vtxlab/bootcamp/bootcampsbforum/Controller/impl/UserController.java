@@ -1,8 +1,8 @@
-package com.vtxlab.bootcamp.bootcampsbforum.Controller.impl;
+package com.vtxlab.bootcamp.bootcampsbforum.controller.impl;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.RestController;
-import com.vtxlab.bootcamp.bootcampsbforum.Controller.UserOperation;
+import com.vtxlab.bootcamp.bootcampsbforum.controller.UserOperation;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.User;
 import com.vtxlab.bootcamp.bootcampsbforum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,9 @@ public class UserController implements UserOperation {
     return userservice.getUsers();
   }
 
-
+  public User getUser(int idx) {
+    return userservice.getUser(idx);
+  };
 
   @Override
   public String getUserName(int idx) {

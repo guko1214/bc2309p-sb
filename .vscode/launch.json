@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CatController",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.demoexception.CatController",
+      "projectName": "demo-exception"
+    },
+    {
+      "type": "java",
       "name": "UserController",
       "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.bootcampsbforum.Controller.impl.UserController",

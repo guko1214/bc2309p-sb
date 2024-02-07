@@ -1,4 +1,4 @@
-package com.vtxlab.bootcamp.bootcampsbforum.Controller.impl;
+package com.vtxlab.bootcamp.bootcampsbforum.controller.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import com.vtxlab.bootcamp.bootcampsbforum.Controller.GovOperation;
+import com.vtxlab.bootcamp.bootcampsbforum.controller.GovOperation;
 import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.PostDTO;
 import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.UserCommentDTO;
 import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.UserPostDTO;
@@ -164,6 +164,25 @@ public class GovController implements GovOperation {
    return ResponseEntity.ok(apiResp);
   }
 
+  // method 6 // use orElseThrow() in stream to throws to globalExceptionHandler 
+              // to handle error
+  @Override
+  public ApiResponse2<UserPostDTO> getUserPostDTO6(int idx) {
+    // Call post
+    // Construct UserPostDTO
+    UserPostDTO userPostDTO = userservice.getUsers().stream()
+    .filter(e -> e.getId() == idx)
+    .map(e -> {
+      List<Post> posts = postservice.getPosts();
+        return GovMapper.userPostDTOmap(e, posts);
+    }).findFirst().orElseThrow(() -> new RuntimeException());
+    
+     return ApiResponse2.<UserPostDTO>builder()
+    .status(Syscode.OK)
+    .data(userPostDTO)
+    .build();
+    
+  }
 
   public ResponseEntity<ApiResponse2<UserCommentDTO>> getUserCommentDTO(int idx) {
      Optional<UserCommentDTO> userCommentDTO = userservice.getUsers().stream()

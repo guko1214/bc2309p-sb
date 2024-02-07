@@ -1,4 +1,4 @@
-package com.vtxlab.bootcamp.bootcampsbforum.Controller;
+package com.vtxlab.bootcamp.bootcampsbforum.controller;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;

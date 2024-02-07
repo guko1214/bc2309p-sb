@@ -1,10 +1,12 @@
-package com.vtxlab.bootcamp.bootcampsbforum.Controller;
+package com.vtxlab.bootcamp.bootcampsbforum.controller;
 
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.UserCommentDTO;
 import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.UserPostDTO;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse1;
@@ -15,6 +17,7 @@ import jakarta.websocket.server.PathParam;
 public interface GovOperation {
 
   @GetMapping(value = "/user1")
+  @ResponseStatus(value = HttpStatus.OK)
   UserPostDTO getUserPostDTO1(@RequestParam(value = "id") int idx);
 
   @GetMapping(value = "/user2")
@@ -29,6 +32,8 @@ public interface GovOperation {
   @GetMapping(value = "/user5")
   ResponseEntity<ApiResponse2<UserPostDTO>> getUserPostDTO5(@RequestParam(value = "id") int idx); 
   
+  @GetMapping(value = "/user6")
+  ApiResponse2<UserPostDTO> getUserPostDTO6(@RequestParam(value = "id") int idx);   
 
   @GetMapping(value = "/comments")
   ResponseEntity<ApiResponse2<UserCommentDTO>> getUserCommentDTO(@RequestParam(value = "id") int idx);
