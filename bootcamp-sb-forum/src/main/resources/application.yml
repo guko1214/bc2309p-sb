@@ -9,5 +9,19 @@ api:
       todos: "/todos"
       albums: "/albums"
       photos: "/photos"
+
+database:
+  postgres: "db_2309p_forum"
+
+
+spring.datasource:
+  driverClassName: "org.hibernate.dialect.PostgreSQLDialect"
+  url: "jdbc:postgresql://localhost:5432/${database.postgres}"
+  username: "postgres"
+  password: "admin1234"
+
+spring.jpa:
+  show-sql: true
+  hibernate.ddl-auto: update # update
 server:
   port: 8080

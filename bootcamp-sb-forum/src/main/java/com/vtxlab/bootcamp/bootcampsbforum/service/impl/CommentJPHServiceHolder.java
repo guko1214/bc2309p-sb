@@ -21,6 +21,7 @@ public class CommentJPHServiceHolder implements CommentService {
   @Value("${api.jsonPlaceHolder.endpoints.comments}")
   private String commentUri;
 
+  @Override
   public List<Comment> getComments() {
     RestTemplate restTemplate = new RestTemplate();
     String url = BcUtil.getUrl(Scheme.HTTPS, domain, commentUri);

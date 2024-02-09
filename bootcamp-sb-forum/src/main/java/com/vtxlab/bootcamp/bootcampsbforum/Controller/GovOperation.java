@@ -1,5 +1,6 @@
 package com.vtxlab.bootcamp.bootcampsbforum.controller;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import jakarta.websocket.server.PathParam;
 public interface GovOperation {
 
   @GetMapping(value = "/user1")
-  @ResponseStatus(value = HttpStatus.OK)
+  @ResponseStatus(value = HttpStatus.OK) // 200
   UserPostDTO getUserPostDTO1(@RequestParam(value = "id") int idx);
 
   @GetMapping(value = "/user2")
@@ -35,6 +36,14 @@ public interface GovOperation {
   @GetMapping(value = "/user6")
   ApiResponse2<UserPostDTO> getUserPostDTO6(@RequestParam(value = "id") int idx);   
 
-  @GetMapping(value = "/comments")
+  @GetMapping(value = "/users")
+  @ResponseStatus(value = HttpStatus.OK) // 200
+  ApiResponse2<List<UserPostDTO>> getUsers();
+
+  @GetMapping(value = "/comment")
   ResponseEntity<ApiResponse2<UserCommentDTO>> getUserCommentDTO(@RequestParam(value = "id") int idx);
+
+  @GetMapping(value = "/comments")
+  @ResponseStatus(value = HttpStatus.OK)
+  ApiResponse2<List<UserCommentDTO>> getComments();
 }

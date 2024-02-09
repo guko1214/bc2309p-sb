@@ -18,6 +18,7 @@ import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.Comment;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.Post;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.User;
 import com.vtxlab.bootcamp.bootcampsbforum.service.CommentService;
+import com.vtxlab.bootcamp.bootcampsbforum.service.ForumDatabaseService;
 import com.vtxlab.bootcamp.bootcampsbforum.service.PostService;
 import com.vtxlab.bootcamp.bootcampsbforum.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +33,13 @@ public class GovController implements GovOperation {
   
 
   @Autowired
-  private UserService userservice;
+  private UserService userService;
   @Autowired
-  private PostService postservice;
+  private PostService postService;
   @Autowired
-  private CommentService commentservice;
+  private CommentService commentService;
+  @Autowired
+  private ForumDatabaseService forumDatabaseService;
 
 
   // method 1
@@ -44,10 +47,10 @@ public class GovController implements GovOperation {
   public UserPostDTO getUserPostDTO1(int idx) {
     // Call post
     // Construct UserPostDTO
-   return userservice.getUsers().stream()
+   return userService.getUsers().stream()
     .filter(e -> e.getId() == idx)
     .map(e -> {
-      List<PostDTO> postDTOs = postservice.getPosts().stream()
+      List<PostDTO> postDTOs = postService.getPosts().stream()
       .filter(p -> p.getUserId() == e.getId())
       .map( p -> {
         return PostDTO.builder()
@@ -73,10 +76,10 @@ public class GovController implements GovOperation {
   public UserPostDTO getUserPostDTO2(int idx) {
     // Call post
     // Construct UserPostDTO
-    UserPostDTO userPostDTO = userservice.getUsers().stream()
+    UserPostDTO userPostDTO = userService.getUsers().stream()
     .filter(e -> e.getId() == idx)
     .map(e -> {
-      List<Post> posts = postservice.getPosts();
+      List<Post> posts = postService.getPosts();
       return GovMapper.userPostDTOmap(e, posts);
     })
     .findFirst()
@@ -89,10 +92,10 @@ public class GovController implements GovOperation {
   public ResponseEntity<UserPostDTO> getUserPostDTO3(int idx) {
     // Call post
     // Construct UserPostDTO
-   Optional<UserPostDTO> userPostDTO = userservice.getUsers().stream()
+   Optional<UserPostDTO> userPostDTO = userService.getUsers().stream()
     .filter(e -> e.getId() == idx)
     .map(e -> {
-      List<Post> posts = postservice.getPosts();
+      List<Post> posts = postService.getPosts();
         return GovMapper.userPostDTOmap(e, posts);
     }).findFirst();
     //.orElse(null); // not necessary to return null when using Optional
@@ -111,10 +114,10 @@ public class GovController implements GovOperation {
   public ResponseEntity<ApiResponse1<UserPostDTO>> getUserPostDTO4(int idx) {
     // Call post
     // Construct UserPostDTO
-    Optional<UserPostDTO> userPostDTO = userservice.getUsers().stream()
+    Optional<UserPostDTO> userPostDTO = userService.getUsers().stream()
     .filter(e -> e.getId() == idx)
     .map(e -> {
-      List<Post> posts = postservice.getPosts();
+      List<Post> posts = postService.getPosts();
         return GovMapper.userPostDTOmap(e, posts);
     }).findFirst();
     ApiResponse1<UserPostDTO> apiResp;
@@ -141,10 +144,10 @@ public class GovController implements GovOperation {
   public ResponseEntity<ApiResponse2<UserPostDTO>> getUserPostDTO5(int idx) {
     // Call post
     // Construct UserPostDTO
-   Optional<UserPostDTO> userPostDTO = userservice.getUsers().stream()
+   Optional<UserPostDTO> userPostDTO = userService.getUsers().stream()
     .filter(e -> e.getId() == idx)
     .map(e -> {
-      List<Post> posts = postservice.getPosts();
+      List<Post> posts = postService.getPosts();
         return GovMapper.userPostDTOmap(e, posts);
     }).findFirst();
    
@@ -170,10 +173,11 @@ public class GovController implements GovOperation {
   public ApiResponse2<UserPostDTO> getUserPostDTO6(int idx) {
     // Call post
     // Construct UserPostDTO
-    UserPostDTO userPostDTO = userservice.getUsers().stream()
+    List<User> users = userService.getUsers();
+    UserPostDTO userPostDTO = users.stream()
     .filter(e -> e.getId() == idx)
     .map(e -> {
-      List<Post> posts = postservice.getPosts();
+      List<Post> posts = postService.getPosts();
         return GovMapper.userPostDTOmap(e, posts);
     }).findFirst().orElseThrow(() -> new RuntimeException());
     
@@ -184,12 +188,72 @@ public class GovController implements GovOperation {
     
   }
 
+  public ApiResponse2<List<UserPostDTO>> getUsers() {
+    List<User> users = userService.getUsers();
+    List<com.vtxlab.bootcamp.bootcampsbforum.entity.User> userEntities = users.stream()
+      .map(e -> {
+        return com.vtxlab.bootcamp.bootcampsbforum.entity.User.builder() //
+          .jphId(e.getId()) //
+          .name(e.getName()) //
+          .username(e.getUsername()) //
+          .email(e.getEmail()) //
+          .phone(e.getPhone()) //
+          .website(e.getWebsite()) //
+          .addrLat(e.getAddress().getGeo().getLat())
+          .addrLng(e.getAddress().getGeo().getLng())
+          .street(e.getAddress().getStreet())
+          .suite(e.getAddress().getSuite())
+          .city(e.getAddress().getCity())
+          .zipcode(e.getAddress().getZipcode())
+          .cName(e.getCompany().getName())
+          .catchPhrase(e.getCompany().getCatchPhrase())
+          .cBusinessService(e.getCompany().getBs())
+          .build();
+      })
+      .collect(Collectors.toList());      
+
+      // Save to DB
+      forumDatabaseService.saveAllUsers(userEntities);
+
+      List<Post> posts = postService.getPosts();
+
+      List<com.vtxlab.bootcamp.bootcampsbforum.entity.Post> postEntities = posts.stream()
+        .map(e -> {
+          return com.vtxlab.bootcamp.bootcampsbforum.entity.Post.builder()
+            .userId(e.getUserId())
+            .postId(e.getId())
+            .title(e.getTitle())
+            .body(e.getBody())
+            .build();
+        })
+        .collect(Collectors.toList());
+
+      forumDatabaseService.saveAllPosts(postEntities);
+
+      List<UserPostDTO> userPostDTOs = users.stream()
+    //.filter(e -> e.getId() == idx)
+    .map(e -> {
+      //List<Post> posts = postService.getPosts();
+        return GovMapper.userPostDTOmap(e, posts);
+    })
+    .collect(Collectors.toList());   
+    ;
+    //.findFirst()
+    //.orElseThrow(() -> new RuntimeException());
+    
+     return ApiResponse2.<List<UserPostDTO>>builder()
+    .status(Syscode.OK)
+    .data(userPostDTOs)
+    .build();
+  };
+
+  // method 5
   public ResponseEntity<ApiResponse2<UserCommentDTO>> getUserCommentDTO(int idx) {
-     Optional<UserCommentDTO> userCommentDTO = userservice.getUsers().stream()
+     Optional<UserCommentDTO> userCommentDTO = userService.getUsers().stream()
     .filter(e -> e.getId() == idx)
     .map(e -> {
-      List<Post> posts = postservice.getPosts();
-      List<Comment> comments = commentservice.getComments();
+      List<Post> posts = postService.getPosts();
+      List<Comment> comments = commentService.getComments();
         return GovMapper.userCommentDTOmap(e, posts,comments);
         //return GovMapper.userCommentDTOmap2(e, posts,comments);
       }).findFirst();
@@ -208,4 +272,37 @@ public class GovController implements GovOperation {
       }
       return ResponseEntity.ok(apiResp);
   };
+
+  public ApiResponse2<List<UserCommentDTO>> getComments() {
+
+    List<Comment> comments = commentService.getComments();
+    List<com.vtxlab.bootcamp.bootcampsbforum.entity.Comment> commentEntities = comments.stream() //
+    .map(e -> {
+      return com.vtxlab.bootcamp.bootcampsbforum.entity.Comment.builder()
+        .postId(e.getPostId())
+        .commentId(e.getId())
+        .name(e.getName())
+        .email(e.getEmail())
+        .body(e.getBody())
+        .build();
+      })
+      .collect(Collectors.toList());
+
+      forumDatabaseService.saveAllComments(commentEntities);
+    
+    List<UserCommentDTO> userCommentDTOs = userService.getUsers().stream()
+   .map(e -> {
+     List<Post> posts = postService.getPosts();
+     //List<Comment> comments = commentService.getComments();
+       return GovMapper.userCommentDTOmap(e, posts,comments);
+     })
+    .collect(Collectors.toList());
+
+
+      return ApiResponse2.<List<UserCommentDTO>>builder()
+                 .status(Syscode.OK)
+                 .data(userCommentDTOs)
+                 .build();
+ };
+
 }
