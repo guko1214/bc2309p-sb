@@ -2,6 +2,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Calculator",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.model.Calculator",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
+      "name": "CalculatorController",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.controller.impl.CalculatorController",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
+      "name": "CalculatorServiceimpl",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.service.impl.CalculatorServiceimpl",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
+      "name": "CalculatorServiceimple",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.service.impl.CalculatorServiceimple",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
       "name": "CatController",
       "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.demoexception.CatController",
