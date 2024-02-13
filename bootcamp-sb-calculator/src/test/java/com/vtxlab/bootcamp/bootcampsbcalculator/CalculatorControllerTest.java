@@ -231,12 +231,11 @@ class CalculatorControllerTest {
     .accept(MediaType.APPLICATION_JSON)
       .contentType(MediaType.APPLICATION_JSON) //
       .content(contentStr))
-      //.content(s2))
-      //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-      // .andExpect(jsonPath("$.x").value("3"))
-      // .andExpect(jsonPath("$.y").value("2"))
-      // .andExpect(jsonPath("$.operation").value("add"))
-        .andDo(print());
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(jsonPath("$.x").value("3"))
+      .andExpect(jsonPath("$.y").value("2"))
+      .andExpect(jsonPath("$.operation").value("add"))
+      .andDo(print());
     
   }    
 

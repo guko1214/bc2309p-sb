@@ -7,12 +7,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Operation;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Calculator {
@@ -44,25 +48,25 @@ public class Calculator {
     return ans;
   }
 
-  private String add() {
+  public String add() {
     BigDecimal valueX = BigDecimal.valueOf(Double.parseDouble(this.x));
     BigDecimal valueY = BigDecimal.valueOf(Double.parseDouble(this.y));
     return String.valueOf(valueX.add(valueY));
   }
 
-  private String sub() {
+  public String sub() {
     BigDecimal valueX = BigDecimal.valueOf(Double.parseDouble(this.x));
     BigDecimal valueY = BigDecimal.valueOf(Double.parseDouble(this.y));
     return String.valueOf(valueX.subtract(valueY));
   }
 
-  private String mul() {
+  public String mul() {
     BigDecimal valueX = BigDecimal.valueOf(Double.parseDouble(this.x));
     BigDecimal valueY = BigDecimal.valueOf(Double.parseDouble(this.y));
     return String.valueOf(valueX.multiply(valueY));
   }
 
-  private String div() {
+  public String div() {
     BigDecimal valueX = BigDecimal.valueOf(Double.parseDouble(this.x));
     BigDecimal valueY = BigDecimal.valueOf(Double.parseDouble(this.y));
     BigDecimal result = valueX.divide(valueY,5,RoundingMode.DOWN);

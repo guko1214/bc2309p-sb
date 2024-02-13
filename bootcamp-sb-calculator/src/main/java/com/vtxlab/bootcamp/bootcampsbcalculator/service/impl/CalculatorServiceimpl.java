@@ -3,6 +3,7 @@ package com.vtxlab.bootcamp.bootcampsbcalculator.service.impl;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import com.vtxlab.bootcamp.bootcampsbcalculator.database.CalculatorDatabase;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.InvalidInputException;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Operation;
 import com.vtxlab.bootcamp.bootcampsbcalculator.model.Calculator;
@@ -45,7 +46,11 @@ public class CalculatorServiceimpl implements CalculatorService {
     calculator.setX(c.getX());
     calculator.setY(c.getY());
     calculator.setOperation(c.getOperation());
-    return new Calculator(c.getX(), c.getY(), c.getOperation());
+    //return new Calculator(c.getX(), c.getY(), c.getOperation());
+    return calculator;
+    // if (CalculatorDatabase.getCalculators().add(c))
+    //   return c;
+    // return null;
   };
 
 }
