@@ -12,7 +12,7 @@ import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Syscode;
 public class GlobalExceptionHandler {
   
   @ExceptionHandler(InvalidInputException.class)
-  @ResponseStatus(value = HttpStatus.ACCEPTED)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ApiResponse  invalidInputExceptionalHandler() {
     return ApiResponse.builder().status(Syscode.NOTFOUND).build();
   }

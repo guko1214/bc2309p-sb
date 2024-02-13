@@ -8,7 +8,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import com.vtxlab.bootcamp.bootcampsbcalculator.controller.impl.CalculatorController;
-import com.vtxlab.bootcamp.bootcampsbcalculator.dto.CalculatorDTO;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Operation;
 import com.vtxlab.bootcamp.bootcampsbcalculator.model.Calculator;
 import com.vtxlab.bootcamp.bootcampsbcalculator.service.CalculatorService;
@@ -18,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(CalculatorController.class)
-public class CalculatorControllerTest {
+class CalculatorControllerTest {
   
   @MockBean
   CalculatorService calculatorService;
@@ -28,7 +27,7 @@ public class CalculatorControllerTest {
 
   @Test
   void testCal1() throws Exception {
-    Calculator calculator = new Calculator("3","2",Operation.ADD);
+    Calculator calculator = new Calculator("3","2",Operation.ADD.getName());
     Mockito.when(calculatorService.cal("3","2","ADD")).thenReturn(calculator);
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3","2","ADD"))
@@ -39,7 +38,7 @@ public class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("5.0"))
     .andDo(print());
 
-    Calculator calculator2 = new Calculator("3.2","2.4",Operation.ADD);
+    Calculator calculator2 = new Calculator("3.2","2.4",Operation.ADD.getName());
     Mockito.when(calculatorService.cal("3.2","2.4","ADD")).thenReturn(calculator2);
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3.2","2.4","ADD"))
@@ -50,7 +49,7 @@ public class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("5.6"))
     .andDo(print());
 
-    Calculator calculator3 = new Calculator("3","2",Operation.SUB);
+    Calculator calculator3 = new Calculator("3","2",Operation.SUB.getName());
     Mockito.when(calculatorService.cal("3","2","SUB")).thenReturn(calculator3);
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3","2","SUB"))
@@ -62,7 +61,7 @@ public class CalculatorControllerTest {
     .andDo(print());
 
 
-    Calculator calculator4 = new Calculator("3.2","2.4",Operation.SUB);
+    Calculator calculator4 = new Calculator("3.2","2.4",Operation.SUB.getName());
     Mockito.when(calculatorService.cal("3.2","2.4","SUB")).thenReturn(calculator4);
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3.2","2.4","SUB"))
@@ -73,7 +72,7 @@ public class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("0.8"))
     .andDo(print());
 
-    Calculator calculator5 = new Calculator("3","2",Operation.MUL);
+    Calculator calculator5 = new Calculator("3","2",Operation.MUL.getName());
     Mockito.when(calculatorService.cal("3","2","MUL")).thenReturn(calculator5);
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3","2","MUL"))
@@ -85,7 +84,7 @@ public class CalculatorControllerTest {
     .andDo(print());
 
 
-    Calculator calculator6 = new Calculator("3.2","2.4",Operation.MUL);
+    Calculator calculator6 = new Calculator("3.2","2.4",Operation.MUL.getName());
     Mockito.when(calculatorService.cal("3.2","2.4","MUL")).thenReturn(calculator6);
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3.2","2.4","MUL"))
@@ -96,7 +95,7 @@ public class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("7.68"))
     .andDo(print());
 
-    Calculator calculator7 = new Calculator("3","2",Operation.DIV);
+    Calculator calculator7 = new Calculator("3","2",Operation.DIV.getName());
     Mockito.when(calculatorService.cal("3","2","DIV")).thenReturn(calculator7);
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3","2","DIV"))
@@ -108,7 +107,7 @@ public class CalculatorControllerTest {
     .andDo(print());
 
 
-    Calculator calculator8 = new Calculator("3.2","2.4",Operation.DIV);
+    Calculator calculator8 = new Calculator("3.2","2.4",Operation.DIV.getName());
     Mockito.when(calculatorService.cal("3.2","2.4","DIV")).thenReturn(calculator8);
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3.2","2.4","DIV"))
@@ -121,18 +120,12 @@ public class CalculatorControllerTest {
 
   }
 
-  @Test
-  void testStore() throws Exception {
-    Calculator calculator = new Calculator("3","2",Operation.ADD);
-    Mockito.when(calculatorService.cal("3","2","ADD")).thenReturn(calculator);
 
-    
-  }
 
 
   @Test
   void testCal2() throws Exception {
-    Calculator calculator = new Calculator("3","2",Operation.ADD);
+    Calculator calculator = new Calculator("3","2",Operation.ADD.getName());
     Mockito.when(calculatorService.cal("3","2","ADD")).thenReturn(calculator);
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3","2","ADD"))
@@ -143,7 +136,7 @@ public class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("5.0"))
     .andDo(print());
 
-    Calculator calculator2 = new Calculator("3.2","2.4",Operation.ADD);
+    Calculator calculator2 = new Calculator("3.2","2.4",Operation.ADD.getName());
     Mockito.when(calculatorService.cal("3.2","2.4","ADD")).thenReturn(calculator2);
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3.2","2.4","ADD"))
@@ -154,7 +147,7 @@ public class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("5.6"))
     .andDo(print());
 
-    Calculator calculator3 = new Calculator("3","2",Operation.SUB);
+    Calculator calculator3 = new Calculator("3","2",Operation.SUB.getName());
     Mockito.when(calculatorService.cal("3","2","SUB")).thenReturn(calculator3);
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3","2","SUB"))
@@ -166,7 +159,7 @@ public class CalculatorControllerTest {
     .andDo(print());
 
 
-    Calculator calculator4 = new Calculator("3.2","2.4",Operation.SUB);
+    Calculator calculator4 = new Calculator("3.2","2.4",Operation.SUB.getName());
     Mockito.when(calculatorService.cal("3.2","2.4","SUB")).thenReturn(calculator4);
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3.2","2.4","SUB"))
@@ -177,7 +170,7 @@ public class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("0.8"))
     .andDo(print());
 
-    Calculator calculator5 = new Calculator("3","2",Operation.MUL);
+    Calculator calculator5 = new Calculator("3","2",Operation.MUL.getName());
     Mockito.when(calculatorService.cal("3","2","MUL")).thenReturn(calculator5);
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3","2","MUL"))
@@ -189,7 +182,7 @@ public class CalculatorControllerTest {
     .andDo(print());
 
 
-    Calculator calculator6 = new Calculator("3.2","2.4",Operation.MUL);
+    Calculator calculator6 = new Calculator("3.2","2.4",Operation.MUL.getName());
     Mockito.when(calculatorService.cal("3.2","2.4","MUL")).thenReturn(calculator6);
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3.2","2.4","MUL"))
@@ -200,7 +193,7 @@ public class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("7.68"))
     .andDo(print());
 
-    Calculator calculator7 = new Calculator("3","2",Operation.DIV);
+    Calculator calculator7 = new Calculator("3","2",Operation.DIV.getName());
     Mockito.when(calculatorService.cal("3","2","DIV")).thenReturn(calculator7);
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3","2","DIV"))
@@ -212,7 +205,7 @@ public class CalculatorControllerTest {
     .andDo(print());
 
 
-    Calculator calculator8 = new Calculator("3.2","2.4",Operation.DIV);
+    Calculator calculator8 = new Calculator("3.2","2.4",Operation.DIV.getName());
     Mockito.when(calculatorService.cal("3.2","2.4","DIV")).thenReturn(calculator8);
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3.2","2.4","DIV"))
@@ -224,6 +217,28 @@ public class CalculatorControllerTest {
     .andDo(print());    
 
   }
+
+
+  @Test
+  void testStore() throws Exception {
+    Calculator calculator2 = new Calculator("3","2",Operation.ADD.getName());    
+    //Calculator calculator2 = new Calculator("3","2",Operation.ADD.getName());
+    Mockito.when(calculatorService.store(calculator2)).thenReturn(calculator2);
+
+    String contentStr = new ObjectMapper().writeValueAsString(calculator2);
+    //String s2 = "{\"x\":\"1\",\"y\":\"1\",\"operation\":\"add\"}";
+    mockMvc.perform(post("/api/v1") //
+    .accept(MediaType.APPLICATION_JSON)
+      .contentType(MediaType.APPLICATION_JSON) //
+      .content(contentStr))
+      //.content(s2))
+      //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      // .andExpect(jsonPath("$.x").value("3"))
+      // .andExpect(jsonPath("$.y").value("2"))
+      // .andExpect(jsonPath("$.operation").value("add"))
+        .andDo(print());
+    
+  }    
 
   
 }

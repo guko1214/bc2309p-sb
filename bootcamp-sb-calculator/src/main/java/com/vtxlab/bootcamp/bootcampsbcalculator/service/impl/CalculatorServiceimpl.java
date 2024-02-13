@@ -45,12 +45,7 @@ public class CalculatorServiceimpl implements CalculatorService {
     calculator.setX(c.getX());
     calculator.setY(c.getY());
     calculator.setOperation(c.getOperation());
-    return calculator;
+    return new Calculator(c.getX(), c.getY(), c.getOperation());
   };
 
-  public static void main(String[] args) {
-   for (Operation op : Operation.values()) {
-    System.out.println(op.name());
-   } 
-  }
 }

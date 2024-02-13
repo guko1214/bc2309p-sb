@@ -3,6 +3,8 @@ package com.vtxlab.bootcamp.bootcampsbcalculator.model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Operation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,12 +19,13 @@ public class Calculator {
 
   private String x;
   private String y;
-  private Operation operation;
+  //private Operation operation;
+  private String operation;
 
   public String cal(String x, String y, Operation op) {
     this.x = String.valueOf(Double.parseDouble(x));
     this.y = String.valueOf(Double.parseDouble(y));
-    this.operation = op;
+    this.operation = op.getName();
     String ans = "";
     switch (op) {
       case ADD:
@@ -67,6 +70,5 @@ public class Calculator {
     String reString = String.valueOf(result);
     return reString;
   }
-
 
 }
