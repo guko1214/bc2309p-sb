@@ -76,7 +76,7 @@ public class CalculatorServiceimpl implements CalculatorService {
     // calculator.setY(c.getY());
     // calculator.setOperation(c.getOperation());
     return new Calculator(c.getX(), c.getY(), c.getOperation());
-    //return calculator;
+    // return calculator;
     // if (CalculatorDatabase.getCalculators().add(c))
     //   return c;
     // return null;

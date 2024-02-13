@@ -40,8 +40,8 @@ public class CalculatorServiceimplTest {
 
     CalculatorServiceimpl calculatorServiceimpl = new CalculatorServiceimpl();
     calculatorServiceimpl.calculator = calculator;
-    when(calculator.cal("2","3",Operation.ADD)).thenReturn("6.0");
 
+    when(calculator.cal("2","3",Operation.ADD)).thenReturn("6.0");
     when(calculator.cal("2","3",Operation.SUB)).thenReturn("5.0"); 
     when(calculator.cal("2","3",Operation.MUL)).thenReturn("5.0");
     when(calculator.cal("2","3",Operation.DIV)).thenReturn("5.0");
