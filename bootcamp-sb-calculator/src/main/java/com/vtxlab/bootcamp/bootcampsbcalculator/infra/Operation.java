@@ -13,11 +13,12 @@ public enum Operation {
   private String name;
 
   public static Operation nameToOp(String n) throws InvalidInputException {
-    for (Operation op : Operation.values()) {
-      if (n.equals(op.getName())) {
-        return op;
+      n = n.toUpperCase();
+      for (Operation op : Operation.values()) {
+        if (n.equals(op.name())) {
+          return op;
+        }
       }
-    }
-    throw new InvalidInputException();
+      throw new InvalidInputException();
   }
 }

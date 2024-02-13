@@ -4,6 +4,13 @@
       "type": "java",
       "name": "Test",
       "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.controller.Test",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
+      "name": "Test",
+      "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.controller.impl.Test",
       "projectName": "bootcamp-sb-calculator"
     },
