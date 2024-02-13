@@ -7,11 +7,11 @@ import com.vtxlab.bootcamp.bootcampsbcalculator.model.Calculator;
 
 public class CalResultMapper {
   
-  public static CalculatorDTO calResultDTO(Calculator c) throws InvalidInputException{
+  public static CalculatorDTO calResultDTO(Calculator c, String result) throws InvalidInputException{
     String x = c.getX();
     String y = c.getY();
     Operation op = Operation.nameToOp(c.getOperation());
-    String result = c.cal(x,y,op);
+    //String result = c.cal(x,y,op);
     // CalculatorDTO c2 = new CalculatorDTO(x,y,op.getName(),c.cal(x,y,op));
     // return c2;//new CalculatorDTO(x,y,op.getName(),c.cal(x,y,op));
     return CalculatorDTO.builder().x(x).y(y).operation(op.getName()).result(result).build();

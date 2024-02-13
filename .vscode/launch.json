@@ -2,6 +2,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Test",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.controller.impl.Test",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
+      "name": "CalculatorServiceimplTest",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.CalculatorServiceimplTest",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
+      "name": "Testing",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.Testing",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
+      "name": "Test",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.Test",
+      "projectName": "bootcamp-sb-calculator"
+    },
+    {
+      "type": "java",
       "name": "Calculator",
       "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.bootcampsbcalculator.model.Calculator",

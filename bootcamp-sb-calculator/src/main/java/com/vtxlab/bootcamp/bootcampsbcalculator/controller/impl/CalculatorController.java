@@ -20,10 +20,10 @@ public class CalculatorController implements CalculatorOperation  {
   @Autowired
   CalculatorService calculatorService;
 
-  @Override
-  //public CalculatorDTO cal1(String x, String y, Operation operation) throws InvalidInputException {
+  @Override  
   public CalculatorDTO cal1(String x, String y, String operation) throws InvalidInputException {    
-    return CalResultMapper.calResultDTO(calculatorService.cal(x,y,operation));
+    return CalResultMapper.calResultDTO(calculatorService.getCalculator(x, y, operation) //
+            ,calculatorService.cal(x,y,operation));
   }
 
   @Override
@@ -35,7 +35,8 @@ public class CalculatorController implements CalculatorOperation  {
   @Override
   public CalculatorDTO cal2(String x, String y, String operation) throws InvalidInputException {
 
-    return CalResultMapper.calResultDTO(calculatorService.cal(x,y,operation));
+    return CalResultMapper.calResultDTO(calculatorService.getCalculator(x, y, operation) //
+              ,calculatorService.cal(x,y,operation));
   }
 
   

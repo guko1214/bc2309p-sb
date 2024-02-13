@@ -13,12 +13,16 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+// @Getter
+// @Setter
+// @EqualsAndHashCode
+// @ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Calculator {
 
   private String x;

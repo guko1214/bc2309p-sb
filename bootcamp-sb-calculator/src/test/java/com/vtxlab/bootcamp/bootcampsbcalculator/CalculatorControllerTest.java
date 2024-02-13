@@ -28,19 +28,21 @@ class CalculatorControllerTest {
   @Test
   void testCal1() throws Exception {
     Calculator calculator = new Calculator("3","2",Operation.ADD.getName());
-    Mockito.when(calculatorService.cal("3","2","ADD")).thenReturn(calculator);
+    Mockito.when(calculatorService.getCalculator("3","2","ADD")).thenReturn(calculator);
+    Mockito.when(calculatorService.cal("3","2","ADD")).thenReturn("6.0");    
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3","2","ADD"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
     .andExpect(jsonPath("$.x").value("3"))
     .andExpect(jsonPath("$.y").value("2"))
     .andExpect(jsonPath("$.operation").value("add"))
-    .andExpect(jsonPath("$.result").value("5.0"))
+    .andExpect(jsonPath("$.result").value("6.0"))
     .andDo(print());
 
     Calculator calculator2 = new Calculator("3.2","2.4",Operation.ADD.getName());
-    Mockito.when(calculatorService.cal("3.2","2.4","ADD")).thenReturn(calculator2);
-
+    Mockito.when(calculatorService.getCalculator("3.2","2.4","ADD")).thenReturn(calculator2);
+    Mockito.when(calculatorService.cal("3.2","2.4","ADD")).thenReturn("5.6");
+    
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3.2","2.4","ADD"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
     .andExpect(jsonPath("$.x").value("3.2"))
@@ -50,8 +52,9 @@ class CalculatorControllerTest {
     .andDo(print());
 
     Calculator calculator3 = new Calculator("3","2",Operation.SUB.getName());
-    Mockito.when(calculatorService.cal("3","2","SUB")).thenReturn(calculator3);
-
+    Mockito.when(calculatorService.getCalculator("3","2","SUB")).thenReturn(calculator3);
+    Mockito.when(calculatorService.cal("3","2","SUB")).thenReturn("1.0");
+    
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3","2","SUB"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
     .andExpect(jsonPath("$.x").value("3"))
@@ -62,7 +65,8 @@ class CalculatorControllerTest {
 
 
     Calculator calculator4 = new Calculator("3.2","2.4",Operation.SUB.getName());
-    Mockito.when(calculatorService.cal("3.2","2.4","SUB")).thenReturn(calculator4);
+    Mockito.when(calculatorService.getCalculator("3.2","2.4","SUB")).thenReturn(calculator4);
+    Mockito.when(calculatorService.cal("3.2","2.4","SUB")).thenReturn("0.8");
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3.2","2.4","SUB"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -73,7 +77,8 @@ class CalculatorControllerTest {
     .andDo(print());
 
     Calculator calculator5 = new Calculator("3","2",Operation.MUL.getName());
-    Mockito.when(calculatorService.cal("3","2","MUL")).thenReturn(calculator5);
+    Mockito.when(calculatorService.getCalculator("3","2","MUL")).thenReturn(calculator5);
+    Mockito.when(calculatorService.cal("3","2","MUL")).thenReturn("6.00");
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3","2","MUL"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -83,9 +88,9 @@ class CalculatorControllerTest {
     .andExpect(jsonPath("$.result").value("6.00"))
     .andDo(print());
 
-
     Calculator calculator6 = new Calculator("3.2","2.4",Operation.MUL.getName());
-    Mockito.when(calculatorService.cal("3.2","2.4","MUL")).thenReturn(calculator6);
+    Mockito.when(calculatorService.getCalculator("3.2","2.4","MUL")).thenReturn(calculator6);
+    Mockito.when(calculatorService.cal("3.2","2.4","MUL")).thenReturn("7.68");
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3.2","2.4","MUL"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -96,7 +101,8 @@ class CalculatorControllerTest {
     .andDo(print());
 
     Calculator calculator7 = new Calculator("3","2",Operation.DIV.getName());
-    Mockito.when(calculatorService.cal("3","2","DIV")).thenReturn(calculator7);
+    Mockito.when(calculatorService.getCalculator("3","2","DIV")).thenReturn(calculator7);
+    Mockito.when(calculatorService.cal("3","2","DIV")).thenReturn("1.50000");
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3","2","DIV"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -108,7 +114,8 @@ class CalculatorControllerTest {
 
 
     Calculator calculator8 = new Calculator("3.2","2.4",Operation.DIV.getName());
-    Mockito.when(calculatorService.cal("3.2","2.4","DIV")).thenReturn(calculator8);
+    Mockito.when(calculatorService.getCalculator("3.2","2.4","DIV")).thenReturn(calculator8);
+    Mockito.when(calculatorService.cal("3.2","2.4","DIV")).thenReturn("1.33333");
 
     mockMvc.perform(get("/api/v1?x={x}&y={y}&operation={op}","3.2","2.4","DIV"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -121,12 +128,11 @@ class CalculatorControllerTest {
   }
 
 
-
-
   @Test
   void testCal2() throws Exception {
     Calculator calculator = new Calculator("3","2",Operation.ADD.getName());
-    Mockito.when(calculatorService.cal("3","2","ADD")).thenReturn(calculator);
+    Mockito.when(calculatorService.getCalculator("3","2","ADD")).thenReturn(calculator);
+    Mockito.when(calculatorService.cal("3","2","ADD")).thenReturn("5.0");    
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3","2","ADD"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -137,7 +143,8 @@ class CalculatorControllerTest {
     .andDo(print());
 
     Calculator calculator2 = new Calculator("3.2","2.4",Operation.ADD.getName());
-    Mockito.when(calculatorService.cal("3.2","2.4","ADD")).thenReturn(calculator2);
+    Mockito.when(calculatorService.getCalculator("3.2","2.4","ADD")).thenReturn(calculator2);
+    Mockito.when(calculatorService.cal("3.2","2.4","ADD")).thenReturn("5.6");
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3.2","2.4","ADD"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -148,7 +155,8 @@ class CalculatorControllerTest {
     .andDo(print());
 
     Calculator calculator3 = new Calculator("3","2",Operation.SUB.getName());
-    Mockito.when(calculatorService.cal("3","2","SUB")).thenReturn(calculator3);
+    Mockito.when(calculatorService.getCalculator("3","2","SUB")).thenReturn(calculator3);
+    Mockito.when(calculatorService.cal("3","2","SUB")).thenReturn("1.0");
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3","2","SUB"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -160,7 +168,8 @@ class CalculatorControllerTest {
 
 
     Calculator calculator4 = new Calculator("3.2","2.4",Operation.SUB.getName());
-    Mockito.when(calculatorService.cal("3.2","2.4","SUB")).thenReturn(calculator4);
+    Mockito.when(calculatorService.getCalculator("3.2","2.4","SUB")).thenReturn(calculator4);
+    Mockito.when(calculatorService.cal("3.2","2.4","SUB")).thenReturn("0.8");
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3.2","2.4","SUB"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -171,7 +180,8 @@ class CalculatorControllerTest {
     .andDo(print());
 
     Calculator calculator5 = new Calculator("3","2",Operation.MUL.getName());
-    Mockito.when(calculatorService.cal("3","2","MUL")).thenReturn(calculator5);
+    Mockito.when(calculatorService.getCalculator("3","2","MUL")).thenReturn(calculator5);
+    Mockito.when(calculatorService.cal("3","2","MUL")).thenReturn("6.00");
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3","2","MUL"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -183,7 +193,8 @@ class CalculatorControllerTest {
 
 
     Calculator calculator6 = new Calculator("3.2","2.4",Operation.MUL.getName());
-    Mockito.when(calculatorService.cal("3.2","2.4","MUL")).thenReturn(calculator6);
+    Mockito.when(calculatorService.getCalculator("3.2","2.4","MUL")).thenReturn(calculator6);
+    Mockito.when(calculatorService.cal("3.2","2.4","MUL")).thenReturn("7.68");
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3.2","2.4","MUL"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -194,7 +205,8 @@ class CalculatorControllerTest {
     .andDo(print());
 
     Calculator calculator7 = new Calculator("3","2",Operation.DIV.getName());
-    Mockito.when(calculatorService.cal("3","2","DIV")).thenReturn(calculator7);
+    Mockito.when(calculatorService.getCalculator("3","2","DIV")).thenReturn(calculator7);
+    Mockito.when(calculatorService.cal("3","2","DIV")).thenReturn("1.50000");
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3","2","DIV"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -206,7 +218,8 @@ class CalculatorControllerTest {
 
 
     Calculator calculator8 = new Calculator("3.2","2.4",Operation.DIV.getName());
-    Mockito.when(calculatorService.cal("3.2","2.4","DIV")).thenReturn(calculator8);
+    Mockito.when(calculatorService.getCalculator("3.2","2.4","DIV")).thenReturn(calculator8);
+    Mockito.when(calculatorService.cal("3.2","2.4","DIV")).thenReturn("1.33333");
 
     mockMvc.perform(get("/api/v1/{x}/{y}/{operation}","3.2","2.4","DIV"))
     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -221,22 +234,117 @@ class CalculatorControllerTest {
 
   @Test
   void testStore() throws Exception {
-    Calculator calculator2 = new Calculator("3","2",Operation.ADD.getName());    
-    //Calculator calculator2 = new Calculator("3","2",Operation.ADD.getName());
-    Mockito.when(calculatorService.store(calculator2)).thenReturn(calculator2);
+    Calculator calculator = new Calculator("3","2",Operation.ADD.getName());    
+    Mockito.when(calculatorService.store(calculator)).thenReturn(calculator);
 
-    String contentStr = new ObjectMapper().writeValueAsString(calculator2);
-    //String s2 = "{\"x\":\"1\",\"y\":\"1\",\"operation\":\"add\"}";
+    String contentStr = new ObjectMapper().writeValueAsString(calculator);
     mockMvc.perform(post("/api/v1") //
     .accept(MediaType.APPLICATION_JSON)
-      .contentType(MediaType.APPLICATION_JSON) //
-      .content(contentStr))
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-      .andExpect(jsonPath("$.x").value("3"))
-      .andExpect(jsonPath("$.y").value("2"))
-      .andExpect(jsonPath("$.operation").value("add"))
-      .andDo(print());
+    .contentType(MediaType.APPLICATION_JSON) //
+    .content(contentStr))
+    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    .andExpect(jsonPath("$.x").value("3"))
+    .andExpect(jsonPath("$.y").value("2"))
+    .andExpect(jsonPath("$.operation").value("add"))
+    .andDo(print());
     
+    Calculator calculator2 = new Calculator("3.9","9.8",Operation.ADD.getName());    
+    Mockito.when(calculatorService.store(calculator2)).thenReturn(calculator2);
+
+    String contentStr2 = new ObjectMapper().writeValueAsString(calculator2);
+    mockMvc.perform(post("/api/v1") //
+    .accept(MediaType.APPLICATION_JSON)
+    .contentType(MediaType.APPLICATION_JSON) //
+    .content(contentStr2))
+    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    .andExpect(jsonPath("$.x").value("3.9"))
+    .andExpect(jsonPath("$.y").value("9.8"))
+    .andExpect(jsonPath("$.operation").value("add"))
+    .andDo(print());
+
+    Calculator calculator3 = new Calculator("3","2",Operation.SUB.getName());    
+    Mockito.when(calculatorService.store(calculator3)).thenReturn(calculator3);
+
+    String contentStr3 = new ObjectMapper().writeValueAsString(calculator3);
+    mockMvc.perform(post("/api/v1") //
+    .accept(MediaType.APPLICATION_JSON)
+    .contentType(MediaType.APPLICATION_JSON) //
+    .content(contentStr3))
+    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    .andExpect(jsonPath("$.x").value("3"))
+    .andExpect(jsonPath("$.y").value("2"))
+    .andExpect(jsonPath("$.operation").value("sub"))
+    .andDo(print());
+        
+    Calculator calculator4 = new Calculator("3.9","9.8",Operation.SUB.getName());    
+    Mockito.when(calculatorService.store(calculator4)).thenReturn(calculator4);
+
+    String contentStr4 = new ObjectMapper().writeValueAsString(calculator4);
+    mockMvc.perform(post("/api/v1") //
+    .accept(MediaType.APPLICATION_JSON)
+    .contentType(MediaType.APPLICATION_JSON) //
+    .content(contentStr4))
+    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    .andExpect(jsonPath("$.x").value("3.9"))
+    .andExpect(jsonPath("$.y").value("9.8"))
+    .andExpect(jsonPath("$.operation").value("sub"))
+    .andDo(print());
+
+    Calculator calculator5 = new Calculator("3","2",Operation.MUL.getName());    
+    Mockito.when(calculatorService.store(calculator5)).thenReturn(calculator5);
+
+    String contentStr5 = new ObjectMapper().writeValueAsString(calculator5);
+    mockMvc.perform(post("/api/v1") //
+    .accept(MediaType.APPLICATION_JSON)
+    .contentType(MediaType.APPLICATION_JSON) //
+    .content(contentStr5))
+    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    .andExpect(jsonPath("$.x").value("3"))
+    .andExpect(jsonPath("$.y").value("2"))
+    .andExpect(jsonPath("$.operation").value("mul"))
+    .andDo(print());
+        
+    Calculator calculator6 = new Calculator("3.9","9.8",Operation.MUL.getName());    
+    Mockito.when(calculatorService.store(calculator6)).thenReturn(calculator6);
+
+    String contentStr6 = new ObjectMapper().writeValueAsString(calculator6);
+    mockMvc.perform(post("/api/v1") //
+    .accept(MediaType.APPLICATION_JSON)
+    .contentType(MediaType.APPLICATION_JSON) //
+    .content(contentStr6))
+    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    .andExpect(jsonPath("$.x").value("3.9"))
+    .andExpect(jsonPath("$.y").value("9.8"))
+    .andExpect(jsonPath("$.operation").value("mul"))
+    .andDo(print());    
+                    
+    Calculator calculator7 = new Calculator("3","2",Operation.DIV.getName());    
+    Mockito.when(calculatorService.store(calculator7)).thenReturn(calculator7);
+
+    String contentStr7 = new ObjectMapper().writeValueAsString(calculator7);
+    mockMvc.perform(post("/api/v1") //
+    .accept(MediaType.APPLICATION_JSON)
+    .contentType(MediaType.APPLICATION_JSON) //
+    .content(contentStr7))
+    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    .andExpect(jsonPath("$.x").value("3"))
+    .andExpect(jsonPath("$.y").value("2"))
+    .andExpect(jsonPath("$.operation").value("div"))
+    .andDo(print());
+        
+    Calculator calculator8 = new Calculator("3.9","9.8",Operation.DIV.getName());    
+    Mockito.when(calculatorService.store(calculator8)).thenReturn(calculator8);
+
+    String contentStr8 = new ObjectMapper().writeValueAsString(calculator8);
+    mockMvc.perform(post("/api/v1") //
+    .accept(MediaType.APPLICATION_JSON)
+    .contentType(MediaType.APPLICATION_JSON) //
+    .content(contentStr8))
+    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    .andExpect(jsonPath("$.x").value("3.9"))
+    .andExpect(jsonPath("$.y").value("9.8"))
+    .andExpect(jsonPath("$.operation").value("div"))
+    .andDo(print());
   }    
 
   
