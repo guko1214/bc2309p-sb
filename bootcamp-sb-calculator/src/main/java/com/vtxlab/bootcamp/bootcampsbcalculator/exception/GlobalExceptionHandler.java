@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.ApiResponse;
+import com.vtxlab.bootcamp.bootcampsbcalculator.infra.InvalidInputException;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Syscode;
 
 @RestControllerAdvice

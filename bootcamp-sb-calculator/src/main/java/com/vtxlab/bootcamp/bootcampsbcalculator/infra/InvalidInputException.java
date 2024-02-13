@@ -1,6 +1,4 @@
-package com.vtxlab.bootcamp.bootcampsbcalculator.exception;
-
-import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Syscode;
+package com.vtxlab.bootcamp.bootcampsbcalculator.infra;
 
 public class InvalidInputException extends Exception {
   private String code;

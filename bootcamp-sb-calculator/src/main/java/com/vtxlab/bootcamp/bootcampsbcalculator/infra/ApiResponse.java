@@ -1,14 +1,16 @@
 package com.vtxlab.bootcamp.bootcampsbcalculator.infra;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 @Builder
 public class ApiResponse {
   
   private String code;
   private String message;
 
-  private ApiResponse (String code, String message) {
+  public ApiResponse (String code, String message) {
     this.code = code;
     this.message = message;
   }
