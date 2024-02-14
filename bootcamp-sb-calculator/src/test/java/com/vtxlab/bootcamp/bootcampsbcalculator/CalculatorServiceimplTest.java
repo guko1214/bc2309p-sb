@@ -62,6 +62,7 @@ public class CalculatorServiceimplTest {
     //Calculator c = Calculator.builder().x("2.0").y("3.0").operation("Add").build();
     Calculator c = new Calculator("2.0","3.0","ADD");
     //assertThat(calculatorServiceimpl.getCalculator("2.0", "3.0", "ADD").hashCode() == (c.hashCode()),is(true));
+    assertThat(calculatorServiceimpl.getCalculator("2.0","3.0","ADD"),is(c));
     // assertThat(calculatorServiceimpl.getCalculator("2.0", "3.0", "ADD").equals(c),is(true));
     // assertEquals(calculatorServiceimpl.getCalculator("2.0", "3.0", "ADD"),c);
     assertThat(calculatorServiceimpl.getCalculator("2.0", "3.0", "ADD").toString(),is(c.toString()));
