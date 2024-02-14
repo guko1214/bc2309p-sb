@@ -17,6 +17,7 @@ public class CalculatorServiceimpl implements CalculatorService {
   public String cal(String x, String y, String o) throws InvalidInputException {
     try {
        //calculator = new Calculator();
+       o = o.toUpperCase();
        Optional<Operation> op = Optional.empty();
        switch (o) {
          case "ADD":
@@ -44,6 +45,7 @@ public class CalculatorServiceimpl implements CalculatorService {
   public Calculator getCalculator(String x, String y, String o) throws InvalidInputException {
     try {
       //calculator = new Calculator();
+      o = o.toUpperCase();
       Optional<Operation> op = Optional.empty();
       switch (o) {
         case "ADD":
@@ -60,11 +62,11 @@ public class CalculatorServiceimpl implements CalculatorService {
           break;
       }
      op.orElseThrow(() -> new InvalidInputException());      
-    //  calculator.setX(x);
-    //  calculator.setY(y);
-    //  calculator.setOperation(o);
-     //return calculator;
-     return new Calculator(x, y, o);
+     calculator.setX(x);
+     calculator.setY(y);
+     calculator.setOperation(o.toLowerCase());
+     return calculator;
+    //  return new Calculator(x, y, o);
    } catch (NumberFormatException e) {
      throw new InvalidInputException();
    }
@@ -72,11 +74,11 @@ public class CalculatorServiceimpl implements CalculatorService {
 
   @Override
   public Calculator store(Calculator c) {
-    // calculator.setX(c.getX());
-    // calculator.setY(c.getY());
-    // calculator.setOperation(c.getOperation());
-    return new Calculator(c.getX(), c.getY(), c.getOperation());
-    // return calculator;
+    calculator.setX(c.getX());
+    calculator.setY(c.getY());
+    calculator.setOperation(c.getOperation());
+    //return new Calculator(c.getX(), c.getY(), c.getOperation());
+    return calculator;
     // if (CalculatorDatabase.getCalculators().add(c))
     //   return c;
     // return null;

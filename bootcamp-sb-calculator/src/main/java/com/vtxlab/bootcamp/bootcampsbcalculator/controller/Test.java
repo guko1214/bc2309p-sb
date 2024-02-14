@@ -19,8 +19,15 @@ public class Test {
             ,calculatorService.cal(x,y,operation));
   }
   public static void main(String[] args) throws InvalidInputException  {
-    Test t = new Test();
-    System.out.println(t.cal1("2","3","ADD"));
-    System.out.println(Operation.nameToOp("ds"));
+    // Test t = new Test();
+    // System.out.println(t.cal1("2","3","ADD"));
+    // System.out.println(Operation.nameToOp("ds"));
+    CalculatorServiceimpl calculatorServiceimpl = new CalculatorServiceimpl();
+    Calculator c = Calculator.builder().x("2.0").y("3.0").operation("ADD").build();
+    Calculator c2 = calculatorServiceimpl.getCalculator("2.0", "3.0", "ADD");
+    System.out.println(c.getX().equals(c2.getX()));
+    System.out.println(c.getY().equals(c2.getY()));
+    System.out.println(c.getOperation().equals(c2.getOperation()));
+    System.out.println(c.equals(c2));
   }
 }
