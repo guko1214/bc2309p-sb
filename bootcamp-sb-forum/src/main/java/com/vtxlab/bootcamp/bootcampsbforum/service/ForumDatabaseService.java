@@ -13,4 +13,12 @@ public interface ForumDatabaseService {
 
   List<Comment> saveAllComments(List<Comment> comments);
 
+  List<User> findAllUsersByEmailAndPhoneOrderByEmailDesc(String email, String phone);
+
+  List<User> findAllUsersByLatitudeAndLongitude(String latitude, String longitude);
+
+  List<User> findAllUsersByEmailOrPhone(String email, String phone);
+
+
+  List<User> findAllUsersByZipcode2(String zipcode);
 }

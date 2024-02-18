@@ -21,6 +21,7 @@ import com.vtxlab.bootcamp.bootcampsbforum.service.CommentService;
 import com.vtxlab.bootcamp.bootcampsbforum.service.ForumDatabaseService;
 import com.vtxlab.bootcamp.bootcampsbforum.service.PostService;
 import com.vtxlab.bootcamp.bootcampsbforum.service.UserService;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -304,5 +305,41 @@ public class GovController implements GovOperation {
                  .data(userCommentDTOs)
                  .build();
  };
+
+
+  public ApiResponse2<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>> getUsersByEmailAndPhoneOrderByEmailDesc( //
+          String email, String phone) {
+    List<com.vtxlab.bootcamp.bootcampsbforum.entity.User> users = forumDatabaseService
+          .findAllUsersByEmailAndPhoneOrderByEmailDesc(email, phone);
+
+    return ApiResponse2.<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>>builder()
+    .status(Syscode.OK)
+    .data(users)
+    .build();
+  }
+
+  public ApiResponse2<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>> getUsersByLatitudeAndLogitude( //
+    String latitude, String longitude) {
+    List<com.vtxlab.bootcamp.bootcampsbforum.entity.User> users = forumDatabaseService
+    .findAllUsersByLatitudeAndLongitude(latitude, longitude);
+
+    return ApiResponse2.<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>>builder()
+    .status(Syscode.OK)
+    .data(users)
+    .build();
+    };  
+
+
+
+  public ApiResponse2<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>>  //
+  getUsersByZipcode2(String zipcode) {
+    List<com.vtxlab.bootcamp.bootcampsbforum.entity.User> users = forumDatabaseService
+    .findAllUsersByZipcode2(zipcode);
+
+    return ApiResponse2.<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>>builder()
+    .status(Syscode.OK)
+    .data(users)
+    .build();
+  };  
 
 }

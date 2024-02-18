@@ -16,6 +16,7 @@ database:
 
 spring.datasource:
   driverClassName: "org.hibernate.dialect.PostgreSQLDialect"
+  #driverClassName: "org.hibernate.dialect.PostgreSQLDialect"
   url: "jdbc:postgresql://localhost:5432/${database.postgres}"
   username: "postgres"
   password: "admin1234"

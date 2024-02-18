@@ -9,12 +9,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity // Class mapped to the db table
 @Table(name = "USERS")
 @Getter
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class User {
 
   @Id // PK

@@ -46,4 +46,23 @@ public interface GovOperation {
   @GetMapping(value = "/comments")
   @ResponseStatus(value = HttpStatus.OK)
   ApiResponse2<List<UserCommentDTO>> getComments();
+
+  @GetMapping(value = "/users/email/{e}/phone/{p}")
+  @ResponseStatus(value = HttpStatus.OK)
+  ApiResponse2<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>>  //
+      getUsersByEmailAndPhoneOrderByEmailDesc( //
+        @PathVariable(name = "e") String email, @PathVariable(name = "p") String phone);
+
+  @GetMapping(value = "/users/latitude/{lat}/longitude/{lng}")
+  @ResponseStatus(value = HttpStatus.OK)
+  ApiResponse2<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>>  //
+  getUsersByLatitudeAndLogitude( //
+  @PathVariable(name = "lat") String latitude, @PathVariable(name = "lng") String longitude);     
+  
+
+
+  @GetMapping(value = "/users/zipcode2/{zc}")
+  @ResponseStatus(value = HttpStatus.OK)
+  ApiResponse2<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>>  //
+  getUsersByZipcode2(@PathVariable(name = "zc") String zipcode);
 }
