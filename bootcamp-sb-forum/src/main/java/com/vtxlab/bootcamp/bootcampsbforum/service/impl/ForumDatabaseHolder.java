@@ -33,6 +33,11 @@ public class ForumDatabaseHolder implements ForumDatabaseService{
   }
 
   @Override
+  public void deleteAllUsers(){
+    userRepository.deleteAll();;
+  };
+
+  @Override
   public List<Comment> saveAllComments(List<Comment> comments) {
     return commentRepository.saveAll(comments);
   };

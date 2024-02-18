@@ -19,10 +19,10 @@ public class ScheduleConfig {
 
   //@Scheduled(fixedDelay = 3000)
   public void fixedDelayask() throws InterruptedException{
-    System.out.println("start fixedRateTask " + System.currentTimeMillis());
+    System.out.println("start fixedDelayTask " + System.currentTimeMillis());
     Thread.sleep(1000);
     //System.out.println("hello world");
-    System.out.println("end fixedRateTask");
+    System.out.println("end fixedDelayTask");
   }
 
   //@Scheduled(cron = "*/3 * * * * *") // every 3 seconds

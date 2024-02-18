@@ -35,20 +35,20 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(Exception.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-  public ApiResponse2<Void>  ExceptionalHandler() {
-    return ApiResponse2.<Void>builder() 
+  public ApiResponse2<String>  ExceptionalHandler(Exception e) {
+    return ApiResponse2.<String>builder() 
       .status(Syscode.GENERAL_EXCEPTION) //
-      .data(null) //
+      .data(e.getMessage()) //return the message of current exception, instead of no message
       .build();
   }
 
-  @ExceptionHandler(RuntimeException.class)
-  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-  public ApiResponse2<Void>  runtimeExceptionalHandler() {
-    return ApiResponse2.<Void>builder()
-      .status(Syscode.RUNTIME_EXCEPTION) //
-      .data(null) //
-      .build();
-  }
+  // @ExceptionHandler(RuntimeException.class)
+  // @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  // public ApiResponse2<Void>  runtimeExceptionalHandler(Exception e) {
+  //   return ApiResponse2.<Void>builder()
+  //     .status(Syscode.RUNTIME_EXCEPTION) //
+  //     .data(null) //
+  //     .build();
+  // }
 
 }

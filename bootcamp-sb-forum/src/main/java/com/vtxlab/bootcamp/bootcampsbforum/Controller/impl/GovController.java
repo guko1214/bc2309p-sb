@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import com.vtxlab.bootcamp.bootcampsbforum.controller.GovOperation;
-import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.PostDTO;
-import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.UserCommentDTO;
-import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.UserPostDTO;
 import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.mapper.GovMapper;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.request.UserIdDTO;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.response.PostDTO;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.response.UserCommentDTO;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.response.UserPostDTO;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse1;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse2;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.Syscode;
@@ -189,12 +190,32 @@ public class GovController implements GovOperation {
     
   }
 
+  // method 7 add validation of the Idx input parameter 
+  @Override
+  public ApiResponse2<UserPostDTO> getUserPostDTO7(UserIdDTO userIdDTO) {
+    // Call post
+    // Construct UserPostDTO
+    List<User> users = userService.getUsers();
+    UserPostDTO userPostDTO = users.stream()
+    .filter(e -> e.getId() == Integer.valueOf(userIdDTO.getUserId()))
+    .map(e -> {
+      List<Post> posts = postService.getPosts();
+        return GovMapper.userPostDTOmap(e, posts);
+    }).findFirst().orElseThrow(() -> new RuntimeException());
+    
+     return ApiResponse2.<UserPostDTO>builder()
+    .status(Syscode.OK)
+    .data(userPostDTO)
+    .build();
+    
+  }
+
   public ApiResponse2<List<UserPostDTO>> getUsers() {
     List<User> users = userService.getUsers();
     List<com.vtxlab.bootcamp.bootcampsbforum.entity.User> userEntities = users.stream()
       .map(e -> {
         return com.vtxlab.bootcamp.bootcampsbforum.entity.User.builder() //
-          .jphId(e.getId()) //
+          //.jphId(e.getId()) //
           .name(e.getName()) //
           .username(e.getUsername()) //
           .email(e.getEmail()) //

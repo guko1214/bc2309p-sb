@@ -4,17 +4,21 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.UserCommentDTO;
-import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.UserPostDTO;
+import com.vtxlab.bootcamp.bootcampsbforum.annotation.UserIdCheck;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.request.UserIdDTO;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.response.UserCommentDTO;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.response.UserPostDTO;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse1;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse2;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.User;
 import jakarta.websocket.server.PathParam;
 
+@Validated
 public interface GovOperation {
 
   @GetMapping(value = "/user1")
@@ -35,6 +39,11 @@ public interface GovOperation {
   
   @GetMapping(value = "/user6")
   ApiResponse2<UserPostDTO> getUserPostDTO6(@RequestParam(value = "id") int idx);   
+                      
+  @GetMapping(value = "/user7")
+  @ResponseStatus(value = HttpStatus.OK)
+  ApiResponse2<UserPostDTO> getUserPostDTO7(
+                      @UserIdCheck @RequestParam(value = "id") UserIdDTO userIdDTO); 
 
   @GetMapping(value = "/users")
   @ResponseStatus(value = HttpStatus.OK) // 200
@@ -65,4 +74,8 @@ public interface GovOperation {
   @ResponseStatus(value = HttpStatus.OK)
   ApiResponse2<List<com.vtxlab.bootcamp.bootcampsbforum.entity.User>>  //
   getUsersByZipcode2(@PathVariable(name = "zc") String zipcode);
+
+
+
+
 }

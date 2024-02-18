@@ -1,4 +1,4 @@
-package com.vtxlab.bootcamp.bootcampsbforum.dto.gov;
+package com.vtxlab.bootcamp.bootcampsbforum.dto.gov.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommentDTO {
-  private int postId;
+public class PostDTO {
+
   private int id;
-  private String body;
+  private String title;  
+  
 }

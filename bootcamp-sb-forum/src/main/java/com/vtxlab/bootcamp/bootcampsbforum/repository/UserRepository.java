@@ -24,6 +24,10 @@ import java.util.List;
 
     //"Sincere@april.biz"
 
+    // in IT industry, data usually use Java stream, instead of below methods
+
+    // but should know how to use below methods
+
     // 1
     // Hibernate: select u from u.Users where u.email = ? and u.phone = ? order by u.email desc
     List<User> findByEmailAndPhoneOrderByEmailDesc(String email, String phone);

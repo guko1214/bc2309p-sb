@@ -11,6 +11,8 @@ public interface ForumDatabaseService {
 
   List<Post> saveAllPosts(List<Post> posts);
 
+  void deleteAllUsers();
+
   List<Comment> saveAllComments(List<Comment> comments);
 
   List<User> findAllUsersByEmailAndPhoneOrderByEmailDesc(String email, String phone);
@@ -20,5 +22,6 @@ public interface ForumDatabaseService {
   List<User> findAllUsersByEmailOrPhone(String email, String phone);
 
 
+  
   List<User> findAllUsersByZipcode2(String zipcode);
 }

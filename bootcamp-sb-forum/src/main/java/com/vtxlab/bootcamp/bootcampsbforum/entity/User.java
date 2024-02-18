@@ -10,10 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity // Class mapped to the db table
 @Table(name = "USERS")
 @Getter
+@ToString
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
