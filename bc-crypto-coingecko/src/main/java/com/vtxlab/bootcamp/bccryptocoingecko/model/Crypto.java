@@ -1,5 +1,15 @@
 package com.vtxlab.bootcamp.bccryptocoingecko.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Crypto {
   
   private String id;
@@ -27,9 +37,9 @@ public class Crypto {
   private double atlChangePercentage;
   private double atlDate;
   private Roi roi; 
-  private String lastUPdated;
+  private String lastUpdated;
 
-
+  @Getter
   public static class Roi {
     private double times;
     private String currency;
