@@ -26,7 +26,7 @@ public class ScheduleConfig {
   }
 
   //@Scheduled(cron = "*/3 * * * * *") // every 3 seconds
-  @Scheduled(cron = "0 46 21 * * THU") // every Thursday 21:46:00
+  //@Scheduled(cron = "0 46 21 * * THU") // every Thursday 21:46:00
   public void fixedTimeTask() throws InterruptedException{
     System.out.println("start fixedTimeTask " + System.currentTimeMillis());
     Thread.sleep(4000); // if the task not end during 
