@@ -1,6 +1,7 @@
 package com.vtxlab.bootcamp.bootcampsbforum.infra;
 
 import org.springframework.web.util.UriComponentsBuilder;
+import com.vtxlab.bootcamp.bootcampsbforum.infra.Scheme;
 
 public class BcUtil {
   

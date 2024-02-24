@@ -1,0 +1,11 @@
+server :
+  port : 8090
+
+api:
+  coinGecko:
+    domain: "api.coingecko.com/api/v3"
+    endpoints:
+      coinsList: "/coins/list"
+      coinsMarketData: "/coins/markets"
+    apiKey: "CG-ZFJ6cHrCuDQm1xoiXe9dm2tG"
+      

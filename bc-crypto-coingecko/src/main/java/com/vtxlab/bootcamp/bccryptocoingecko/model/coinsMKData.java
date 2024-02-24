@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Crypto {
+public class coinsMKData {
   
   private String id;
   private String symbol;

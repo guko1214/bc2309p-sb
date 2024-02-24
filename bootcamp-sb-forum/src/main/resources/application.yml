@@ -9,8 +9,6 @@ api:
       todos: "/todos"
       albums: "/albums"
       photos: "/photos"
-  coinGeckoHolder:
-    domain: ""
 database:
   postgres: "db_2309p_forum"
 

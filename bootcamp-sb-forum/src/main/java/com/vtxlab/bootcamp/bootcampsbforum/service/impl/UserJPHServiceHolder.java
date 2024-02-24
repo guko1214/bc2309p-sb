@@ -10,7 +10,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.BcUtil;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.Scheme;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.mapper.GovMapper;
+import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.request.UserPostRequestDTO;
+import com.vtxlab.bootcamp.bootcampsbforum.entity.UserEntity;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.User;
+import com.vtxlab.bootcamp.bootcampsbforum.repository.UserEntityRepository;
+import com.vtxlab.bootcamp.bootcampsbforum.repository.UserRepository;
 import com.vtxlab.bootcamp.bootcampsbforum.service.UserService;
 
 @Service
@@ -24,6 +29,12 @@ public class UserJPHServiceHolder implements UserService {
 
   @Autowired
   private RestTemplate restTemplate;
+
+  @Autowired
+  UserRepository userRepository;
+
+  @Autowired
+  UserEntityRepository userEntityRepository;
 
   @Override
   public List<User> getUsers() {
@@ -65,6 +76,12 @@ public class UserJPHServiceHolder implements UserService {
     }
   }
 
+  @Override
+  public UserEntity save(UserPostRequestDTO dto) {
+    // dto -> entity
+    UserEntity userEntity = GovMapper.map(dto);
+    return userEntityRepository.save(userEntity);
 
+  };
 
 }
