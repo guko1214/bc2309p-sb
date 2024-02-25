@@ -8,38 +8,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import com.vtxlab.bootcamp.bccryptocoingecko.dto.response.CoinsMKDataDTO;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.BcUtil;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.Scheme;
-import com.vtxlab.bootcamp.bccryptocoingecko.model.coinsMKData;
+import com.vtxlab.bootcamp.bccryptocoingecko.model.CoinsMKData;
+import com.vtxlab.bootcamp.bccryptocoingecko.model.VsCurrency;
 import com.vtxlab.bootcamp.bccryptocoingecko.service.CoingeckoService;
 
 @Service
 public class CoingeckoServiceHolder implements CoingeckoService {
  
-  @Value("${api.coinsGecko.domain}")
+  @Value("${api.coinGecko.domain}")
   private String domain;
 
-  @Value("${api.coinsGecko.endpoints.coinsList}")
+  @Value("${api.coinGecko.endpoints.coinsList}")
   private String coinsList;
 
-  @Value("${api.coinsGecko.endpoints.coinsMarketData}")
+  @Value("${api.coinGecko.endpoints.coinsMarketData}")
   private String coinsMarketData;
 
-  @Value("${api.coinsGecko.apiKey}")
+  @Value("${api.coinGecko.apiKey}")
   private String apiKey;
+
+  @Value("${api.coinGecko.endpoints.supportedVsCurrencies}")
+  private String supportedVsCurrencies;
 
   @Autowired
   private RestTemplate restTemplate;
 
 
   @Override
-  public List<coinsMKData> getCoinsQuote(HashMap<String,String> uris) {
-    
-    //String url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&x_cg_demo_api_key=CG-ZFJ6cHrCuDQm1xoiXe9dm2tG";
+  public List<CoinsMKData> getCoinsQuote(HashMap<String,String> uris) {
+    uris.put("x_cg_demo_api_key",apiKey);
     String url = BcUtil.getUrl(Scheme.HTTPS,domain,coinsMarketData,uris);
-    //restTemplate.getForObject(url, coinsMKData[].class);
-    coinsMKData[] cryptos = restTemplate.getForObject(url, coinsMKData[].class);
+    CoinsMKData[] cryptos = restTemplate.getForObject(url, CoinsMKData[].class);
     return Arrays.stream(cryptos).collect(Collectors.toList());
+  }
+
+  @Override
+  public List<VsCurrency> getSupporedVsCurrencies() {
+    String url = BcUtil.getUrl(Scheme.HTTPS,domain, supportedVsCurrencies);
+    VsCurrency[] vsCurrencies = restTemplate.getForObject(url,VsCurrency[].class);
+    return Arrays.stream(vsCurrencies).collect(Collectors.toList());
   }
 
 

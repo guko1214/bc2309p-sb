@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class coins {
+public class Coins {
   
   private String id;
   private String symbol;

@@ -16,11 +16,23 @@ import com.vtxlab.bootcamp.bootcampsbforum.dto.gov.response.UserPostDTO;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse1;
 import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse2;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.User;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.websocket.server.PathParam;
+
+// SOAP API -> XML (Spring)
+// REST / RESTFUL -> JSON (Spring)
+
 
 @Validated
 public interface GovOperation {
 
+
+  @Operation(summary = "Get User by Id using method 1",
+    description = "This method return user UserPostDTO by method 1",
+    tags = "gov-controller",
+    parameters = {@Parameter(name = "id",
+          description = "User ID", required = true)})
   @GetMapping(value = "/user1")
   @ResponseStatus(value = HttpStatus.OK) // 200
   UserPostDTO getUserPostDTO1(@RequestParam(value = "id") int idx);

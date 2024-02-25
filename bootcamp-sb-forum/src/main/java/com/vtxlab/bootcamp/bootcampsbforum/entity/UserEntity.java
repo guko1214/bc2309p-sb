@@ -52,7 +52,9 @@ public class UserEntity {
   @Column(name = "COMP_BUSINESS_SERVICE")
   private String cBusinessService;
 
-  @OneToMany(mappedBy = "user2", cascade = CascadeType.ALL, orphanRemoval = true)
+  // if also set ManyToOne for postEntity, can insert posts when insert users at the same time
+  // if not, insert users and insert posts separately (i.e. more code,etc)
+  @OneToMany(mappedBy = "user2", cascade = CascadeType.ALL, orphanRemoval = true) 
   @JsonManagedReference
   private List<PostEntity> posts = new ArrayList<>();
 

@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.vtxlab.bootcamp.bccryptocoingecko.controller.CoingeckoOperation;
-import com.vtxlab.bootcamp.bccryptocoingecko.model.coinsMKData;
+import com.vtxlab.bootcamp.bccryptocoingecko.dto.mapper.CoinGeckoMapper;
+import com.vtxlab.bootcamp.bccryptocoingecko.dto.response.CoinsMKDataDTO;
+import com.vtxlab.bootcamp.bccryptocoingecko.infra.ApiResponse;
+import com.vtxlab.bootcamp.bccryptocoingecko.infra.Syscode;
+import com.vtxlab.bootcamp.bccryptocoingecko.model.CoinsMKData;
 import com.vtxlab.bootcamp.bccryptocoingecko.service.CoingeckoService;
 
 @RestController
@@ -18,12 +22,18 @@ public class CoingeckoController implements CoingeckoOperation {
   CoingeckoService coingeckoService;
   
   @Override
-  public List<coinsMKData> getCoinsQuote(String currency, String ids,String apiKey){
+  public ApiResponse<List<CoinsMKDataDTO>> getCoinsQuote(String currency, String ids){
     HashMap<String, String> parm = new HashMap<>();
     parm.put("vs_currency",currency);
     parm.put("ids",ids);
-    parm.put("x_cg_demo_api_key",apiKey);
-    return coingeckoService.getCoinsQuote(parm);
+
+    List<CoinsMKData> coinsMKData = coingeckoService.getCoinsQuote(parm);
+
+    return ApiResponse.<List<CoinsMKDataDTO>>builder()
+    .status(Syscode.OK)
+    .data(CoinGeckoMapper.coinsMKDataDTOMap(coinsMKData))
+    .build();
   }
+
   
 }

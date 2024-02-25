@@ -48,7 +48,7 @@ public class AppStartRunner implements CommandLineRunner {
       })
       .collect(Collectors.toList());      
 
-      System.out.println("UserEntity =" + userEntities);
+      //System.out.println("UserEntity =" + userEntities);
 
       // Save to DB
       forumDatabaseService.saveAllUsers(userEntities);
