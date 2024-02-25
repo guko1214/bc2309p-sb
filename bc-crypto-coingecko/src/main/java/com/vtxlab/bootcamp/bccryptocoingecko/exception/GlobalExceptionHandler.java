@@ -15,14 +15,14 @@ import com.vtxlab.bootcamp.bccryptocoingecko.infra.Syscode;
 @RestControllerAdvice // Bean
 public class GlobalExceptionHandler {
   
-  @ExceptionHandler(RestClientException.class)
-  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-  public ApiResponse<Void>  restclientExceptionalHandler() {
-    return ApiResponse.<Void>builder()
-      .status(Syscode.REST_CLIENT_EXCEPTION) //
-      .data(null) //
-      .build();
-  }
+  // @ExceptionHandler(RestClientException.class)
+  // @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  // public ApiResponse<Void>  restclientExceptionalHandler() {
+  //   return ApiResponse.<Void>builder()
+  //     .status(Syscode.REST_CLIENT_EXCEPTION) //
+  //     .data(null) //
+  //     .build();
+  // }
 
   @ExceptionHandler(NullPointerException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)

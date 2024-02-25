@@ -13,7 +13,6 @@ public enum Syscode {
   RUNTIME_EXCEPTION("900003","RuntimeException"),
   GENERAL_EXCEPTION("999999","General Other Exception."), //
   ;
-  ;
 
   private String code;
   private String message;

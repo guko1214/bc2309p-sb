@@ -17,14 +17,13 @@ public class VsCurrencyValidator implements ConstraintValidator<VsCurrencyCheck,
 
   @Override
   public boolean isValid(VsCurrency cur, ConstraintValidatorContext context) {
-    try {
-     // CoingeckoService coingeckoService2 = new CoingeckoServiceHolder();
-      // return coingeckoService.getSupporedVsCurrencies().contains(cur);
-      return false;
+    // try {
+       return coingeckoService.getSupportedVsCurrencies().contains(cur.getId());
       //return supportedVsCurrencies.contains(cur);
-    } catch (Exception e) {
-      return false;
-    }
+    // } catch (Exception e) {
+    //   return false;
+    // }
   }
+
 
 }

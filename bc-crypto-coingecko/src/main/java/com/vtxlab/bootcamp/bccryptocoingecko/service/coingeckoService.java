@@ -10,6 +10,8 @@ public interface CoingeckoService {
   
   List<CoinsMKData> getCoinsQuote(HashMap<String,String> uris);
 
-  List<VsCurrency> getSupporedVsCurrencies();
+  List<String> getSupportedVsCurrencies();
+
+  List<String> getConinsList();
 
 }

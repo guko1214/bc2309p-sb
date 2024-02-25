@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import com.vtxlab.bootcamp.bccryptocoingecko.dto.response.CoinsMKDataDTO;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.BcUtil;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.Scheme;
+import com.vtxlab.bootcamp.bccryptocoingecko.model.Coins;
 import com.vtxlab.bootcamp.bccryptocoingecko.model.CoinsMKData;
 import com.vtxlab.bootcamp.bccryptocoingecko.model.VsCurrency;
 import com.vtxlab.bootcamp.bccryptocoingecko.service.CoingeckoService;
@@ -46,11 +47,22 @@ public class CoingeckoServiceHolder implements CoingeckoService {
   }
 
   @Override
-  public List<VsCurrency> getSupporedVsCurrencies() {
+  public List<String> getSupportedVsCurrencies() {
     String url = BcUtil.getUrl(Scheme.HTTPS,domain, supportedVsCurrencies);
     VsCurrency[] vsCurrencies = restTemplate.getForObject(url,VsCurrency[].class);
-    return Arrays.stream(vsCurrencies).collect(Collectors.toList());
+    return Arrays.stream(vsCurrencies)
+          .map( e ->  e.getId())
+          .collect(Collectors.toList());
   }
+
+  @Override
+  public List<String> getConinsList() {
+    String url = BcUtil.getUrl(Scheme.HTTPS,domain, coinsList);
+    Coins[] coins = restTemplate.getForObject(url,Coins[].class);
+    return Arrays.stream(coins)
+          .map( e ->  e.getId())
+          .collect(Collectors.toList());
+  };
 
 
 }
