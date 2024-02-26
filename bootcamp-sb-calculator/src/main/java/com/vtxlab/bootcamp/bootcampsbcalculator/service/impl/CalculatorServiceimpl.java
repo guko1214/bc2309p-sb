@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.InvalidInputException;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Operation;
 import com.vtxlab.bootcamp.bootcampsbcalculator.model.Calculator;
+import com.vtxlab.bootcamp.bootcampsbcalculator.model.CalculatorRecord;
 import com.vtxlab.bootcamp.bootcampsbcalculator.service.CalculatorService;
 
 @Service
 public class CalculatorServiceimpl implements CalculatorService {
   
   public static Calculator calculator = new Calculator();
+  public static CalculatorRecord calculatorRecord = new CalculatorRecord("","","");
   //public static Calculator calculator;
 
   @Override
@@ -42,6 +44,7 @@ public class CalculatorServiceimpl implements CalculatorService {
   };
 
   @Override
+  //public Calculator getCalculator(String x, String y, String o) throws InvalidInputException {
   public Calculator getCalculator(String x, String y, String o) throws InvalidInputException {
     try {
       //calculator = new Calculator();
@@ -73,15 +76,18 @@ public class CalculatorServiceimpl implements CalculatorService {
   };
 
   @Override
-  public Calculator store(Calculator c) {
+  //public Calculator store(Calculator c) {
+  public CalculatorRecord store(Calculator c) {
     // calculator.setX(c.getX());
     // calculator.setY(c.getY());
     // calculator.setOperation(c.getOperation());
-    return new Calculator(c.getX(), c.getY(), c.getOperation());
+    //return new Calculator(c.getX(), c.getY(), c.getOperation());    
     // return calculator;
     // if (CalculatorDatabase.getCalculators().add(c))
     //   return c;
     // return null;
+    calculatorRecord = new CalculatorRecord(c.getX(), c.getY(), c.getOperation());
+    return calculatorRecord;
   };
 
 }

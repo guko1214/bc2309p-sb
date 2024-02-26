@@ -10,11 +10,12 @@ public class UserIdValidatior implements ConstraintValidator<UserIdCheck, UserId
 
   @Override
   public boolean isValid(UserIdDTO dto, ConstraintValidatorContext context) {
-    try {
-      return Objects.nonNull(dto) && Integer.valueOf(dto.getUserId()) > 0;  
-    } catch (NumberFormatException e) {
-      return false;
-    }
+    // try {
+    //   return Objects.nonNull(dto) && Integer.valueOf(dto.getUserId()) > 0;  
+    // } catch (NumberFormatException e) {
+    //   return false;
+    // }
+    return false;
     
   }
 

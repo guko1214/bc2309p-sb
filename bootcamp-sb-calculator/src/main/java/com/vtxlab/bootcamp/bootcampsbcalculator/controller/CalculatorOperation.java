@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.vtxlab.bootcamp.bootcampsbcalculator.dto.CalculatorDTO;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.InvalidInputException;
 import com.vtxlab.bootcamp.bootcampsbcalculator.model.Calculator;
+import com.vtxlab.bootcamp.bootcampsbcalculator.model.CalculatorRecord;
 
 public interface CalculatorOperation {
   
@@ -20,7 +21,8 @@ public interface CalculatorOperation {
    ) throws InvalidInputException;
 
   @PostMapping(value = "")
-  Calculator store(@RequestBody Calculator calculator);
+  //Calculator store(@RequestBody Calculator calculator);
+  CalculatorRecord store(@RequestBody Calculator calculator);
 
   @GetMapping(value = "/{x}/{y}/{operation}")
   CalculatorDTO cal2(@PathVariable(name = "x", required=true) String x, //

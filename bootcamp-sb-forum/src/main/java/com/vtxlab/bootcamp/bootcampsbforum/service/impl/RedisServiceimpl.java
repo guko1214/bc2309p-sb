@@ -25,5 +25,10 @@ public class RedisServiceimpl implements RedisService {
     redisHelper.set(key, user);
     return user;
   }
+  
+  @Override
+  public User2 getUser2(String key) throws JsonProcessingException{
+    return redisHelper.get(key, User2.class);
+  }
 
 }

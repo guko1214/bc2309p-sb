@@ -23,4 +23,8 @@ RedisService redisService;
     return redisService.createUser2(key, user);
   };
 
+  public User2 getUser2(@RequestParam String key) throws JsonProcessingException{
+    return redisService.getUser2(key);
+  };
+
 }

@@ -7,6 +7,7 @@ import com.vtxlab.bootcamp.bootcampsbcalculator.dto.mapper.CalResultMapper;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.InvalidInputException;
 import com.vtxlab.bootcamp.bootcampsbcalculator.infra.Operation;
 import com.vtxlab.bootcamp.bootcampsbcalculator.model.Calculator;
+import com.vtxlab.bootcamp.bootcampsbcalculator.model.CalculatorRecord;
 import com.vtxlab.bootcamp.bootcampsbcalculator.service.CalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,8 @@ public class CalculatorController implements CalculatorOperation  {
   }
 
   @Override
-  public Calculator store(Calculator calculator) {
+  //public Calculator store(Calculator calculator) {
+  public CalculatorRecord store(Calculator calculator) {
 
     return calculatorService.store(calculator);
   }

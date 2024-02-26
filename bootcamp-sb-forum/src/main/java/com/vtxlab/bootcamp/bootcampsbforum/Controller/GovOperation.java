@@ -18,6 +18,8 @@ import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse2;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.constraints.Negative;
+import jakarta.validation.constraints.NotNull;
 import jakarta.websocket.server.PathParam;
 
 // SOAP API -> XML (Spring)
@@ -55,7 +57,7 @@ public interface GovOperation {
   @GetMapping(value = "/user7")
   @ResponseStatus(value = HttpStatus.OK)
   ApiResponse2<UserPostDTO> getUserPostDTO7(
-                      @UserIdCheck @RequestParam(value = "id") UserIdDTO userIdDTO); 
+                      @NotNull @UserIdCheck @RequestParam(value = "id") UserIdDTO userIdDTO);                     
 
   @GetMapping(value = "/users")
   @ResponseStatus(value = HttpStatus.OK) // 200
