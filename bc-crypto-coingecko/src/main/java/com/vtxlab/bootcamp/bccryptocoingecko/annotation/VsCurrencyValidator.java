@@ -2,6 +2,7 @@ package com.vtxlab.bootcamp.bccryptocoingecko.annotation;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestClientException;
 import com.vtxlab.bootcamp.bccryptocoingecko.model.VsCurrency;
 import com.vtxlab.bootcamp.bccryptocoingecko.service.CoingeckoService;
 import com.vtxlab.bootcamp.bccryptocoingecko.service.impl.CoingeckoServiceHolder;
@@ -16,13 +17,20 @@ public class VsCurrencyValidator implements ConstraintValidator<VsCurrencyCheck,
   CoingeckoService coingeckoService;
 
   @Override
-  public boolean isValid(VsCurrency cur, ConstraintValidatorContext context) {
-    // try {
+  public boolean isValid(VsCurrency cur, ConstraintValidatorContext context) throws RuntimeException{
+    System.out.println("isvalid intitit");
+    try {
+      System.out.println("isvalid intitit");
        return coingeckoService.getSupportedVsCurrencies().contains(cur.getId());
       //return supportedVsCurrencies.contains(cur);
-    // } catch (Exception e) {
-    //   return false;
-    // }
+      
+    } catch (RestClientException e) {
+      //System.out.println("end");
+      throw new RuntimeException();
+      //return false;
+      
+    }
+    
   }
 
 

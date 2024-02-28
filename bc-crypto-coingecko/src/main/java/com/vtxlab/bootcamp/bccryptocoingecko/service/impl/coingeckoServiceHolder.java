@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import com.vtxlab.bootcamp.bccryptocoingecko.dto.response.CoinsMKDataDTO;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.BcUtil;
@@ -56,7 +57,7 @@ public class CoingeckoServiceHolder implements CoingeckoService {
   }
 
   @Override
-  public List<String> getConinsList() {
+  public List<String> getConinsList() throws RestClientException {
     String url = BcUtil.getUrl(Scheme.HTTPS,domain, coinsList);
     Coins[] coins = restTemplate.getForObject(url,Coins[].class);
     return Arrays.stream(coins)

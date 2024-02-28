@@ -1,5 +1,7 @@
 package com.vtxlab.bootcamp.bccryptocoingecko.infra;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -8,7 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RedisHelper {
-    private RedisTemplate<String, String> redisTemplate;
+  private RedisTemplate<String, String> redisTemplate;
 
   private ObjectMapper objectMapper; // NPE
 
@@ -47,5 +49,9 @@ public class RedisHelper {
     String serialized = redisTemplate.opsForValue().get(key);
     return objectMapper.readValue(serialized , clazz);
 
+  }
+
+  public List<String> getKeys(String pattern) {
+    return new ArrayList<>(redisTemplate.keys(pattern));
   }
 }
