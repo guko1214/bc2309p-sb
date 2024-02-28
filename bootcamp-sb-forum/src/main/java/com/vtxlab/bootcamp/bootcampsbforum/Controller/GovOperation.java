@@ -18,6 +18,10 @@ import com.vtxlab.bootcamp.bootcampsbforum.infra.ApiResponse2;
 import com.vtxlab.bootcamp.bootcampsbforum.model.dto.jph.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Negative;
 import jakarta.validation.constraints.NotNull;
 import jakarta.websocket.server.PathParam;
@@ -35,6 +39,12 @@ public interface GovOperation {
     tags = "gov-controller",
     parameters = {@Parameter(name = "id",
           description = "User ID", required = true)})
+
+  @ApiResponses({
+    @ApiResponse(responseCode = "200",
+      content = {@Content(schema = @Schema(implementation =UserPostDTO.class),
+            mediaType = "application/json")})
+  })
   @GetMapping(value = "/user1")
   @ResponseStatus(value = HttpStatus.OK) // 200
   UserPostDTO getUserPostDTO1(@RequestParam(value = "id") int idx);
@@ -54,10 +64,22 @@ public interface GovOperation {
   @GetMapping(value = "/user6")
   ApiResponse2<UserPostDTO> getUserPostDTO6(@RequestParam(value = "id") int idx);   
                       
+
+    @Operation(summary = "Get User by Id using method 7",
+    description = "This method return user UserPostDTO by method 7",
+    tags = "gov-controller",
+    parameters = {@Parameter(name = "id",
+          description = "User ID", required = true)})
+
+  @ApiResponses({
+    @ApiResponse(responseCode = "200",
+      content = {@Content(schema = @Schema(implementation =ApiResponse2.class),
+            mediaType = "application/json")})
+  })
   @GetMapping(value = "/user7")
   @ResponseStatus(value = HttpStatus.OK)
   ApiResponse2<UserPostDTO> getUserPostDTO7(
-                      @NotNull @UserIdCheck @RequestParam(value = "id") UserIdDTO userIdDTO);                     
+                      @UserIdCheck @RequestParam(value = "id") UserIdDTO userIdDTO);                     
 
   @GetMapping(value = "/users")
   @ResponseStatus(value = HttpStatus.OK) // 200
