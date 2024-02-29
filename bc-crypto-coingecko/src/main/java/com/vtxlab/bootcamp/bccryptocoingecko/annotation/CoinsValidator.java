@@ -13,12 +13,11 @@ public class CoinsValidator implements ConstraintValidator<CoinsCheck, String> {
   CoingeckoService coingeckoService;
 
   @Override
-  public boolean isValid(String coins, ConstraintValidatorContext context) throws RuntimeException {
-    System.out.println("isvalid intitit");
+  //public boolean isValid(String coins, ConstraintValidatorContext context) throws RuntimeException {
+  public boolean isValid(String coins, ConstraintValidatorContext context) {
     if (coins == null)
       return true;
     try {
-      
       List<String> coinsList = coingeckoService.getConinsList();   
       int startIdx = 0;
       StringBuilder coinId = new StringBuilder();
@@ -36,8 +35,8 @@ public class CoinsValidator implements ConstraintValidator<CoinsCheck, String> {
         }
       }
     } catch (RestClientException e) {
-      throw new RuntimeException();
-      //return false;
+      //throw new RuntimeException();
+      return true;
     }
     return true;
   }

@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vtxlab.bootcamp.bccryptocoingecko.dto.response.CoinsMKDataDTO;
 import com.vtxlab.bootcamp.bccryptocoingecko.infra.ParamConverter;
@@ -40,49 +41,47 @@ public class RedisServiceimpl implements RedisService{
   }
 
   public CoinsMKDataDTO getCoinsMkData(String key) throws JsonProcessingException {
-    return redisHelper.get(key, CoinsMKDataDTO.class);
+    List<String> idsList = redisHelper.getKeys("crypto:coingecko:coins-markets:*");
+    if (idsList.contains(key))
+      return redisHelper.get(key, CoinsMKDataDTO.class);
+    //return null;
+    throw new RestClientException("RestClientException - Coingecko Service is unavailable");
   };
 
   public List<CoinsMKDataDTO> bulkGetCoinsMKDataDTOs(VsCurrency currency, String ids) throws JsonProcessingException {
     List<String> idsList = new ArrayList<>();
     if (ids != null) {
       idsList = ParamConverter.csvToList(ids);
-      System.out.println("size = " + idsList.size());
       List<CoinsMKDataDTO>  coinsMKDataDTOs = idsList.stream()
       .map(e -> {
         try {
-        return this.getCoinsMkData("crypto:coingecko:coins-markets:" + currency.getId() + ":" + e);
+          return this.getCoinsMkData("crypto:coingecko:coins-markets:" + currency.getId() + ":" + e);
         } catch (JsonProcessingException e1) {
-        throw new RuntimeException();
+          throw new RuntimeException("JsonProcessingException");
         }
       })
       .collect(Collectors.toList());
       return coinsMKDataDTOs;
     } else {
-      
       idsList = redisHelper.getKeys("crypto:coingecko:coins-markets:*");
       List<CoinsMKDataDTO>  coinsMKDataDTOs = idsList.stream()
       .map(e -> {
         try {
-        return this.getCoinsMkData(e);
+          return this.getCoinsMkData(e);
         } catch (JsonProcessingException e1) {
-        throw new RuntimeException();
+          throw new RuntimeException("JsonProcessingException");
         }
       })
       .collect(Collectors.toList());
       return coinsMKDataDTOs;
     }
-    //System.out.println(idsList);
-
-    // List<CoinsMKDataDTO> coinsMKDataDTOs = new ArrayList<>();
-    // ListIterator<String> iterator = idsList.listIterator();
-    // while (iterator.hasNext()) {
-    //   System.out.println("iterator " +iterator.next());
-    //   coinsMKDataDTOs.add(this.getCoinsMkData("crypto:coingecko:coins-markets:" + currency.getId() + ":" + iterator.next()));
-    // }
-    // System.out.println(coinsMKDataDTOs);
-    
-    
   };
+
+  public List<String> getRedisKeys(){
+    return redisHelper.getKeys("crypto:coingecko:coins-markets:*").stream()
+      .map(e -> {
+        return e.replace("crypto:coingecko:coins-markets:","");
+      }).collect(Collectors.toList());
+  }
 
 }

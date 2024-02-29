@@ -35,23 +35,22 @@ public class CoingeckoController implements CoingeckoOperation {
     HashMap<String, String> parm = new HashMap<>();
     parm.put("vs_currency",currency.getId());
     parm.put("ids",ids);
-    //System.out.println("coins list size = " + coingeckoService.getConinsList().size()); 
-    // try {
-    //   List<CoinsMKData> coinsMKDatas = coingeckoService.getCoinsQuote(parm);
-    //   List<CoinsMKDataDTO> coinsMKDataDTOs = CoinGeckoMapper.coinsMKDataDTOMap(coinsMKDatas);
-    //   redisService.bulkCreateCoinsMKData(coinsMKDataDTOs,currency);
-    //   return ApiResponse.<List<CoinsMKDataDTO>>builder()
-    //   .status(Syscode.OK)
-    //   .data(coinsMKDataDTOs)
-    //   .build();
-  //  } catch (RestClientException e) {
+    try {
+      List<CoinsMKData> coinsMKDatas = coingeckoService.getCoinsQuote(parm);
+      List<CoinsMKDataDTO> coinsMKDataDTOs = CoinGeckoMapper.coinsMKDataDTOMap(coinsMKDatas);
+      redisService.bulkCreateCoinsMKData(coinsMKDataDTOs,currency);
+      return ApiResponse.<List<CoinsMKDataDTO>>builder()
+      .status(Syscode.OK)
+      .data(coinsMKDataDTOs)
+      .build();
+    } catch (RestClientException e) {
       List<CoinsMKDataDTO> coinsMKDataDTOs = redisService.bulkGetCoinsMKDataDTOs(currency, ids);
       return ApiResponse.<List<CoinsMKDataDTO>>builder()
       .status(Syscode.OK)
       .data(coinsMKDataDTOs)
       .build();
 
-  //  }
+    }
 
   }
 

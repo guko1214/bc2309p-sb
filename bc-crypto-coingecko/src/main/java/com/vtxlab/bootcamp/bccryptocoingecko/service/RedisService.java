@@ -15,4 +15,6 @@ public interface RedisService {
 
   List<CoinsMKDataDTO> bulkGetCoinsMKDataDTOs(VsCurrency currency, String ids) throws JsonProcessingException;
 
+  List<String> getRedisKeys();
+
 }

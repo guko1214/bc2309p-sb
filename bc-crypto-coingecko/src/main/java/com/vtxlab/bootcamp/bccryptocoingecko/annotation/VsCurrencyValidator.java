@@ -18,16 +18,14 @@ public class VsCurrencyValidator implements ConstraintValidator<VsCurrencyCheck,
 
   @Override
   public boolean isValid(VsCurrency cur, ConstraintValidatorContext context) throws RuntimeException{
-    System.out.println("isvalid intitit");
     try {
-      System.out.println("isvalid intitit");
        return coingeckoService.getSupportedVsCurrencies().contains(cur.getId());
       //return supportedVsCurrencies.contains(cur);
       
     } catch (RestClientException e) {
       //System.out.println("end");
-      throw new RuntimeException();
-      //return false;
+      //throw new RuntimeException();
+      return true;
       
     }
     
