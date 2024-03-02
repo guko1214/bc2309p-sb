@@ -1,0 +1,11 @@
+server:
+  port: 8091
+
+api:
+  finnhub:
+    domain: "finnhub.io"
+    apiVersion: "/api/v1"
+    endpoints:
+      quote: "${api.finnhub.apiVersion}/quote"
+      profile2: "${api.finnhub.apiVersion}/stock/profile2"
+    apiKey: "cnhesthr01qhlsliu63gcnhesthr01qhlsliu640"
