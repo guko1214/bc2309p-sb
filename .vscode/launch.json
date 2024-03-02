@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CoingeckoControllerTest",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bccryptocoingecko.CoingeckoControllerTest",
+      "projectName": "bc-crypto-coingecko"
+    },
+    {
+      "type": "java",
       "name": "VsCurrencyValidator",
       "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.bccryptocoingecko.annotation.VsCurrencyValidator",

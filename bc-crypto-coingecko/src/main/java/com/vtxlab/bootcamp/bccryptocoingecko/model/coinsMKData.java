@@ -5,41 +5,47 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class CoinsMKData {
   
   private String id;
   private String symbol;
   private String name;
   private String image;
-  private double current_price; 
-  private double market_cap;
+  private Double current_price; 
+  private Double market_cap;
   private int market_cap_rank;
   private double fully_diluted_valuation;
-  private double total_volume;
-  private double high_24h;
-  private double low_24h;
-  private double price_change_24h;
-  private double price_change_percentage_24h;
-  private double market_cap_change_24h;
-  private double market_cap_change_percentage_24h;
-  private double circulating_supply;
+  private Double total_volume;
+  private Double high_24h;
+  private Double low_24h;
+  private Double price_change_24h;
+  private Double price_change_percentage_24h;
+  private Double market_cap_change_24h;
+  private Double market_cap_change_percentage_24h;
+  private Double circulating_supply;
   private double total_supply;
   private double max_supply;
-  private double ath;
-  private double ath_change_percentage;
+  private Double ath;
+  private Double ath_change_percentage;
   private String ath_date;
-  private double atl; 
-  private double atl_change_percentage;
+  private Double atl; 
+  private Double atl_change_percentage;
   private String atl_date;
   private Roi roi; 
   private String last_updated;
 
-  @Getter
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Builder
+  @ToString
   public static class Roi {
     private double times;
     private String currency;

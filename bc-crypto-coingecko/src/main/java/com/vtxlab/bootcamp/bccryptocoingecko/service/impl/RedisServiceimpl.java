@@ -1,7 +1,10 @@
 package com.vtxlab.bootcamp.bccryptocoingecko.service.impl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -36,15 +39,18 @@ public class RedisServiceimpl implements RedisService{
     while (iterator.hasNext()) {
       CoinsMKDataDTO d = iterator.next();
       this.createCoinsMkData("crypto:coingecko:coins-markets:" + currency.getId() + ":" + d.getId() , d);
+      redisHelper.set("crypto:coingecko:coins-markets:" + currency.getId() + ":" + d.getId() + ":updatedDate" , LocalDateTime.now().toString());
     }
     return coinsMKDataDTOs;
   }
 
   public CoinsMKDataDTO getCoinsMkData(String key) throws JsonProcessingException {
+    System.out.println("ddd");
     List<String> idsList = redisHelper.getKeys("crypto:coingecko:coins-markets:*");
-    if (idsList.contains(key))
-      return redisHelper.get(key, CoinsMKDataDTO.class);
-    //return null;
+    if (idsList.contains(key) && idsList.contains(key + ":updatedDate")) {
+      if (LocalDateTime.parse(redisHelper.get(key + ":updatedDate",String.class)).plusSeconds(61).isAfter(LocalDateTime.now()))
+        return redisHelper.get(key, CoinsMKDataDTO.class);
+    }
     throw new RestClientException("RestClientException - Coingecko Service is unavailable");
   };
 

@@ -28,7 +28,6 @@ public class VsCurrencyValidator implements ConstraintValidator<VsCurrencyCheck,
       return true;
       
     }
-    
   }
 
 

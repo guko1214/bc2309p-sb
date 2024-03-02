@@ -34,7 +34,9 @@ public class CoingeckoController implements CoingeckoOperation {
   public ApiResponse<List<CoinsMKDataDTO>> getCoinsQuote(VsCurrency currency, String ids)  throws JsonProcessingException  {
     HashMap<String, String> parm = new HashMap<>();
     parm.put("vs_currency",currency.getId());
+    System.out.println("ids = " + ids);
     parm.put("ids",ids);
+
     try {
       List<CoinsMKData> coinsMKDatas = coingeckoService.getCoinsQuote(parm);
       List<CoinsMKDataDTO> coinsMKDataDTOs = CoinGeckoMapper.coinsMKDataDTOMap(coinsMKDatas);
@@ -49,14 +51,7 @@ public class CoingeckoController implements CoingeckoOperation {
       .status(Syscode.OK)
       .data(coinsMKDataDTOs)
       .build();
-
     }
-
-  }
-
-
-  public static void main(String[] args) {
-    
   }
   
 }
