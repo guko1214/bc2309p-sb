@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestClientException;
 import com.vtxlab.bootcamp.bcstockfinnhub.service.FinnhubService;
-import com.vtxlab.bootcamp.bcstockfinnhub.service.impl.finnhubServiceHolder;
+import com.vtxlab.bootcamp.bcstockfinnhub.service.impl.FinnhubServiceHolder;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

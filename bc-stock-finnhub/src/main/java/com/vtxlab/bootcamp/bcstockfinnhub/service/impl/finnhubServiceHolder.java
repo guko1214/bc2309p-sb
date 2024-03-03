@@ -16,7 +16,7 @@ import com.vtxlab.bootcamp.bcstockfinnhub.model.StockSymbol;
 import com.vtxlab.bootcamp.bcstockfinnhub.service.FinnhubService;
 
 @Service
-public class finnhubServiceHolder implements FinnhubService {
+public class FinnhubServiceHolder implements FinnhubService {
 
   @Value("${api.finnhub.domain}")
   String domain;
