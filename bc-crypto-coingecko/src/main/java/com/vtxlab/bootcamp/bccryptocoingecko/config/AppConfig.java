@@ -25,9 +25,9 @@ public class AppConfig {
   }
 
   // @Bean
-  // List<VsCurrency> supportedVsCurrencies() {
-  //   //CoingeckoService coingeckoService2 = new CoingeckoServiceHolder();
-  //   return coingeckoService.getSupporedVsCurrencies();
+  // List<String> supportedVsCurrencies() {
+  //   CoingeckoService coingeckoService = new CoingeckoServiceHolder();
+  //   return coingeckoService.getSupportedVsCurrencies();
   // }
 
   @Bean

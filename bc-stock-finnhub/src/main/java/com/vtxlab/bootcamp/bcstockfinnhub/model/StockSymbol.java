@@ -13,13 +13,17 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @Builder
-public class StockQuote {
-  private double c;
-  private double d;
-  private double dp;
-  private double h;
-  private double l;
-  private double o;
-  private double pc;
-  private double t;
+public class StockSymbol {
+  
+  private String currency;
+  private String description;
+  private String displaySymbol;
+  private String figi;
+  private String isin;
+  private String mic;
+  private String shareClassFIGI;
+  private String symbol;
+  private String symbol2;
+  private String type;
+
 }

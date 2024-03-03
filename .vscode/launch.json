@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "StockSymbolValidator",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.annotation.StockSymbolValidator",
+      "projectName": "bc-stock-finnhub"
+    },
+    {
+      "type": "java",
       "name": "CoingeckoControllerTest",
       "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.bccryptocoingecko.CoingeckoControllerTest",

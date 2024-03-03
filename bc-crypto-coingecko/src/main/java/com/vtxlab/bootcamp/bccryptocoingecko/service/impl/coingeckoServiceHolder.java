@@ -38,7 +38,6 @@ public class CoingeckoServiceHolder implements CoingeckoService {
   @Autowired
   private RestTemplate restTemplate;
 
-
   @Override
   public List<CoinsMKData> getCoinsQuote(HashMap<String,String> uris) {
     uris.put("x_cg_demo_api_key",apiKey);

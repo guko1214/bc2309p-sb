@@ -1,6 +1,7 @@
 package com.vtxlab.bootcamp.bcstockfinnhub.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 public class StockProfile2DTO {
   
   private String country;

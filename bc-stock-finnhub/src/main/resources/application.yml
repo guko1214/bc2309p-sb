@@ -1,5 +1,5 @@
 server:
-  port: 8091
+  port: 8080
 
 api:
   finnhub:
@@ -8,4 +8,5 @@ api:
     endpoints:
       quote: "${api.finnhub.apiVersion}/quote"
       profile2: "${api.finnhub.apiVersion}/stock/profile2"
+      stockSymbol: "${api.finnhub.apiVersion}/stock/symbol"
     apiKey: "cnhesthr01qhlsliu63gcnhesthr01qhlsliu640"
