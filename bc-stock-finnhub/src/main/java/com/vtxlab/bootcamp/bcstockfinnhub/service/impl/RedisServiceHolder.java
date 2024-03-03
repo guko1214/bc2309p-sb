@@ -37,7 +37,7 @@ public class RedisServiceHolder implements RedisService {
                                           .plusSeconds(61).isAfter(LocalDateTime.now()))
         return redisHelper.get("stock:finnhub:quote:" + key,StockQuoteDTO.class);
     }
-    throw new RestClientException("RestClientException - Coingecko Service is unavailable");
+    throw new RestClientException("RestClientException - finnhub Service is unavailable");
   };
 
   public StockProfile2DTO getStockProfile2DTO(String key) throws JsonProcessingException {
@@ -47,7 +47,7 @@ public class RedisServiceHolder implements RedisService {
                                           .plusSeconds(61).isAfter(LocalDateTime.now()))
       redisHelper.get("stock:finnhub:profile2:" + key,StockProfile2DTO.class);
     }
-    throw new RestClientException("RestClientException - Coingecko Service is unavailable");
+    throw new RestClientException("RestClientException - finnhub Service is unavailable");
   };
 
   public List<String> getRedisKeys(){
