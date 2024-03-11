@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -16,7 +17,8 @@ import com.vtxlab.bootcamp.bccryptocoingecko.model.VsCurrency;
 
 @Validated
 public interface CoingeckoOperation {
-  
+
+  @CrossOrigin
   @GetMapping(value = "/coins")
   @ResponseStatus(value = HttpStatus.OK)
   ApiResponse<List<CoinsMKDataDTO>> getCoinsQuote(@VsCurrencyCheck @RequestParam(name = "currency", required=true) VsCurrency currency,
@@ -26,8 +28,5 @@ public interface CoingeckoOperation {
 
   // @GetMapping(value = "/coinslist")
   // List<
-
-  @GetMapping(value = "/coin-data")
-  String displayExternalData(Model model);
 
 }

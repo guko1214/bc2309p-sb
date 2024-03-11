@@ -14,7 +14,7 @@ import com.vtxlab.bootcamp.bccryptocoingecko.service.CoingeckoService;
 
 @Controller
 @RequestMapping(value = "/crypto/coingecko/api/v1")
-public class coingeckoController2 {
+public class CoingeckoController2 {
   
   @Autowired
   CoingeckoService coingeckoService;
