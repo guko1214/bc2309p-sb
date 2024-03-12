@@ -1,2 +1,16 @@
 server:
   port: 8092
+
+database:
+  postgres: "db_product_data"
+
+spring.datasource:
+  #driverClassName: "org.hibernate.dialect.PostgreSQLDialect"
+  driverClassName: "org.postgresql.Driver"
+  url: "jdbc:postgresql://localhost:5432/${database.postgres}"
+  username: "postgres"
+  password: "admin1234"
+
+spring.jpa:
+  show-sql: true
+  hibernate.ddl-auto: update # update  

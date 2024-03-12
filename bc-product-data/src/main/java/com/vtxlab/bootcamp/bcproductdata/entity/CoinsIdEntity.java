@@ -19,7 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class coinsIdEntity {
+public class CoinsIdEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
