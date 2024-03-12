@@ -16,12 +16,17 @@ import com.vtxlab.bootcamp.bcproductdata.service.StocksIdService;
 public class StocksIdEntityController implements StocksIdEntityOperation {
   
   @Autowired
-  StocksIdService stock;
+  StocksIdService stockIdsService;
 
   @Override
   public List<StocksIdEntity> saveStocksIds(@RequestParam(value = "stocksids") String stocksIdList) {
         List<String> stockIdList =  BcUtil.csvToList(stocksIdList);
+        List<String> existingStocksIdEntityList = stockIdsService.getAllStockIds().stream()
+                              .map(e -> e.getStockId())
+                              .collect(Collectors.toList());
+
     List<StocksIdEntity> stocksIdEntityList = stockIdList.stream()
+                .filter(e -> !(existingStocksIdEntityList.contains(e)))
                 .map(e -> {
                   return StocksIdEntity.builder()
                           .stockId(e)
@@ -30,7 +35,7 @@ public class StocksIdEntityController implements StocksIdEntityOperation {
                 .collect(Collectors.toList());
     // coinsIdEntityList.stream()    
     // .map(e -> coinsIdService.saveCoinsId(e));
-    stock.saveStocksIds(stocksIdEntityList);
+    stockIdsService.saveStocksIds(stocksIdEntityList);
     return stocksIdEntityList;
   };
 

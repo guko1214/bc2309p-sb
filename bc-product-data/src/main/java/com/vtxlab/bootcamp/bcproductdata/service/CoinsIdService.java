@@ -7,4 +7,6 @@ public interface CoinsIdService {
   
   List<CoinsIdEntity> saveCoinsIds(List<CoinsIdEntity> coinsIds);
 
+  List<CoinsIdEntity> getAllCoinsIds();
+
 }

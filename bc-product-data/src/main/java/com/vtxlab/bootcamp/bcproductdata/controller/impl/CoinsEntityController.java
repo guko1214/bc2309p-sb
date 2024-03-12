@@ -20,15 +20,19 @@ public class CoinsEntityController implements CoinsIdEntityOperation {
   @Override
   public List<CoinsIdEntity> saveCoinsIds(String coinsIdList) {    
     List<String> coinIdsList =  BcUtil.csvToList(coinsIdList);
+    List<String> existingCoinIdIdEntityList = coinsIdService.getAllCoinsIds().stream()
+            .map(e -> e.getCoinId())
+            .collect(Collectors.toList());
+
     List<CoinsIdEntity> coinsIdEntityList = coinIdsList.stream()
+                .filter(e -> !(existingCoinIdIdEntityList.contains(e)))
                 .map(e -> {
                   return CoinsIdEntity.builder()
                           .coinId(e)
                           .build();
                 })
                 .collect(Collectors.toList());
-    // coinsIdEntityList.stream()    
-    // .map(e -> coinsIdService.saveCoinsId(e));
+
     coinsIdService.saveCoinsIds(coinsIdEntityList);
     return coinsIdEntityList;
   };
