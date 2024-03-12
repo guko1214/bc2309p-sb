@@ -128,6 +128,16 @@
       "projectName": "demo-sp",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-BcStockFinnhubApplication<bc-stock-finnhub>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.vtxlab.bootcamp.bcstockfinnhub.BcStockFinnhubApplication",
+      "projectName": "bc-stock-finnhub",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
