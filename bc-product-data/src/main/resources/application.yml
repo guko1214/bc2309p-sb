@@ -13,4 +13,17 @@ spring.datasource:
 
 spring.jpa:
   show-sql: true
-  hibernate.ddl-auto: update # update  
+  hibernate.ddl-auto: update # update
+
+api:
+  bc-crypto-coingecko:
+    domain: "localhost:8090"
+    apiVersion: "/crypto/coingecko/api/v1"
+    endpoints:
+      coinMarket: "/coins"
+  bc-stock-finnhub:
+    domain: "localhost:8091"
+    apiVersion: ""
+    endpoints:
+      quote: "/quote"
+      profile2: "/profile2"

@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "tproduct_coins")
@@ -19,6 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@ToString
 public class CoinsIdEntity {
 
   @Id
