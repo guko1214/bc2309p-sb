@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.vtxlab.bootcamp.bcproductdata.controller.ProductDataOperation;
-import com.vtxlab.bootcamp.bcproductdata.entity.CoinsIdEntity;
-import com.vtxlab.bootcamp.bcproductdata.entity.StocksIdEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinListEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
 import com.vtxlab.bootcamp.bcproductdata.infra.BcUtil;
 import com.vtxlab.bootcamp.bcproductdata.service.ProductDataService;
 
@@ -18,61 +18,61 @@ public class ProductDataController implements ProductDataOperation {
   ProductDataService productDataService;
 
   @Override
-  public List<CoinsIdEntity> saveCoinsIds(String coinsIdList) {    
-    List<String> coinIdsList =  BcUtil.csvToList(coinsIdList);
-    List<String> existingCoinIdIdEntityList = productDataService.getAllCoinsIds().stream()
-            .map(e -> e.getCoinId())
+  public List<TproductCoinListEntity> saveCoinListEntities(String coinCodeCsv) {    
+    List<String> coinCodeList =  BcUtil.csvToList(coinCodeCsv);
+    List<String> existingCoinCodeList = productDataService.getCoinList().stream()
+            .map(e -> e.getCoinCode())
             .collect(Collectors.toList());
 
-    List<CoinsIdEntity> coinsIdEntityList = coinIdsList.stream()
-                .filter(e -> !(existingCoinIdIdEntityList.contains(e)))
+    List<TproductCoinListEntity> coinListEntities = coinCodeList.stream()
+                .filter(e -> !(existingCoinCodeList.contains(e)))
                 .map(e -> {
-                  return CoinsIdEntity.builder()
-                          .coinId(e)
+                  return TproductCoinListEntity.builder()
+                          .coinCode(e)
                           .build();
                 })
                 .collect(Collectors.toList());
 
-                productDataService.saveCoinsIds(coinsIdEntityList);
-    return coinsIdEntityList;
+                productDataService.saveCoinList(coinListEntities);
+    return coinListEntities;
   };
 
   @Override
-  public List<StocksIdEntity> saveStocksIds(String stocksIdList) {
-        List<String> stockIdList =  BcUtil.csvToList(stocksIdList);
-        List<String> existingStocksIdEntityList = productDataService.getAllStocksIds().stream()
-                              .map(e -> e.getStockId())
+  public List<TproductStockListEntity> saveStockListEntities(String stockCodeCsv) {
+        List<String> stockCodeList =  BcUtil.csvToList(stockCodeCsv);
+        List<String> existingStockCodeList = productDataService.getStockList().stream()
+                              .map(e -> e.getStockCode())
                               .collect(Collectors.toList());
 
-    List<StocksIdEntity> stocksIdEntityList = stockIdList.stream()
-                .filter(e -> !(existingStocksIdEntityList.contains(e)))
+    List<TproductStockListEntity> stockListEntities = stockCodeList.stream()
+                .filter(e -> !(existingStockCodeList.contains(e)))
                 .map(e -> {
-                  return StocksIdEntity.builder()
-                          .stockId(e)
+                  return TproductStockListEntity.builder()
+                          .stockCode(e)
                           .build();
                 })
                 .collect(Collectors.toList());
 
-    productDataService.saveStocksIds(stocksIdEntityList);
-    return stocksIdEntityList;
+    productDataService.saveStockList(stockListEntities);
+    return stockListEntities;
   };
 
   @Override
-  public List<CoinsIdEntity> deleteCoinsIds(String coinsIdList) {  
-    List<String> coinIdsList =  BcUtil.csvToList(coinsIdList);
-    List<CoinsIdEntity> coinsIdEntityList = productDataService.getCoinsIdsByCoinsIds(coinIdsList);
-    System.out.println(coinsIdEntityList);
-    productDataService.deleteCoinsIds(coinsIdEntityList);
-    return coinsIdEntityList;
+  public List<TproductCoinListEntity> deleteCoinList(String coinCodeCsv) {  
+    List<String> coinCodeList =  BcUtil.csvToList(coinCodeCsv);
+    List<TproductCoinListEntity> coinListEntities = productDataService.getCoinListByCoinCodes(coinCodeList);
+    System.out.println(coinListEntities);
+    productDataService.deleteCoinList(coinListEntities);
+    return coinListEntities;
   };
 
   @Override
-  public List<StocksIdEntity> deleteStocksIds(String stocksIdList) {
-    List<String> stockIdList =  BcUtil.csvToList(stocksIdList);
-    List<StocksIdEntity> stocksIdEntityList = productDataService.getStocksIdsByStocksIds(stockIdList);
-    System.out.println(stocksIdEntityList);
-    productDataService.deleteStocksIds(stocksIdEntityList);
-    return stocksIdEntityList;
+  public List<TproductStockListEntity> deleteStockList(String stockCodeCsv) {
+    List<String> stockCodeList =  BcUtil.csvToList(stockCodeCsv);
+    List<TproductStockListEntity> stockListEntitiess = productDataService.getStockListByStockCodes(stockCodeList);
+    System.out.println(stockListEntitiess);
+    productDataService.deleteStockList(stockListEntitiess);
+    return stockListEntitiess;
   };
 
 }

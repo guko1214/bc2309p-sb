@@ -13,18 +13,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tproduct_stocks")
+@Table(name = "tproduct_stock_list")
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class StocksIdEntity {
+public class TproductStockListEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(name = "STOCK_ID")
-  private String stockId;
+  @Column(name = "stock_code")
+  private String stockCode;
   
 }

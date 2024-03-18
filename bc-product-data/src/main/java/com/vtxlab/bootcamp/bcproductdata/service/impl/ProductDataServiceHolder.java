@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.vtxlab.bootcamp.bcproductdata.entity.CoinsIdEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinListEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSKFinnhubProfile2Entity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSkFinnhubQuoteEntity;
-import com.vtxlab.bootcamp.bcproductdata.entity.StocksIdEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.CoinsIdEntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.TexCPCoingeckoMKEntityRespository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.TexSKFinnhubProfile2EntityRepository;
@@ -35,46 +35,46 @@ public class ProductDataServiceHolder implements ProductDataService {
   TexSKFinnhubProfile2EntityRepository texSKFinnhubProfile2EntityRepository;
 
   @Override
-  public List<CoinsIdEntity> saveCoinsIds(List<CoinsIdEntity> coinsIds) {
-    return coinsIdEntityRespository.saveAll(coinsIds);
+  public List<TproductCoinListEntity> saveCoinList(List<TproductCoinListEntity> coinCodes) {
+    return coinsIdEntityRespository.saveAll(coinCodes);
   };
 
   @Override
-  public List<CoinsIdEntity> getAllCoinsIds() {
+  public List<TproductCoinListEntity> getCoinList() {
     return coinsIdEntityRespository.findAll();
   };
 
   @Override
-  public List<CoinsIdEntity> getCoinsIdsByCoinsIds(List<String> coinsIds) {
+  public List<TproductCoinListEntity> getCoinListByCoinCodes(List<String> coinsIds) {
     return coinsIdEntityRespository.findAll().stream()
-            .filter(e -> coinsIds.contains(e.getCoinId()))
+            .filter(e -> coinsIds.contains(e.getCoinCode()))
             .collect(Collectors.toList());
   };
 
   @Override
-  public List<StocksIdEntity> saveStocksIds(List<StocksIdEntity> stocksIds) {
+  public List<TproductStockListEntity> saveStockList(List<TproductStockListEntity> stocksIds) {
     return stocksIdEntityRespository.saveAll(stocksIds);
   };
 
   @Override
-  public List<StocksIdEntity> getAllStocksIds() {
+  public List<TproductStockListEntity> getStockList() {
     return stocksIdEntityRespository.findAll();
   };
 
   @Override
-  public List<StocksIdEntity> getStocksIdsByStocksIds(List<String> stocksIds) {
+  public List<TproductStockListEntity> getStockListByStockCodes(List<String> stockCodes) {
     return stocksIdEntityRespository.findAll().stream()
-            .filter(e -> stocksIds.contains(e.getStockId()))
+            .filter(e -> stockCodes.contains(e.getStockCode()))
             .collect(Collectors.toList());
   };
 
   @Override
-  public void deleteCoinsIds(List<CoinsIdEntity> coinsIds) {
+  public void deleteCoinList(List<TproductCoinListEntity> coinsIds) {
     coinsIdEntityRespository.deleteAll(coinsIds);
   };
 
   @Override
-  public void deleteStocksIds(List<StocksIdEntity> stocksIds) {
+  public void deleteStockList(List<TproductStockListEntity> stocksIds) {
     stocksIdEntityRespository.deleteAll(stocksIds);
   };
 

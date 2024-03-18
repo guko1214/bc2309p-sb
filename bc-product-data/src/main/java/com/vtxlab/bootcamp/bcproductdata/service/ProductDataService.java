@@ -1,29 +1,29 @@
 package com.vtxlab.bootcamp.bcproductdata.service;
 
 import java.util.List;
-import com.vtxlab.bootcamp.bcproductdata.entity.CoinsIdEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinListEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSKFinnhubProfile2Entity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSkFinnhubQuoteEntity;
-import com.vtxlab.bootcamp.bcproductdata.entity.StocksIdEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
 
 public interface ProductDataService {
   
-  List<CoinsIdEntity> saveCoinsIds(List<CoinsIdEntity> coinsIds);
+  List<TproductCoinListEntity> saveCoinList(List<TproductCoinListEntity> coinCodes);
 
-  List<CoinsIdEntity> getAllCoinsIds();
+  List<TproductCoinListEntity> getCoinList();
 
-  List<CoinsIdEntity> getCoinsIdsByCoinsIds(List<String> coinsIds);
+  List<TproductCoinListEntity> getCoinListByCoinCodes(List<String> coinCodes);
 
-  List<StocksIdEntity> saveStocksIds(List<StocksIdEntity> stocksIds);
+  List<TproductStockListEntity> saveStockList(List<TproductStockListEntity> stockCodes);
 
-  List<StocksIdEntity> getAllStocksIds();
+  List<TproductStockListEntity> getStockList();
 
-  List<StocksIdEntity> getStocksIdsByStocksIds(List<String> stocksIds);
+  List<TproductStockListEntity> getStockListByStockCodes(List<String> stockCodes);
 
-  void deleteCoinsIds(List<CoinsIdEntity> coinsIds);
+  void deleteCoinList(List<TproductCoinListEntity> coinCodes);
 
-  void deleteStocksIds(List<StocksIdEntity> stocksIds);
+  void deleteStockList(List<TproductStockListEntity> stockCodes);
 
   List<TexCPCoingeckoMKEntity> saveAllTexCPCoingeckoMKEntites(List<TexCPCoingeckoMKEntity> coinsEntity);
 

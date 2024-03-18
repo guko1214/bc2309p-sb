@@ -14,19 +14,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "tproduct_coins")
+@Table(name = "tproduct_coin_list")
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
 @ToString
-public class CoinsIdEntity {
+public class TproductCoinListEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(name = "COIN_ID")
-  private String coinId;
+  @Column(name = "coin_code")
+  private String coinCode;
   
 }

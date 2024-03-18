@@ -6,24 +6,24 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import com.vtxlab.bootcamp.bcproductdata.entity.CoinsIdEntity;
-import com.vtxlab.bootcamp.bcproductdata.entity.StocksIdEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinListEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
 
 public interface ProductDataOperation {
   
   @PostMapping(value = "/coinsid")
   @ResponseStatus(value = HttpStatus.OK)
-  List<CoinsIdEntity> saveCoinsIds(@RequestParam(value = "coinsids") String coinsIdList);
+  List<TproductCoinListEntity> saveCoinListEntities(@RequestParam(value = "coinsids") String coinsIdList);
 
   @PostMapping(value = "/stocksid")
   @ResponseStatus(value = HttpStatus.OK)
-  List<StocksIdEntity> saveStocksIds(@RequestParam(value = "stocksids") String stocksIdList);
+  List<TproductStockListEntity> saveStockListEntities(@RequestParam(value = "stocksids") String stocksIdList);
   
   @DeleteMapping(value = "/coinsid")
   @ResponseStatus(value = HttpStatus.OK)
-  List<CoinsIdEntity> deleteCoinsIds(@RequestParam(value = "coinsids") String coinsIdList);
+  List<TproductCoinListEntity> deleteCoinList(@RequestParam(value = "coinsids") String coinsIdList);
   
   @DeleteMapping(value = "/stocksid")
   @ResponseStatus(value = HttpStatus.OK)
-  List<StocksIdEntity> deleteStocksIds(@RequestParam(value = "stocksids") String stocksIdList);
+  List<TproductStockListEntity> deleteStockList(@RequestParam(value = "stocksids") String stocksIdList);
 }
