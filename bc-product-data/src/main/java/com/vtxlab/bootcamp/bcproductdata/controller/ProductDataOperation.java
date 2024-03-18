@@ -11,19 +11,19 @@ import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
 
 public interface ProductDataOperation {
   
-  @PostMapping(value = "/coinsid")
+  @PostMapping(value = "/coinlist")
   @ResponseStatus(value = HttpStatus.OK)
-  List<TproductCoinListEntity> saveCoinListEntities(@RequestParam(value = "coinsids") String coinsIdList);
+  List<TproductCoinListEntity> saveCoinListEntities(@RequestParam(value = "coincodes") String coinCodeCsv);
 
-  @PostMapping(value = "/stocksid")
+  @PostMapping(value = "/stocklist")
   @ResponseStatus(value = HttpStatus.OK)
-  List<TproductStockListEntity> saveStockListEntities(@RequestParam(value = "stocksids") String stocksIdList);
+  List<TproductStockListEntity> saveStockListEntities(@RequestParam(value = "stockcodes") String stockCodeCsv);
   
-  @DeleteMapping(value = "/coinsid")
+  @DeleteMapping(value = "/coinlist")
   @ResponseStatus(value = HttpStatus.OK)
-  List<TproductCoinListEntity> deleteCoinList(@RequestParam(value = "coinsids") String coinsIdList);
+  List<TproductCoinListEntity> deleteCoinList(@RequestParam(value = "coincodes") String coinCodeCsv);
   
-  @DeleteMapping(value = "/stocksid")
+  @DeleteMapping(value = "/stocklist")
   @ResponseStatus(value = HttpStatus.OK)
-  List<TproductStockListEntity> deleteStockList(@RequestParam(value = "stocksids") String stocksIdList);
+  List<TproductStockListEntity> deleteStockList(@RequestParam(value = "stockcodes") String stockCodeCsv);
 }
