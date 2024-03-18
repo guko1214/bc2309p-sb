@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class SkFinnhubProfile2 {
+public class TexSKFinnhubProfile2Entity {
     
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +34,14 @@ public class SkFinnhubProfile2 {
   private String currency;
   private String estimateCurrency;
   private String exchange;
-  private String finnhubindustry;
+  private String finnhubIndustry;
   private String ipo;
   private String logo;
-  private String marketCapitalization;
+  private Double marketCapitalization;
   private String name;
   private String phone;
-  private String shareOutstanding;
-  private String ticket;
+  private Double shareOutstanding;
+  private String ticker;
   private String weburl;
 
 }

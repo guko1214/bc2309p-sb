@@ -42,7 +42,6 @@ public class FinnhubController implements FinnhubOperation {
               .build();
     } catch (RestClientException e) {      
       List<StockQuoteDTO> quotes = List.of(redisService.getStockQuoteDTO(symbol));   
-      System.out.println("chekc"); 
       return ApiResponse.<List<StockQuoteDTO>>builder()
               .status(Syscode.OK)
               .data(quotes)

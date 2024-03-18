@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class SkFinnhubQuoteEntity {
+public class TexSkFinnhubQuoteEntity {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +39,8 @@ public class SkFinnhubQuoteEntity {
   private Double priceDayHigh;
   @Column(name = "price_day_low")
   private Double priceDayLow;
-  @Column(name = "price_prev_open")
-  private Double pricePrevOpen;
+  @Column(name = "price_open")
+  private Double priceOpen;
   @Column(name = "price_prev_close")
   private Double pricePrevClose;
 

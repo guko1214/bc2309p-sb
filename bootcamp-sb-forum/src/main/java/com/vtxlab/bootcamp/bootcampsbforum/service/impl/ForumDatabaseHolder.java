@@ -34,7 +34,7 @@ public class ForumDatabaseHolder implements ForumDatabaseService{
 
   @Override
   public void deleteAllUsers(){
-    userRepository.deleteAll();;
+    userRepository.deleteAll();
   };
 
   @Override

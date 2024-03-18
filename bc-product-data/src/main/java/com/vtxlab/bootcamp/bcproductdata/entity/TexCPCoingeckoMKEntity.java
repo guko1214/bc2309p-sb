@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class CpCoingeckoMKEntity {
+public class TexCPCoingeckoMKEntity {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,8 +67,8 @@ public class CpCoingeckoMKEntity {
   @Column(name = "ath_date")
   private LocalDateTime athDate;
   private Double atl;
-  @Column(name = "ald_change_percentage")
-  private Double aldChangePercentage;
+  @Column(name = "atl_change_percentage")
+  private Double atlChangePercentage;
   @Column(name = "atl_date")
   private LocalDateTime atlDate;
 

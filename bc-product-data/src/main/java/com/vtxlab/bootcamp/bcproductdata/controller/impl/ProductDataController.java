@@ -40,7 +40,7 @@ public class ProductDataController implements ProductDataOperation {
   @Override
   public List<StocksIdEntity> saveStocksIds(String stocksIdList) {
         List<String> stockIdList =  BcUtil.csvToList(stocksIdList);
-        List<String> existingStocksIdEntityList = productDataService.getAllStockIds().stream()
+        List<String> existingStocksIdEntityList = productDataService.getAllStocksIds().stream()
                               .map(e -> e.getStockId())
                               .collect(Collectors.toList());
 

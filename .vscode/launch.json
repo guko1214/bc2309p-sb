@@ -2,6 +2,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "AppStartRunner",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bcproductdata.config.AppStartRunner",
+      "projectName": "bc-product-data"
+    },
+    {
+      "type": "java",
+      "name": "DtoMapper",
+      "request": "launch",
+      "mainClass": "com.vtxlab.bootcamp.bcproductdata.dto.mapper.DtoMapper",
+      "projectName": "bc-product-data"
+    },
+    {
+      "type": "java",
       "name": "StockSymbolValidator",
       "request": "launch",
       "mainClass": "com.vtxlab.bootcamp.annotation.StockSymbolValidator",

@@ -1,8 +1,12 @@
 package com.vtxlab.bootcamp.bcproductdata.infra;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 
-@Getter
+//@Getter
+@Data
+@ToString
 public class ApiResponse<T> {
   private String code;
   private String message;

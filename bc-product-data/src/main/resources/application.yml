@@ -17,13 +17,15 @@ spring.jpa:
 
 api:
   bc-crypto-coingecko:
-    domain: "localhost:8090"
+    domain: "localhost"
+    port: "8090"
     apiVersion: "/crypto/coingecko/api/v1"
     endpoints:
       coinMarket: "/coins"
   bc-stock-finnhub:
-    domain: "localhost:8091"
-    apiVersion: ""
+    domain: "localhost"
+    port: "8091"
+    apiVersion: "/stock/finnhub/api/v1"
     endpoints:
       quote: "/quote"
       profile2: "/profile2"
