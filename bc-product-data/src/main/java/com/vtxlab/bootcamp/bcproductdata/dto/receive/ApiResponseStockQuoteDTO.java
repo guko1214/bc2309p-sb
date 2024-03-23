@@ -1,5 +1,7 @@
-package com.vtxlab.bootcamp.bcproductdata.dto.request;
+package com.vtxlab.bootcamp.bcproductdata.dto.receive;
 
+import java.util.List;
+import com.vtxlab.bootcamp.bcproductdata.dto.request.StockQuoteDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,14 +15,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @Builder
-public class StockQuoteDTO {
+public class ApiResponseStockQuoteDTO {
+  String  code;
+  String message;
+  List<StockQuoteDTO> data;
 
-  private double c;
-  private double d;
-  private double dp;
-  private double h;
-  private double l;
-  private double o;
-  private double pc;
-  private double t;
 }

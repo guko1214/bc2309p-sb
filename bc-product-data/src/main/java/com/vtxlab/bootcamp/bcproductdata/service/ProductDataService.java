@@ -36,5 +36,6 @@ public interface ProductDataService {
   void deleteAllTexSkFinnhubQuoteEntities();
 
   void deleteAllTexSKFinnhubProfile2Entitiess();
-  
+
+  void saveOrUpdateTproductCoinsEntity(List<TproductCoinListEntity> coinList, List<TexCPCoingeckoMKEntity> textCPCoingecko);
 }

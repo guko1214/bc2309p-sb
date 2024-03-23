@@ -1,10 +1,13 @@
 package com.vtxlab.bootcamp.bcproductdata.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,4 +32,8 @@ public class TproductCoinListEntity {
   @Column(name = "coin_code")
   private String coinCode;
   
+  // @OneToOne(mappedBy = "tproduct_coin_list", cascade = CascadeType.ALL, orphanRemoval = true)
+  // @JsonManagedReference
+  // private TproductCoinsEntity tproductCoinsEntity = new TproductCoinsEntity();
+
 }

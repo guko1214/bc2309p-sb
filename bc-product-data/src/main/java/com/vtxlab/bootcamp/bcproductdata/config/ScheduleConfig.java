@@ -14,6 +14,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vtxlab.bootcamp.bcproductdata.dto.mapper.DtoMapper;
+import com.vtxlab.bootcamp.bcproductdata.dto.receive.ApiResponseCoinMKDataDTO;
+import com.vtxlab.bootcamp.bcproductdata.dto.receive.ApiResponseStockProfile2DTO;
+import com.vtxlab.bootcamp.bcproductdata.dto.receive.ApiResponseStockQuoteDTO;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.CoinsMKDataDTO;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.StockProfile2DTO;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.StockQuoteDTO;
@@ -22,14 +25,17 @@ import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSKFinnhubProfile2Entity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSkFinnhubQuoteEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
+import com.vtxlab.bootcamp.bcproductdata.infra.ApiResponse;
 import com.vtxlab.bootcamp.bcproductdata.infra.BcUtil;
 import com.vtxlab.bootcamp.bcproductdata.infra.Scheme;
 import com.vtxlab.bootcamp.bcproductdata.service.ProductDataService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Configuration
 @EnableScheduling
 public class ScheduleConfig {
-  
+
   @Value("${api.bc-crypto-coingecko.domain}")
   private String coingeckoDomain;
 
@@ -53,7 +59,7 @@ public class ScheduleConfig {
 
   @Value("${api.bc-stock-finnhub.endpoints.quote}")
   private String finnhubQuote;
-  
+
   @Value("${api.bc-stock-finnhub.endpoints.profile2}")
   private String finnhubProfile2;
 
@@ -67,78 +73,110 @@ public class ScheduleConfig {
   ObjectMapper objectMapper;
 
   @Scheduled(fixedRate = 600000) // 3000ms = 3s
-  public void getBcCpCoingeckoCoinsMK() throws InterruptedException, JsonProcessingException {
+  public void getBcCpCoingeckoCoinsMK()
+      throws InterruptedException, JsonProcessingException {
     HashMap<String, String> uris = new HashMap<>();
-    List<TproductCoinListEntity> coinListEntities = productDataService.getCoinList();
+    List<TproductCoinListEntity> coinListEntities =
+        productDataService.getCoinList();
     List<String> coinCodeStrings = coinListEntities.stream()
-                                //.filter(e -> e != null)
-                                .map(e -> e.getCoinCode())
-                                .collect(Collectors.toList());
+        // .filter(e -> e != null)
+        .map(e -> e.getCoinCode()).collect(Collectors.toList());
     String coinsIdsCsv = BcUtil.listToCsv(coinCodeStrings);
-    uris.put("currency","usd");
-    uris.put("ids",coinsIdsCsv);
-    
-    String url = BcUtil.getUrl(Scheme.HTTP,coingeckoDomain    
-                                ,coingeckoPort,coingeckoApiVersion+coingeckoCoinMarket,uris);
+    uris.put("currency", "usd");
+    uris.put("ids", coinsIdsCsv);
 
-    String apiResponse = restTemplate.getForObject(url, String.class);
-    JsonNode jsonArray = objectMapper.readTree(apiResponse);
-    List<CoinsMKDataDTO> coinsMKDataDTOs = new ArrayList<>();
-    for (JsonNode jsonNode : jsonArray.get("data")) {      
-      coinsMKDataDTOs.add(objectMapper.readValue(jsonNode.toString(),CoinsMKDataDTO.class));
-    }
-    List<TexCPCoingeckoMKEntity> cryptosEntitiesList = DtoMapper.cpCoingeckoMKEntityMap(coinsMKDataDTOs);
+    String url = BcUtil.getUrl(Scheme.HTTP, coingeckoDomain, coingeckoPort,
+        coingeckoApiVersion + coingeckoCoinMarket, uris);
+
+    ApiResponseCoinMKDataDTO apiResponse2 =
+        restTemplate.getForObject(url, ApiResponseCoinMKDataDTO.class);
+
+    List<CoinsMKDataDTO> coinsMKDataDTOs = apiResponse2.getData();
+
+    // String apiResponse = restTemplate.getForObject(url, String.class);
+    // JsonNode jsonArray = objectMapper.readTree(apiResponse);
+    // List<CoinsMKDataDTO> coinsMKDataDTOs = new ArrayList<>();
+    // for (JsonNode jsonNode : jsonArray.get("data")) {
+    // coinsMKDataDTOs.add(objectMapper.readValue(jsonNode.toString(),CoinsMKDataDTO.class));
+    // }
+    List<TexCPCoingeckoMKEntity> cryptosEntitiesList =
+        DtoMapper.cpCoingeckoMKEntityMap(coinsMKDataDTOs);
     productDataService.saveAllTexCPCoingeckoMKEntites(cryptosEntitiesList);
 
   }
 
 
   @Scheduled(fixedRate = 600000) // 3000ms = 3s
-  public void getSkFinnhubQuote() throws InterruptedException, JsonProcessingException {
+  public void getSkFinnhubQuote()
+      throws InterruptedException, JsonProcessingException {
     HashMap<String, String> uris = new HashMap<>();
-    List<TproductStockListEntity> stockListEntities = productDataService.getStockList();
+    List<TproductStockListEntity> stockListEntities =
+        productDataService.getStockList();
     List<String> stockCodeStrings = stockListEntities.stream()
-                                //.filter(e -> e != null)
-                                .map(e -> e.getStockCode())
-                                .collect(Collectors.toList());
+        // .filter(e -> e != null)
+        .map(e -> e.getStockCode()).collect(Collectors.toList());
     String stocksIdsCsv = BcUtil.listToCsv(stockCodeStrings);
-    uris.put("symbol",stocksIdsCsv);
+    uris.put("symbol", stocksIdsCsv);
 
-    String url = BcUtil.getUrl(Scheme.HTTP,finnhubDomain    
-                                ,finnhubPort,finnhubapiVersion+finnhubQuote,uris);
-    System.out.println(url);
-    String apiResponse = restTemplate.getForObject(url, String.class);
-    JsonNode jsonArray = objectMapper.readTree(apiResponse);
-    List<StockQuoteDTO> stocksMKDataDTOs = new ArrayList<>();
-    for (JsonNode jsonNode : jsonArray.get("data")) {      
-      stocksMKDataDTOs.add(objectMapper.readValue(jsonNode.toString(),StockQuoteDTO.class));
-    }
-    List<TexSkFinnhubQuoteEntity> stockQuotesEntitiesList = DtoMapper.texSkFinnhubQuoteEntityMap(stocksMKDataDTOs,stockCodeStrings);
-    productDataService.saveAllTexSkFinnhubQuoteEntities(stockQuotesEntitiesList);
+    String url = BcUtil.getUrl(Scheme.HTTP, finnhubDomain, finnhubPort,
+        finnhubapiVersion + finnhubQuote, uris);
+    // System.out.println("url " +url);
+
+    ApiResponseStockQuoteDTO apiResponse =
+        restTemplate.getForObject(url, ApiResponseStockQuoteDTO.class);
+
+    List<StockQuoteDTO> stocksMKDataDTOs = apiResponse.getData();
+
+    // System.out.println(stockQuotesEntitiesList2);
+
+    // String apiResponse = restTemplate.getForObject(url, String.class);
+    // JsonNode jsonArray = objectMapper.readTree(apiResponse);
+    // List<StockQuoteDTO> stocksMKDataDTOs = new ArrayList<>();
+    // for (JsonNode jsonNode : jsonArray.get("data")) {
+    // stocksMKDataDTOs.add(objectMapper.readValue(jsonNode.toString(),StockQuoteDTO.class));
+    // }
+    List<TexSkFinnhubQuoteEntity> stockQuotesEntitiesList = DtoMapper
+        .texSkFinnhubQuoteEntityMap(stocksMKDataDTOs, stockCodeStrings);
+    productDataService
+        .saveAllTexSkFinnhubQuoteEntities(stockQuotesEntitiesList);
   }
 
   @Scheduled(fixedRate = 600000) // 3000ms = 3s
-  public void getSkFinnhubProfile2() throws InterruptedException, JsonProcessingException {
+  public void getSkFinnhubProfile2()
+      throws InterruptedException, JsonProcessingException {
     HashMap<String, String> uris = new HashMap<>();
-    List<TproductStockListEntity> stockListEntities = productDataService.getStockList();
+    List<TproductStockListEntity> stockListEntities =
+        productDataService.getStockList();
     List<String> stockCodeStrings = stockListEntities.stream()
-                                //.filter(e -> e != null)
-                                .map(e -> e.getStockCode())
-                                .collect(Collectors.toList());
+        // .filter(e -> e != null)
+        .map(e -> e.getStockCode()).collect(Collectors.toList());
     String stocksIdsCsv = BcUtil.listToCsv(stockCodeStrings);
-    uris.put("symbol",stocksIdsCsv);
+    uris.put("symbol", stocksIdsCsv);
 
-    String url = BcUtil.getUrl(Scheme.HTTP,finnhubDomain    
-                                ,finnhubPort,finnhubapiVersion+finnhubProfile2,uris);
-    System.out.println(url);
-    String apiResponse = restTemplate.getForObject(url, String.class);
-    JsonNode jsonArray = objectMapper.readTree(apiResponse);
-    List<StockProfile2DTO> stocksProfile2DTOs = new ArrayList<>();
-    for (JsonNode jsonNode : jsonArray.get("data")) {      
-      stocksProfile2DTOs.add(objectMapper.readValue(jsonNode.toString(),StockProfile2DTO.class));
-    }
-    List<TexSKFinnhubProfile2Entity> stockProfile2sEntitiesList = DtoMapper.texSKFinnhubProfile2EntityMap(stocksProfile2DTOs,stockCodeStrings);
-    productDataService.saveAllTexSKFinnhubProfile2Entities(stockProfile2sEntitiesList);
+    String url = BcUtil.getUrl(Scheme.HTTP, finnhubDomain, finnhubPort,
+        finnhubapiVersion + finnhubProfile2, uris);
+
+        ApiResponse<StockProfile2DTO> apiResponse2 =
+        restTemplate.getForObject(url, ApiResponse<StockProfile2DTO>.class);
+
+//        List<StockProfile2DTO> stocksProfile2DTOs = apiResponse2.getData();
+
+    ApiResponseStockProfile2DTO apiResponse =
+        restTemplate.getForObject(url, ApiResponseStockProfile2DTO.class);
+    log.info("profile url :" + url);
+    List<StockProfile2DTO> stocksProfile2DTOs = apiResponse.getData();
+    log.info("stocksProfile2DTOs data :" + stocksProfile2DTOs);
+
+    // String apiResponse = restTemplate.getForObject(url, String.class);
+    // JsonNode jsonArray = objectMapper.readTree(apiResponse);
+    // List<StockProfile2DTO> stocksProfile2DTOs = new ArrayList<>();
+    // for (JsonNode jsonNode : jsonArray.get("data")) {
+    // stocksProfile2DTOs.add(objectMapper.readValue(jsonNode.toString(),StockProfile2DTO.class));
+    // }
+    List<TexSKFinnhubProfile2Entity> stockProfile2sEntitiesList = DtoMapper
+        .texSKFinnhubProfile2EntityMap(stocksProfile2DTOs, stockCodeStrings);
+    productDataService
+        .saveAllTexSKFinnhubProfile2Entities(stockProfile2sEntitiesList);
   }
 
   @Scheduled(cron = "0 23 0 * * *")
@@ -154,5 +192,5 @@ public class ScheduleConfig {
   @Scheduled(cron = "0 23 0 * * *")
   public void deleteTexternalStockFinnhubProfile2() {
     productDataService.deleteAllTexSKFinnhubProfile2Entitiess();
-  }  
+  }
 }

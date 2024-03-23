@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "texternal_stock_finnhub_quote")
@@ -20,6 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@ToString
 public class TexSkFinnhubQuoteEntity {
   
   @Id

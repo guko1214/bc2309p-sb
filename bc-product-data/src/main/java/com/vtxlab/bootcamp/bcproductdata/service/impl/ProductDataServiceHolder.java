@@ -5,12 +5,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinListEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinsEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSKFinnhubProfile2Entity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSkFinnhubQuoteEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.CoinsIdEntityRepository;
-import com.vtxlab.bootcamp.bcproductdata.repostitory.TexCPCoingeckoMKEntityRespository;
+import com.vtxlab.bootcamp.bcproductdata.repostitory.TexCPCoingeckoMKEntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.TexSKFinnhubProfile2EntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.TexSkFinnhubQuoteEntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.StocksIdEntityRepository;
@@ -26,7 +27,7 @@ public class ProductDataServiceHolder implements ProductDataService {
   StocksIdEntityRepository stocksIdEntityRespository;
 
   @Autowired
-  TexCPCoingeckoMKEntityRespository texCPCoingeckoMKEntityRespository;
+  TexCPCoingeckoMKEntityRepository texCPCoingeckoMKEntityRespository;
 
   @Autowired
   TexSkFinnhubQuoteEntityRepository texSkFinnhubQuoteEntityRepository;
@@ -107,5 +108,11 @@ public class ProductDataServiceHolder implements ProductDataService {
   public void deleteAllTexSKFinnhubProfile2Entitiess() {
     texSKFinnhubProfile2EntityRepository.deleteAll();
   };
+
+  @Override
+  public void saveOrUpdateTproductCoinsEntity(List<TproductCoinListEntity> coinList, List<TexCPCoingeckoMKEntity> textCPCoingecko) {
+    
+  };
+
 
 }
