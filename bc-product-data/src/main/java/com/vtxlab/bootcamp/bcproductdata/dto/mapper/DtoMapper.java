@@ -1,5 +1,6 @@
 package com.vtxlab.bootcamp.bcproductdata.dto.mapper;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,21 +9,33 @@ import java.util.stream.Collectors;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.CoinsMKDataDTO;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.StockProfile2DTO;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.StockQuoteDTO;
+import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductDailyDTO;
+import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductsDTO;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSKFinnhubProfile2Entity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSkFinnhubQuoteEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinListEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinsEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinsEntity.TproductCoinsEntityBuilder;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksDailyEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksDailyEntity.TproductStocksDailyEntityBuilder;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksEntity.TproductStocksEntityBuilder;
 import com.vtxlab.bootcamp.bcproductdata.model.CoinsMKData;
+import com.vtxlab.bootcamp.bcproductdata.service.ProductDataService;
 
 public class DtoMapper {
   
   public static List<TexCPCoingeckoMKEntity> cpCoingeckoMKEntityMap(List<CoinsMKDataDTO> c) {
     List<TexCPCoingeckoMKEntity> cpCoingeckoMKEntitys = c.stream()
       .map(e -> {
+        //System.out.println("coin name: " + e.getName());
         return TexCPCoingeckoMKEntity.builder()
         //.id(e.getId())
         .quoteDate(LocalDateTime.parse(e.getLastUpdated().substring(0,e.getLastUpdated().length() -1)))
-        .quoteCoinCode(e.getSymbol())
-        .quoteCurrency("usd")
+        .quoteCoinCode(e.getId())
+        .quoteCurrency("usd")        
         .name(e.getName())
         .image(e.getImage())
         .currPrice(e.getCurrentPrice())
@@ -53,15 +66,13 @@ public class DtoMapper {
   }
 
   public static List<TexSkFinnhubQuoteEntity> texSkFinnhubQuoteEntityMap(List<StockQuoteDTO> c
-    ,List<String> stocksIdsStrings) {
-
-    Iterator<String> d = stocksIdsStrings.iterator();
+    ,String stockCode) {
 
     List<TexSkFinnhubQuoteEntity> texSkFinnhubQuoteEntitys = c.stream()
       .map(e -> {
         return TexSkFinnhubQuoteEntity.builder()        
           .quoteDate(LocalDateTime.now())
-          .quoteStockCode(d.next())          
+          .quoteStockCode(stockCode)          
           .currPrice(e.getC())
           .priceChg(e.getD())
           .priceChgPct(e.getDp())
@@ -76,15 +87,15 @@ public class DtoMapper {
   }
 
   public static List<TexSKFinnhubProfile2Entity> texSKFinnhubProfile2EntityMap(List<StockProfile2DTO> c
-    ,List<String> stocksIdsStrings) {
+    ,String stockCode) {
 
-    Iterator<String> d = stocksIdsStrings.iterator();
+    // Iterator<String> d = stocksIdsStrings.iterator();
     
     List<TexSKFinnhubProfile2Entity> texSKFinnhubProfile2Entitys = c.stream()
       .map(e -> {
         return TexSKFinnhubProfile2Entity.builder()        
           .quoteDate(LocalDateTime.now())
-          .quoteStockCode(d.next())
+          .quoteStockCode(stockCode)
           .country(e.getCountry())
           .currency(e.getCurrency())
           .estimateCurrency(e.getEstimateCurrency())
@@ -102,6 +113,148 @@ public class DtoMapper {
       })
       .collect(Collectors.toList());
       return texSKFinnhubProfile2Entitys;
+  }
+
+  public static List<TproductCoinsEntity> tproductCoinsEntityMap(
+     List<TproductCoinListEntity> coinList, ProductDataService productDataService) {
+
+    List<TproductCoinsEntity> tproductCoinsEntities = coinList.stream()
+          .map(
+          s -> {
+            Long tproductCoinsEntityId;
+            List<TproductCoinsEntity> u = productDataService.findTproductCoinsEntitiesByCoinIdDesc(s.getId());
+            if (u.size() == 0) {
+              tproductCoinsEntityId = null;
+            } else {
+              tproductCoinsEntityId = u.get(0).getId();
+            }
+            TexCPCoingeckoMKEntity e = productDataService.findLatestTexCPCoingeckoMKEntityByQuoteCoinCode(s.getCoinCode());
+            TproductCoinsEntityBuilder tproductCoinsEntitybuilder = TproductCoinsEntity.builder()                
+                .coinId(s.getId())
+                .name(e.getName())
+                .currentPrice(e.getCurrPrice())
+                .priceChgPct(e.getPriceChange24h())
+                .marketCap(e.getMarketCap())
+                .logo(e.getImage());
+                
+            if (tproductCoinsEntityId != null)
+              tproductCoinsEntitybuilder.id(tproductCoinsEntityId);
+            return tproductCoinsEntitybuilder.build();
+        
+        }).collect(Collectors.toList());
+      return tproductCoinsEntities;
+  }
+
+  public static List<TproductStocksEntity> tproductStocksEntityMap(List<TproductStockListEntity> stockList, ProductDataService productDataService) {
+
+    List<TproductStocksEntity> tproductStocksEntities = stockList.stream()
+        .map(
+          s -> {
+            Long tproductStocksEntityId;
+            List<TproductStocksEntity> u = productDataService.findTproductStocksEntitiesByStockIdDesc(s.getId());
+            if (u.size() == 0) {
+              tproductStocksEntityId = null;
+            } else {
+              tproductStocksEntityId = u.get(0).getId();
+            }
+            TexSkFinnhubQuoteEntity e = productDataService.findLatestTexSkFinnhubQuoteEntityByQuoteStockCode(s.getStockCode());
+            TexSKFinnhubProfile2Entity k = productDataService.findLatestTexSKFinnhubProfile2EntityByQuoteStockCode(s.getStockCode());
+            TproductStocksEntityBuilder tproductStocksEntityBuilder = TproductStocksEntity.builder()              
+              .stockId(s.getId())
+              .name(k.getName())
+              .currentPrice(e.getCurrPrice())
+              .priceChgPct(e.getPriceChgPct())
+              .marketCap(k.getMarketCapitalization())
+              .logo(k.getLogo());
+            if (tproductStocksEntityId != null)
+              tproductStocksEntityBuilder.id(tproductStocksEntityId);
+            return tproductStocksEntityBuilder.build();
+          }).collect(Collectors.toList());
+
+    return tproductStocksEntities;
+  }
+
+  public static List<TproductStocksDailyEntity> tproductStocksDailyEntityMap(List<TproductStockListEntity> stockList, ProductDataService productDataService) {
+    List<TproductStocksDailyEntity> tproductStocksDailyEntities = stockList.stream()
+    .map(
+      s -> {
+        Long tproductStocksDailyEntityId;
+        List<TproductStocksDailyEntity> u = productDataService.findTproductStocksDailyEntitiesByStockIdDesc(s.getId());
+        if (u.size() == 0) {
+          tproductStocksDailyEntityId = null;
+        } else {
+          tproductStocksDailyEntityId = u.get(0).getId();
+        }
+        TexSkFinnhubQuoteEntity e = productDataService.findLatestTexSkFinnhubQuoteEntityByQuoteStockCode(s.getStockCode());
+        //TexSKFinnhubProfile2Entity k = productDataService.findLatestTexSKFinnhubProfile2EntityByQuoteStockCode(s.getStockCode());
+        TproductStocksDailyEntityBuilder tproductStocksDailyEntityBuilder = TproductStocksDailyEntity.builder()              
+          .stockId(s.getId())
+          .tradeDate(LocalDate.now())
+          .dayHigh(e.getPriceDayHigh())
+          .dayLow(e.getPriceDayLow())
+          .dayOpen(e.getPriceOpen())
+          .dayClose(e.getCurrPrice())
+          ;
+        // if (tproductStocksDailyEntityId != null)
+        //   tproductStocksDailyEntityBuilder.id(tproductStocksDailyEntityId);
+        return tproductStocksDailyEntityBuilder.build();
+      }).collect(Collectors.toList());
+
+      return tproductStocksDailyEntities;
+  }
+
+  public static List<TproductsDTO> tproductsMapfromTproductCoinsEntity(List<TproductCoinsEntity> coinsEntities, 
+  ProductDataService productDataService) {
+    return coinsEntities.stream()
+      .map(e -> {
+
+        TproductCoinListEntity coinList = productDataService.getCoinListById(e.getCoinId());
+        return TproductsDTO.builder()
+          .productId(coinList.getCoinCode())
+          .name(e.getName())
+          .currentPrice(e.getCurrentPrice())
+          .priceChgPct(e.getPriceChgPct())
+          .marketCap(e.getMarketCap())
+          .logo(e.getLogo())
+          .build();
+      })
+      .collect(Collectors.toList());
+  }
+
+  public static List<TproductsDTO> tproductsMapfromTproductStocksEntity(List<TproductStocksEntity> stocksEntities,
+  ProductDataService productDataService) {
+    return stocksEntities.stream()
+      .map(e -> {
+
+        TproductStockListEntity stockList = productDataService.getStockListById(e.getStockId());
+        return TproductsDTO.builder()
+          .productId(stockList.getStockCode())
+          .name(e.getName())
+          .currentPrice(e.getCurrentPrice())
+          .priceChgPct(e.getPriceChgPct())
+          .marketCap(e.getMarketCap())
+          .logo(e.getLogo())
+          .build();
+      })
+      .collect(Collectors.toList());
+  }
+
+  public static List<TproductDailyDTO> tproductDailyMapfromTproductStocksDailyEntity(List<TproductStocksDailyEntity> stocksDailyEntities,
+  ProductDataService productDataService) {
+    return stocksDailyEntities.stream()
+      .map(e -> {
+
+        TproductStockListEntity stockList = productDataService.getStockListById(e.getStockId());
+        return TproductDailyDTO.builder()
+          .productId(stockList.getStockCode())
+          .tradeDate(e.getTradeDate().toString())
+          .dayHigh(e.getDayHigh())
+          .dayLow(e.getDayLow())
+          .dayOpen(e.getDayOpen())
+          .dayClose(e.getDayClose())
+          .build();
+      })
+      .collect(Collectors.toList());
   }
 
 }

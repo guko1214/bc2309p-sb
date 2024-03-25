@@ -2,28 +2,28 @@ package com.vtxlab.bootcamp.bcproductdata.controller;
 
 import java.util.List;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinListEntity;
-import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
+import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductDailyDTO;
+import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductsDTO;
+import com.vtxlab.bootcamp.bcproductdata.infra.ApiResponse;
 
 public interface ProductDataOperation {
-  
-  @PostMapping(value = "/coinlist")
-  @ResponseStatus(value = HttpStatus.OK)
-  List<TproductCoinListEntity> saveCoinListEntities(@RequestParam(value = "coincodes") String coinCodeCsv);
 
-  @PostMapping(value = "/stocklist")
+  @GetMapping(value = "/product/coins")
   @ResponseStatus(value = HttpStatus.OK)
-  List<TproductStockListEntity> saveStockListEntities(@RequestParam(value = "stockcodes") String stockCodeCsv);
-  
-  @DeleteMapping(value = "/coinlist")
+  ApiResponse<List<TproductsDTO>> getTproductCoinsEntity();
+
+  @GetMapping(value = "/product/stocks")
   @ResponseStatus(value = HttpStatus.OK)
-  List<TproductCoinListEntity> deleteCoinList(@RequestParam(value = "coincodes") String coinCodeCsv);
-  
-  @DeleteMapping(value = "/stocklist")
+  ApiResponse<List<TproductsDTO>> getTproductStocksEntity();
+
+  @GetMapping(value = "/products")  
   @ResponseStatus(value = HttpStatus.OK)
-  List<TproductStockListEntity> deleteStockList(@RequestParam(value = "stockcodes") String stockCodeCsv);
+  ApiResponse<List<TproductsDTO>> getTproductsEntity();
+
+  @GetMapping(value = "/product/stock/daily")
+  @ResponseStatus(value = HttpStatus.OK)
+  ApiResponse<List<TproductDailyDTO>> getTproductStocksDailyEntity(@RequestParam(value = "code") String stockcode);
 }

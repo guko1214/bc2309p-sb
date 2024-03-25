@@ -18,7 +18,8 @@ public class CoinsValidator implements ConstraintValidator<CoinsCheck, String> {
     if (coins == null)
       return true;
     try {
-      List<String> coinsList = coingeckoService.getConinsList();   
+      List<String> coinsList = coingeckoService.getConinsList();  
+      System.out.println(coinsList); 
       int startIdx = 0;
       StringBuilder coinId = new StringBuilder();
       char[] coinsCharArr = (coins + " ").toCharArray();

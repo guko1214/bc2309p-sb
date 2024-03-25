@@ -40,6 +40,7 @@ public class FinnhubServiceHolder implements FinnhubService {
   public StockQuote getStockQuote(HashMap<String, String> parms) {
     parms.put("token",apikey);
     String url = BcUtil.getUrl(Scheme.HTTPS,domain ,quote, parms);
+    System.out.println(url);
     return restTemplate.getForObject(url,StockQuote.class);
   }
   

@@ -26,7 +26,7 @@ public class TproductStocksEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(name = "stock_id")
+  @Column(name = "stock_id",unique=true)
   private Long stockId;
   private String name;
   @Column(name = "currectPrice")
@@ -35,5 +35,5 @@ public class TproductStocksEntity {
   private Double priceChgPct;
   @Column(name = "market_Cap")
   private Double marketCap;
-  private String Logo;
+  private String logo;
 }

@@ -10,10 +10,15 @@ import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSKFinnhubProfile2Entity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSkFinnhubQuoteEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksDailyEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksEntity;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.CoinsIdEntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.TexCPCoingeckoMKEntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.TexSKFinnhubProfile2EntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.TexSkFinnhubQuoteEntityRepository;
+import com.vtxlab.bootcamp.bcproductdata.repostitory.TproductCoinsEntityRepository;
+import com.vtxlab.bootcamp.bcproductdata.repostitory.TproductStocksDailyEntityRepository;
+import com.vtxlab.bootcamp.bcproductdata.repostitory.TproductStocksEntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.repostitory.StocksIdEntityRepository;
 import com.vtxlab.bootcamp.bcproductdata.service.ProductDataService;
 
@@ -35,6 +40,15 @@ public class ProductDataServiceHolder implements ProductDataService {
   @Autowired
   TexSKFinnhubProfile2EntityRepository texSKFinnhubProfile2EntityRepository;
 
+  @Autowired
+  TproductCoinsEntityRepository tproductCoinsEntityRepository;
+
+  @Autowired
+  TproductStocksEntityRepository tproductStocksEntityRepository;
+
+  @Autowired
+  TproductStocksDailyEntityRepository tproductStocksDailyEntityRepository;
+
   @Override
   public List<TproductCoinListEntity> saveCoinList(List<TproductCoinListEntity> coinCodes) {
     return coinsIdEntityRespository.saveAll(coinCodes);
@@ -53,6 +67,11 @@ public class ProductDataServiceHolder implements ProductDataService {
   };
 
   @Override
+  public TproductCoinListEntity getCoinListById(Long id) {
+    return coinsIdEntityRespository.findById(id).get();
+  };
+
+  @Override
   public List<TproductStockListEntity> saveStockList(List<TproductStockListEntity> stocksIds) {
     return stocksIdEntityRespository.saveAll(stocksIds);
   };
@@ -67,6 +86,16 @@ public class ProductDataServiceHolder implements ProductDataService {
     return stocksIdEntityRespository.findAll().stream()
             .filter(e -> stockCodes.contains(e.getStockCode()))
             .collect(Collectors.toList());
+  };
+
+  @Override
+  public TproductStockListEntity getStockListById(Long id) {
+    return stocksIdEntityRespository.findById(id).get();
+  };
+
+  @Override
+  public TproductStockListEntity getStockListByCode(String code) {
+    return stocksIdEntityRespository.findByStockCode(code).get(0);
   };
 
   @Override
@@ -95,6 +124,91 @@ public class ProductDataServiceHolder implements ProductDataService {
   };
 
   @Override
+  public List<TproductCoinsEntity> saveAllTproductCoinsEntities(List<TproductCoinsEntity> tproductCoinsEntities) {
+    return   tproductCoinsEntityRepository.saveAll(tproductCoinsEntities);
+  };
+
+  @Override
+  public List<TproductStocksEntity> saveAllTproductStocksEntities(List<TproductStocksEntity> tproductStocksEntities) {
+    return tproductStocksEntityRepository.saveAll(tproductStocksEntities);
+  };
+
+  @Override
+  public List<TproductStocksDailyEntity> saveAllTproductStocksDailyEntities(List<TproductStocksDailyEntity> tproductStocksDailyEntities){
+    return tproductStocksDailyEntityRepository.saveAll(tproductStocksDailyEntities);
+  };
+
+  @Override
+  public List<TexCPCoingeckoMKEntity> findAllTexCPCoingeckoMKEntites() {
+    return texCPCoingeckoMKEntityRespository.findAll();
+  };
+
+  @Override
+  public List<TexSkFinnhubQuoteEntity> findAllTexSkFinnhubQuoteEntities() {
+    return texSkFinnhubQuoteEntityRepository.findAll();
+  };
+
+  @Override
+  public List<TexSKFinnhubProfile2Entity> findAllTexSKFinnhubProfile2Entities() {
+    return texSKFinnhubProfile2EntityRepository.findAll();
+  };
+
+  @Override
+  public List<TproductCoinsEntity> findAllTproductCoinsEntities(){
+    return tproductCoinsEntityRepository.findAllByOrderByCoinId();
+  };
+
+  @Override
+  public List<TproductStocksEntity> findAllTprodcutStocksEntities() {
+    return tproductStocksEntityRepository.findAll();
+  };
+
+  @Override
+  public List<TproductStocksDailyEntity> findAllTprodicTproductStocksDailyEntities(){
+    return tproductStocksDailyEntityRepository.findAll();
+  };
+
+  @Override
+  public List<TproductCoinsEntity> findTproductCoinsEntitiesByCoinIdDesc(Long id) {
+    return tproductCoinsEntityRepository.findByCoinIdOrderByIdDesc(id);
+  };
+
+  @Override
+  public List<TproductStocksEntity> findTproductStocksEntitiesByStockIdDesc(Long id) {
+    return tproductStocksEntityRepository.findByStockIdOrderByIdDesc(id);
+  };
+
+  @Override
+  public List<TproductStocksDailyEntity> findTproductStocksDailyEntitiesByStockIdDesc(Long id) {
+    return tproductStocksDailyEntityRepository.findByStockIdOrderByIdDesc(id);
+  };
+
+  @Override
+  public List<TproductStocksDailyEntity> findTproductStocksEntitiesByStockIdOrderByTradeDateAsc(Long id) {
+    return tproductStocksDailyEntityRepository.findByStockIdOrderByTradeDateAsc(id);
+  };
+
+  @Override
+  public TexCPCoingeckoMKEntity findTexCPCoingeckoMKEntityById(Long id) {
+    return texCPCoingeckoMKEntityRespository.findById(id).get();
+  };
+
+  @Override
+  public TexCPCoingeckoMKEntity findLatestTexCPCoingeckoMKEntityByQuoteCoinCode(String code) {
+    return texCPCoingeckoMKEntityRespository.findByQuoteCoinCodeOrderByIdDesc(code).get(0);
+  };
+
+  @Override
+  public TexSkFinnhubQuoteEntity findLatestTexSkFinnhubQuoteEntityByQuoteStockCode(String code) {
+    return texSkFinnhubQuoteEntityRepository.findByQuoteStockCodeOrderByIdDesc(code).get(0);
+  }; 
+
+  @Override
+  public TexSKFinnhubProfile2Entity findLatestTexSKFinnhubProfile2EntityByQuoteStockCode(String code) {
+    return texSKFinnhubProfile2EntityRepository.findByQuoteStockCodeOrderByIdDesc(code).get(0);
+  };
+
+  @Override
   public void deleteAllTexCPCoingeckoMKEntites() {
     texCPCoingeckoMKEntityRespository.deleteAll();
   };
@@ -108,11 +222,5 @@ public class ProductDataServiceHolder implements ProductDataService {
   public void deleteAllTexSKFinnhubProfile2Entitiess() {
     texSKFinnhubProfile2EntityRepository.deleteAll();
   };
-
-  @Override
-  public void saveOrUpdateTproductCoinsEntity(List<TproductCoinListEntity> coinList, List<TexCPCoingeckoMKEntity> textCPCoingecko) {
-    
-  };
-
 
 }

@@ -39,5 +39,5 @@ public class TproductStocksDailyEntity {
   @Column(name = "day_open")
   private Double dayOpen;
   @Column(name = "day_close")
-  private String dayClose;
+  private Double dayClose;
 }

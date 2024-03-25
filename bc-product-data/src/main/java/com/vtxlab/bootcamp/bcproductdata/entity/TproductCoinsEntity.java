@@ -27,9 +27,9 @@ import lombok.ToString;
 public class TproductCoinsEntity {
   
   @Id
-  //@GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(name = "coin_id")
+  @Column(name = "coin_id",unique=true)
   private Long coinId;
   private String name;
   @Column(name = "curr_price")
@@ -38,7 +38,7 @@ public class TproductCoinsEntity {
   private Double priceChgPct;
   @Column(name = "market_Cap")
   private Double marketCap;
-  private String Logo;
+  private String logo;
 
   // @OneToOne
   // @JoinColumn(name = "coin_id", referencedColumnName = "ID")

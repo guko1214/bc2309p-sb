@@ -1,8 +1,6 @@
-package com.vtxlab.bootcamp.bcproductdata.dto.receive;
+package com.vtxlab.bootcamp.bcproductdata.dto.request;
 
 import java.util.List;
-import com.vtxlab.bootcamp.bcproductdata.dto.request.CoinsMKDataDTO;
-import com.vtxlab.bootcamp.bcproductdata.dto.request.StockProfile2DTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
