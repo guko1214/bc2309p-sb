@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductDailyDTO;
 import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductsDTO;
 import com.vtxlab.bootcamp.bcproductdata.infra.ApiResponse;
@@ -25,5 +26,5 @@ public interface ProductDataOperation {
 
   @GetMapping(value = "/product/stock/daily")
   @ResponseStatus(value = HttpStatus.OK)
-  ApiResponse<List<TproductDailyDTO>> getTproductStocksDailyEntity(@RequestParam(value = "code") String stockcode);
+  ApiResponse<List<TproductDailyDTO>> getTproductStocksDailyEntity(@RequestParam(value = "code") String stockcode)  throws JsonProcessingException;
 }

@@ -1,4 +1,6 @@
 package com.vtxlab.bootcamp.bcproductdata.infra;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -47,6 +49,13 @@ public class RedisHelper {
 
   }
 
+  public List<String> getKeys(String pattern) {
+    return new ArrayList<>(redisTemplate.keys(pattern));
+  }
+
+  public void delete(List<String> keys) {
+    redisTemplate.delete(keys);
+  }
 
 }
 

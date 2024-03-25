@@ -38,9 +38,7 @@ public class CoingeckoController implements CoingeckoOperation {
     parm.put("vs_currency",currency.getId());
     System.out.println("ids = " + ids);
     parm.put("ids",ids);
-    System.out.println("initial");
     try {
-      System.out.println("coingecko");
       List<CoinsMKData> coinsMKDatas = coingeckoService.getCoinsQuote(parm);
       List<CoinsMKDataDTO> coinsMKDataDTOs = CoinGeckoMapper.coinsMKDataDTOMap(coinsMKDatas);
       redisService.bulkCreateCoinsMKData(coinsMKDataDTOs,currency);
@@ -49,7 +47,6 @@ public class CoingeckoController implements CoingeckoOperation {
       .data(coinsMKDataDTOs)
       .build();
     } catch (RestClientException e) {
-      System.out.println("Redis");
       List<CoinsMKDataDTO> coinsMKDataDTOs = redisService.bulkGetCoinsMKDataDTOs(currency, ids);
       return ApiResponse.<List<CoinsMKDataDTO>>builder()
       .status(Syscode.OK)

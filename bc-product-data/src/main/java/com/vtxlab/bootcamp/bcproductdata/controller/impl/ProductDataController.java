@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vtxlab.bootcamp.bcproductdata.controller.ProductDataOperation;
 import com.vtxlab.bootcamp.bcproductdata.dto.mapper.DtoMapper;
 import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductDailyDTO;
@@ -13,10 +15,12 @@ import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductsDTO;
 import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinListEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TproductCoinsEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksDailyEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksEntity;
 import com.vtxlab.bootcamp.bcproductdata.infra.ApiResponse;
 import com.vtxlab.bootcamp.bcproductdata.infra.Syscode;
 import com.vtxlab.bootcamp.bcproductdata.service.ProductDataService;
+import com.vtxlab.bootcamp.bcproductdata.service.RedisService;
 
 @RestController
 @RequestMapping("/data/api/v1")
@@ -24,6 +28,9 @@ public class ProductDataController implements ProductDataOperation {
 
   @Autowired
   ProductDataService productDataService;
+
+  @Autowired
+  RedisService redisService;
 
   @Override
   public ApiResponse<List<TproductsDTO>> getTproductCoinsEntity() {
@@ -59,10 +66,19 @@ public class ProductDataController implements ProductDataOperation {
   };
 
   @Override
-  public ApiResponse<List<TproductDailyDTO>> getTproductStocksDailyEntity(String stockcode) {
-    TproductStockListEntity tproductStockListEntity = productDataService.getStockListByCode(stockcode);
+  public ApiResponse<List<TproductDailyDTO>> getTproductStocksDailyEntity(String stockCode)  throws JsonProcessingException {
+    TproductStockListEntity tproductStockListEntity = productDataService.getStockListByCode(stockCode);
+    Long stockId = tproductStockListEntity.getId();
+    List<TproductStocksDailyEntity> tproductStocksDailyEntities = redisService.bulkGetStocksDaily(stockId);
+    if (tproductStocksDailyEntities.size() == 0) {
+      tproductStocksDailyEntities =productDataService.findTproductStocksEntitiesByStockIdOrderByTradeDateAsc(stockId);
+      if (tproductStocksDailyEntities.size() == 0) {
+        throw new RestClientException("RestClientException - Product Data Service is unavailable");
+      }
+      redisService.bulkCreateStocksDaily(tproductStocksDailyEntities);
+    }
     List<TproductDailyDTO> productDaily = DtoMapper.tproductDailyMapfromTproductStocksDailyEntity(
-      productDataService.findTproductStocksEntitiesByStockIdOrderByTradeDateAsc(tproductStockListEntity.getId()), productDataService);
+      tproductStocksDailyEntities, productDataService);
     return ApiResponse.<List<TproductDailyDTO>>builder()
     .status(Syscode.OK)
     .data(productDaily)
