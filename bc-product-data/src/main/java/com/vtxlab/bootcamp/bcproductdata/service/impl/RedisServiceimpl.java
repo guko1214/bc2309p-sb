@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.CoinsMKDataDTO;
@@ -15,6 +16,7 @@ import com.vtxlab.bootcamp.bcproductdata.infra.RedisHelper;
 import com.vtxlab.bootcamp.bcproductdata.service.ProductDataService;
 import com.vtxlab.bootcamp.bcproductdata.service.RedisService;
 
+@Service
 public class RedisServiceimpl implements RedisService {
   
   @Autowired

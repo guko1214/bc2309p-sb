@@ -31,7 +31,7 @@ public class TproductStocksDailyEntity {
   @Column(name = "stock_id")
   private Long stockId;
   @Column(name = "trade_date")
-  private LocalDate tradeDate;
+  private String tradeDate;
   @Column(name = "day_high")
   private Double dayHigh;
   @Column(name = "day_low")

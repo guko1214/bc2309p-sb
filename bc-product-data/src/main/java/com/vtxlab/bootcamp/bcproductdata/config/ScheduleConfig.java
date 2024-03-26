@@ -75,7 +75,7 @@ public class ScheduleConfig {
   @Autowired
   ObjectMapper objectMapper;
 
-  @Scheduled(fixedRate = 600000) // 3000ms = 3s
+  @Scheduled(fixedRate = 600000) // 600000ms = 600s
   public void getBcCpCoingeckoCoinsMK()
       throws InterruptedException, JsonProcessingException {
     HashMap<String, String> uris = new HashMap<>();
@@ -109,7 +109,7 @@ public class ScheduleConfig {
   }
 
 
-  @Scheduled(fixedRate = 600000) // 3000ms = 3s
+  @Scheduled(fixedRate = 600000) // ten minutes
   public void getSkFinnhubQuote()
       throws InterruptedException, JsonProcessingException {
 
@@ -151,7 +151,7 @@ public class ScheduleConfig {
         .saveAllTexSkFinnhubQuoteEntities(stockQuotesEntitiesList);
   }
 
-  @Scheduled(fixedRate = 600000) // 3000ms = 3s
+  @Scheduled(fixedRate = 600000) // // ten minutes
   public void getSkFinnhubProfile2()
       throws InterruptedException, JsonProcessingException {
     
@@ -206,7 +206,7 @@ public class ScheduleConfig {
     productDataService.deleteAllTexSKFinnhubProfile2Entitiess();
   }
 
-  @Scheduled(fixedRate = 60000) 
+  @Scheduled(fixedRate = 60000) // ten minutes
   public void updateTproductCoinsEntity() {
     List<TproductCoinListEntity> coinList = productDataService.getCoinList();
 
@@ -215,7 +215,7 @@ public class ScheduleConfig {
     productDataService.saveAllTproductCoinsEntities(tproductCoinsEntities);
   }
 
-  @Scheduled(fixedRate = 60000)
+  @Scheduled(fixedRate = 60000) // ten minutes
   public void updateTproductStocksEntity() {
     List<TproductStockListEntity> stockList = productDataService.getStockList();
 

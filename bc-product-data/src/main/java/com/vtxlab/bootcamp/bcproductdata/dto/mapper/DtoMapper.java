@@ -189,7 +189,7 @@ public class DtoMapper {
         //TexSKFinnhubProfile2Entity k = productDataService.findLatestTexSKFinnhubProfile2EntityByQuoteStockCode(s.getStockCode());
         TproductStocksDailyEntityBuilder tproductStocksDailyEntityBuilder = TproductStocksDailyEntity.builder()              
           .stockId(s.getId())
-          .tradeDate(LocalDate.now())
+          .tradeDate(LocalDate.now().toString())
           .dayHigh(e.getPriceDayHigh())
           .dayLow(e.getPriceDayLow())
           .dayOpen(e.getPriceOpen())
