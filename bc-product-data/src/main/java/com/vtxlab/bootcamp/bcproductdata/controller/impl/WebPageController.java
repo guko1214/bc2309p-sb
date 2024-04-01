@@ -19,7 +19,7 @@ public class WebPageController {
   @GetMapping(value = "/coinsdata")
   public String displayExternalData(Model model) {
     List<TexCPCoingeckoMKEntity> texCPCoingeckoMKEntities = productDataService.findAllTexCPCoingeckoMKEntites();
-    List<CoinsMKDataDTO> coinsMKDatas = DtoMapper.texCPCoingeckoMKEntityMap(texCPCoingeckoMKEntities.subList(texCPCoingeckoMKEntities.size()-14,texCPCoingeckoMKEntities.size()));
+    List<CoinsMKDataDTO> coinsMKDatas = DtoMapper.texCPCoingeckoMKEntityMap(texCPCoingeckoMKEntities.subList(texCPCoingeckoMKEntities.size()-13,texCPCoingeckoMKEntities.size()));
     model.addAttribute("coinsMKDatas", coinsMKDatas);
     return "coin-data";
   }

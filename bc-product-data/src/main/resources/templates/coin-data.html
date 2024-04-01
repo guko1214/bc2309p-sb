@@ -124,20 +124,29 @@
   </div>
 
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="coinFilter">Filter by ID:</label>
             <input type="text" class="form-control" id="coinFilter" placeholder="Enter Coin ID">
-        </div>
+        </div> -->
+        <div class="container mx-auto pt-18 px-2">
         <table class="table-fixed cursor-pointer">
             <caption class="table-title font-bold text-gray-700  pb-2">Cryptocurrency Exchange - Top 20 (Market Cap)</caption>
             <thead>
-                <tr class="relative text-left text-gray-600 text-sm">
-                  <th class="w-1/4 p-4">Coin Name</th>
-                  <th class="w-1/4">Market Price(Real Time)</th>
-                  <th class="w-1/4">Change%(24 Hours)</th>
-                  <th class="w-1/4 hidden sm:table-cell">Trading Volume</th>
-                  <th class="w-1/4 hidden sm:table-cell">Market Capitalization</th>
-                </tr>
+              <tr class="relative text-left text-gray-600 text-sm">
+                <td class="p-2"> 
+                  Search: 
+                  <!-- <input type="text" class="form-control border border-gray-500 rounded p-2"  -->
+                  <input type="text" class="border border-gray-500 rounded p-2" 
+                  id="coinFilter" placeholder="Enter Coin ID">
+                </td> 
+              </tr>
+              <tr class="text-left bg-gray-100 text-gray-600 text-sm">
+                <th class="w-1/4 p-4">Coin Name</th>
+                <th class="w-1/4">Market Price(Real Time)</th>
+                <th class="w-1/4">Change%(24 Hours)</th>
+                <th class="w-1/4 hidden sm:table-cell">Trading Volume</th>
+                <th class="w-1/4 hidden sm:table-cell">Market Capitalization</th>
+              </tr>
             </thead>
 
             <tbody class="divide-y">
@@ -155,8 +164,10 @@
                         th:text="${coinData.id}">
                     </p>
                   </td>
+
                   <td  class="font-bold text-gray-600"
                   th:text="${coinData.currentPrice}">
+
                   </td>
                   <td class=" font-bold" th:text="${coinData.priceChangePercentage24h}+ '%'"></td>
                   <td  class="hidden sm:table-cell">
@@ -168,6 +179,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
         <!-- Add JavaScript for filtering -->
         <script type="text/javascript" th:src="@{custom.js}"></script>
         <script>
@@ -179,6 +191,9 @@
                     var filter = coinFilter.value.toUpperCase();
                     coinRows.forEach(function (row) {
                     var coinId = row.querySelector('td:nth-child(1)').textContent.toUpperCase();
+                    var coinPrice = row.querySelector('td:nth-child(3)');
+                    // coinPrice.value = comma_separator(coinPrice.value);
+                    coinPrice = 'ew';
                     if (coinId.indexOf(filter) > -1) {
                         row.style.display = '';
                     } else {
