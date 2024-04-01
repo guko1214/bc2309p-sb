@@ -257,4 +257,42 @@ public class DtoMapper {
       .collect(Collectors.toList());
   }
 
+  public static List<CoinsMKDataDTO> texCPCoingeckoMKEntityMap(List<TexCPCoingeckoMKEntity> c) {
+    List<CoinsMKDataDTO> cpCoingeckoMKEntitys = c.stream()
+      .map(e -> {
+        //System.out.println("coin name: " + e.getName());
+        return CoinsMKDataDTO.builder()
+        //.id(e.getId())
+        //.quoteDate()
+        .id(e.getQuoteCoinCode())
+        //.quoteCurrency("usd")
+        .name(e.getName())
+        .image(e.getImage())
+        .currentPrice(e.getCurrPrice())
+        .marketCap(e.getMarketCap())
+        .marketCapRank(e.getMarketCapRank())
+        .fullyDilutedValuation(e.getFullyDilutedValuation())
+        .totalVolume(e.getTotalVolume())
+        .high24h(e.getHigh24h())
+        .low24h(e.getLow24h())
+        .priceChange24h(e.getPriceChange24h())
+        .priceChangePercentage24h(e.getPriceChangePct24h())
+        .marketCapChange24h(e.getMarketCapChange24h())
+        .marketCapChangePercentage24h(e.getMarketCapChangePct24h())
+        .circulatingSupply(e.getCirculatingSupply())
+        .totalSupply(e.getTotalSupply())
+        .maxSupply(e.getMaxSupply())
+        .ath(e.getAth())
+        .athChangePercentage(e.getAthChangePercentage())
+        .athDate(e.getAthDate().toString())
+        .atl(e.getAtl())
+        .atlChangePercentage(e.getAtlChangePercentage())
+        .atlDate(e.getAtlDate().toString())
+        .build();
+      })
+      .collect(Collectors.toList());
+
+      return cpCoingeckoMKEntitys;
+  }
+
 }

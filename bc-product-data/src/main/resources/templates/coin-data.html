@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>External API Data</title>
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <style>
+          #app {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        }
+        .marquee-content {
+        animation: scrolling 25s linear infinite;
+        }
+        .marquee-content li {
+        width: 19%;
+        }
+        .table-title {
+        font-size : 30px;
+        bottom: 30;
+        height: 1.5em;
+        }
+        .marquee:before,
+        .marquee:after {
+        position: absolute;
+        top: 0;
+        width: 10rem;
+        height: 3em;
+        content: "";
+        z-index: 1;
+        }
+        .marquee {
+        background: rgb(132, 191, 59);
+        }
+        .marquee:before {
+        left: 0;
+        background: linear-gradient(to right, rgb(26, 137, 165) 0%, transparent 30%);
+        }
+        .marquee:after {
+        right: 0;
+        background: linear-gradient(to left, rgb(26, 137, 165) 0%, transparent 30%);
+        }
+        @keyframes scrolling {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        </style>
+    </head>
+    
+    <body>
+  <!-- ============ Marquee ============ -->
+  <div class="marquee w-full h-12 overflow-hidden position-relative" >
+    <ul class="marquee-content h-full flex" ref="mq">
+      <!-- main -->
+      <!-- 1 -->
+      <li class="flex justify-center items-center flex-shrink-0 text-white transform scale-75 lg:scale-100"
+      th:each="coinData : ${coinsMKDatas}"
+      >
+        <div   class="flex justify-between w-3/4">
+          <!-- ticker -->
+          <div class="flex items-center">
+            <img
+              th:onclick="greetWorld(comma_separator('dsf'))"
+              th:src="${coinData.image}"
+              alt="coin logo"
+              class="w-4 h-4 lg:w-6 lg:h-6 rounded-full mr-4 object-cover"
+            />
+            <div class="hidden lg:block">
+              <p th:text="${coinData.name}" class="font-bold"></p>
+              <p th:text="${coinData.symbol} " class="text-xs uppercase tracking-widest ">
+              </p>
+            </div>
+          </div>
+          <!-- price -->
+          <div>
+            <p class="font-bold text-xs lg:text-base flex justify-end "
+                th:with="coinname=${coinData.currentPrice}" >
+                [[${coinname}]]
+            </p>
+            <p>
+                [[${coinData.priceChangePercentage24h}]]
+            </p>
+          </div>
+        </div>
+      </li>
+      
+      <!-- clones -->
+      <!-- 1 -->
+      <li class="flex justify-center items-center flex-shrink-0 text-white transform scale-75 lg:scale-100"
+      th:each="coinData : ${coinsMKDatas}"
+      >
+        <div   class="flex justify-between w-3/4">
+          <!-- ticker -->
+          <div class="flex items-center">
+            <img
+              th:onclick="greetWorld(comma_separator('dsf'))"
+              th:src="${coinData.image}"
+              alt="coin logo"
+              class="w-4 h-4 lg:w-6 lg:h-6 rounded-full mr-4 "
+            />
+            <div class="hidden lg:block">
+              <p th:text="${coinData.name}" class="font-bold"></p>
+              <p th:text="${coinData.symbol} " class="text-xs uppercase tracking-widest ">
+              </p>
+            </div>
+          </div>
+          <!-- price -->
+          <div>
+            <p class="font-bold flex justify-end text-xs lg:text-base"
+                th:with="coinname=${coinData.currentPrice}" >
+                [[${coinname}]]
+            </p>
+            <p>
+                [[${coinData.priceChangePercentage24h}]]
+            </p>
+          </div>
+        </div>
+      </li>      
+    </ul>
+  </div>
+
+
+        <div class="form-group">
+            <label for="coinFilter">Filter by ID:</label>
+            <input type="text" class="form-control" id="coinFilter" placeholder="Enter Coin ID">
+        </div>
+        <table class="table-fixed cursor-pointer">
+            <caption class="table-title font-bold text-gray-700  pb-2">Cryptocurrency Exchange - Top 20 (Market Cap)</caption>
+            <thead>
+                <tr class="relative text-left text-gray-600 text-sm">
+                  <th class="w-1/4 p-4">Coin Name</th>
+                  <th class="w-1/4">Market Price(Real Time)</th>
+                  <th class="w-1/4">Change%(24 Hours)</th>
+                  <th class="w-1/4 hidden sm:table-cell">Trading Volume</th>
+                  <th class="w-1/4 hidden sm:table-cell">Market Capitalization</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y">
+                <tr  class="text-sm hover:bg-gray-100 transition duration-300 coinRow"
+                 th:each="coinData : ${coinsMKDatas}"
+                 >
+                  <td class="p-4 flex items-center">
+                    <p class="mr-2" th:text="${coinData.marketCapRank}" ></p>
+                    <img th:src="${coinData.image}" 
+                    alt="coin logo" 
+                    class="w-7 h-7 rounded-full mr-1"
+                    />
+                    <p class="font-bold p-1 mr-1" th:text="${coinData.name}"></p>
+                    <p class="uppercase text-gray-500 hidden sm:table-cell"
+                        th:text="${coinData.id}">
+                    </p>
+                  </td>
+                  <td  class="font-bold text-gray-600"
+                  th:text="${coinData.currentPrice}">
+                  </td>
+                  <td class=" font-bold" th:text="${coinData.priceChangePercentage24h}+ '%'"></td>
+                  <td  class="hidden sm:table-cell">
+                    <p style="color:rgb(26, 137, 165)" th:text="${coinData.totalVolume}"></p>
+                  </td>                    
+                  <td class="pr-10 hidden sm:table-cell">
+                    <p style="color:rgb(26, 137, 165)" th:text="${coinData.marketCap}"></p>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Add JavaScript for filtering -->
+        <script type="text/javascript" th:src="@{custom.js}"></script>
+        <script>
+            
+            document.addEventListener('DOMContentLoaded',function () {
+                var coinFilter = document.getElementById('coinFilter');
+                var coinRows = document.querySelectorAll('.coinRow');
+                coinFilter.addEventListener('input',function () {
+                    var filter = coinFilter.value.toUpperCase();
+                    coinRows.forEach(function (row) {
+                    var coinId = row.querySelector('td:nth-child(1)').textContent.toUpperCase();
+                    if (coinId.indexOf(filter) > -1) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+
+        </script>
+    </body>
+</html>
