@@ -20,8 +20,8 @@ public class CoinsMKData {
   private String image;
   private Double current_price; 
   private Double market_cap;
-  private int market_cap_rank;
-  private double fully_diluted_valuation;
+  private Integer market_cap_rank;
+  private Double fully_diluted_valuation;
   private Double total_volume;
   private Double high_24h;
   private Double low_24h;
@@ -30,8 +30,8 @@ public class CoinsMKData {
   private Double market_cap_change_24h;
   private Double market_cap_change_percentage_24h;
   private Double circulating_supply;
-  private double total_supply;
-  private double max_supply;
+  private Double total_supply;
+  private Double max_supply;
   private Double ath;
   private Double ath_change_percentage;
   private String ath_date;
@@ -47,9 +47,9 @@ public class CoinsMKData {
   @Builder
   @ToString
   public static class Roi {
-    private double times;
+    private Double times;
     private String currency;
-    private double percentage;
+    private Double percentage;
   }
 
 

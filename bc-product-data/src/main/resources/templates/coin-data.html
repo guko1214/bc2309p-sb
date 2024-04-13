@@ -48,6 +48,16 @@
                 transform: translateX(-100%);
             }
         }
+
+        .pos-pct {
+          color: green;
+          font-size: 12px;
+        }
+
+        .neg-pct {
+          color: red;
+          font-size: 12px;
+        }
         </style>
     </head>
     
@@ -81,8 +91,9 @@
                 th:with="coinname=${coinData.currentPrice}" >
                 [[${coinname}]]
             </p>
-            <p>
+            <p th:class="${coinData.priceChangePercentage24h >= 0} ? 'pos-pct' : 'neg-pct'">
                 [[${coinData.priceChangePercentage24h}]]
+                
             </p>
           </div>
         </div>
@@ -114,7 +125,7 @@
                 th:with="coinname=${coinData.currentPrice}" >
                 [[${coinname}]]
             </p>
-            <p>
+            <p th:class="${coinData.priceChangePercentage24h >= 0} ? 'pos-pct' : 'neg-pct'">
                 [[${coinData.priceChangePercentage24h}]]
             </p>
           </div>
@@ -150,9 +161,21 @@
             </thead>
 
             <tbody class="divide-y">
-                <tr  class="text-sm hover:bg-gray-100 transition duration-300 coinRow"
+                <tr  class="text-sm hover:bg-gray-100 transition duration-300 coinRow" id = "currentRow"
                  th:each="coinData : ${coinsMKDatas}"
                  >
+                 <!-- <script th:inline="javascript"> 
+
+                  function comma_separator(value) {
+                      // Add comma for dollar format, i.e. 1,000,000
+                      alert(value);
+                      return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                      //return 'dwew';
+                    } 
+                  //var ett = document.getElementById('dw'); ett.textContent = comma_separator("[[${coinData.currentPrice}]]");
+                  alert(document.getElementsById('currentRow').textContent );
+                  </script> -->
+
                   <td class="p-4 flex items-center">
                     <p class="mr-2" th:text="${coinData.marketCapRank}" ></p>
                     <img th:src="${coinData.image}" 
@@ -164,12 +187,13 @@
                         th:text="${coinData.id}">
                     </p>
                   </td>
-
-                  <td  class="font-bold text-gray-600"
-                  th:text="${coinData.currentPrice}">
-
+                  <!-- <td  class="font-bold text-gray-600"
+                  th:text="${coinData.currentPrice}"> -->
+                  <td  class="font-bold text-gray-600" id="dw">
+                    [[${coinData.currentPrice}]]
                   </td>
-                  <td class=" font-bold" th:text="${coinData.priceChangePercentage24h}+ '%'"></td>
+                  <td class=" font-bold" th:text="${coinData.priceChangePercentage24h}+ '%'"
+                    th:class="${coinData.priceChangePercentage24h >= 0} ? 'pos-pct' : 'neg-pct'"></td>
                   <td  class="hidden sm:table-cell">
                     <p style="color:rgb(26, 137, 165)" th:text="${coinData.totalVolume}"></p>
                   </td>                    

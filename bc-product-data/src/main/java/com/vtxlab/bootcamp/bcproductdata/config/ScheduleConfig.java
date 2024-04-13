@@ -186,6 +186,7 @@ public class ScheduleConfig {
             stockProfile2sEntitiesList.addAll(DtoMapper
                 .texSKFinnhubProfile2EntityMap(stocksProfile2DTOs, code));
     }
+
 //        List<StockProfile2DTO> stocksProfile2DTOs = apiResponse2.getData();
     productDataService
         .saveAllTexSKFinnhubProfile2Entities(stockProfile2sEntitiesList);
@@ -227,10 +228,13 @@ public class ScheduleConfig {
   @Scheduled(cron = "0 0 6 * * *")
   //@Scheduled(fixedRate = 60000)
   public void updateTproductStocksDailyEntity() {
+    System.out.println("updateTproductStocksDailyEntity");
     List<TproductStockListEntity> stockList = productDataService.getStockList();
 
     List<TproductStocksDailyEntity> tproductStocksDailyEntities = DtoMapper.tproductStocksDailyEntityMap(stockList, productDataService);
-
+    System.out.println("tproductStockDailyEntities");
+    System.out.println(tproductStocksDailyEntities);
+    System.out.println("tproductStockDailyEntities");
     productDataService.saveAllTproductStocksDailyEntities(tproductStocksDailyEntities);
   }
 

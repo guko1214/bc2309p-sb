@@ -15,12 +15,12 @@ import lombok.ToString;
 @Builder
 public class StockQuoteDTO {
 
-  private double c;
-  private double d;
-  private double dp;
-  private double h;
-  private double l;
-  private double o;
-  private double pc;
-  private double t;
+  private Double c;
+  private Double d;
+  private Double dp;
+  private Double h;
+  private Double l;
+  private Double o;
+  private Double pc;
+  private Double t;
 }

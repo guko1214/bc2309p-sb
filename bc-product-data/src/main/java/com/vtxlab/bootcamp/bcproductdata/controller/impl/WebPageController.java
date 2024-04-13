@@ -24,4 +24,9 @@ public class WebPageController {
     return "coin-data";
   }
 
+  @GetMapping(value = "/chart")
+  public String displayChart(Model model) {
+    return "chart";
+  }
+
 }

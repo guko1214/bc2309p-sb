@@ -16,25 +16,25 @@ public class CoinsMKDataDTO {
   private String symbol;
   private String name;
   private String image;
-  private double currentPrice; 
-  private double marketCap;
-  private int marketCapRank;
-  private double fullyDilutedValuation;
-  private double totalVolume;
-  private double high24h;
-  private double low24h;
-  private double priceChange24h;
-  private double priceChangePercentage24h;
-  private double marketCapChange24h;
-  private double marketCapChangePercentage24h;
-  private double circulatingSupply;
-  private double totalSupply;
-  private double maxSupply;
-  private double ath;
-  private double athChangePercentage;
+  private Double currentPrice; 
+  private Double marketCap;
+  private Integer marketCapRank;
+  private Double fullyDilutedValuation;
+  private Double totalVolume;
+  private Double high24h;
+  private Double low24h;
+  private Double priceChange24h;
+  private Double priceChangePercentage24h;
+  private Double marketCapChange24h;
+  private Double marketCapChangePercentage24h;
+  private Double circulatingSupply;
+  private Double totalSupply;
+  private Double maxSupply;
+  private Double ath;
+  private Double athChangePercentage;
   private String athDate;
-  private double atl; 
-  private double atlChangePercentage;
+  private Double atl; 
+  private Double atlChangePercentage;
   private String atlDate;
   private Roi roi; 
   private String lastUpdated;
@@ -44,8 +44,8 @@ public class CoinsMKDataDTO {
   @NoArgsConstructor
   @Builder
   public static class Roi {
-    private double times;
+    private Double times;
     private String currency;
-    private double percentage;
+    private Double percentage;
   }
 }

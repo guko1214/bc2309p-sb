@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>External API Data</title>
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <style>
+        </style>
+    </head>
+    <body>
+<!-- Your JSP or HTML page -->
+<div id="myCandlestickChart">
+ 
+</div>
+<script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+<script>
+  // Fetch data from your Spring Boot controller using AJAX
+  var ourRequest = new XMLHttpRequest();
+  ourRequest.open('GET', 'http://localhost:8092/data/api/v1/product/stock/daily?code=MSFT'); // Replace with your actual endpoint
+  ourRequest.onload = function() {
+    var candlestickData = JSON.parse(ourRequest.responseText);
+
+    // Extract relevant data (open, close, high, low) from candlestickData
+    // Example: candlestickData.open, candlestickData.close, etc.
+
+    // Create the candlestick chart
+    // var trace = {
+    //   type: 'candlestick',
+    //   x: [candlestickData.data[0].tradeDate, candlestickData.data[2].tradeDate, candlestickData.data[3].tradeDate, candlestickData.data[5].tradeDate], // Example date labels
+    //   open: [candlestickData.data[0].dayOpen, candlestickData.data[1].dayOpen, candlestickData.data[2].dayOpen,candlestickData.data[3].dayOpen], // Example open prices
+    //   close: [candlestickData.data[0].dayClose, candlestickData.data[1].dayClose, candlestickData.data[2].dayClose, candlestickData.data[3].dayClose], // Example close prices
+    //   high: [candlestickData.data[0].dayHigh, candlestickData.data[1].dayHigh, candlestickData.data[2].dayHigh,candlestickData.data[3].dayHigh], // Example high prices
+    //   low: [candlestickData.data[0].dayLow, candlestickData.data[1].dayLow, candlestickData.data[2].dayLow, candlestickData.data[3].dayLow], // Example low prices
+    //   decreasing: { line: { color: '#FF0000' } }, // Customize colors
+    //   increasing: { line: { color: '#00FF00' } }
+    // };
+
+    var trace = {
+      type: 'candlestick',
+      x : [],
+      open: [],
+      close: [],
+      high: [],
+      low: [],
+      decreasing: { line: { color: '#FF0000'} },
+      increasing: { iine: { color: '00FF00'}  }
+    }
+
+    for (const value of candlestickData.data) {
+      trace.x.push(value.tradeDate);
+      trace.open.push(value.dayOpen);
+      trace.close.push(value.dayClose);
+      trace.high.push(value.dayHigh);
+      trace.low.push(value.dayLow);
+    }
+    var layout = {
+      title: candlestickData.data[0].productId,
+      xaxis: { title: 'Date' },
+      yaxis: { title: 'Price' }
+    };
+
+    Plotly.newPlot('myCandlestickChart', [trace], layout);
+  };
+
+  ourRequest.send();
+</script>
+
+</body>
+</html>

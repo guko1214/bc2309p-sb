@@ -22,10 +22,10 @@ public class StockProfile2DTO {
   private String finnhubIndustry;
   private String ipo;
   private String logo;
-  private double marketCapitalization;
+  private Double marketCapitalization;
   private String name;
   private String phone;
-  private double shareOutstanding; 
+  private Double shareOutstanding; 
   private String ticker;
   private String weburl;
 
