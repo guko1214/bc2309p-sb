@@ -7,8 +7,8 @@ database:
 spring.datasource:
   #$driverClassName: "org.hibernate.dialect.PostgreSQLDialect"
   driverClassName: "org.postgresql.Driver"
-  #url: "jdbc:postgresql://localhost:5432/${database.postgres}"
-  url: "jdbc:postgresql://l92.168.1.46:5432/${database.postgres}"
+  url: "jdbc:postgresql://localhost:5432/${database.postgres}"
+  #url: "jdbc:postgresql://l92.168.1.46:5432/${database.postgres}"
   #url: "jdbc:postgresql://l72.21.0.2:5432/${database.postgres}"
   username: "postgres"
   password: "admin1234"
