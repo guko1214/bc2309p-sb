@@ -12,11 +12,11 @@
 <div id="myCandlestickChart">
  
 </div>
-<script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+<script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8" th:inline="javascript"></script>
 <script>
   // Fetch data from your Spring Boot controller using AJAX
   var ourRequest = new XMLHttpRequest();
-  ourRequest.open('GET', 'http://localhost:8092/data/api/v1/product/stock/daily?code=MSFT'); // Replace with your actual endpoint
+  ourRequest.open('GET', 'http://localhost:8092/data/api/v1/product/stock/daily?code=' + '[[${stockCode}]]' ); // Replace with your actual endpoint
   ourRequest.onload = function() {
     var candlestickData = JSON.parse(ourRequest.responseText);
 
