@@ -1,6 +1,6 @@
-select * from tproduct_coin_list
+select * from tproduct_coin_list tcl order by tcl.id
 
-select * from tproduct_stock_list
+select * from tproduct_stock_list tsl order by tsl.id
 
 select * from texternal_crypto_coingecko_market
 
