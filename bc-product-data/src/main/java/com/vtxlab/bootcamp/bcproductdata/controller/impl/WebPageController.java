@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.vtxlab.bootcamp.bcproductdata.dto.mapper.DtoMapper;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.CoinsMKDataDTO;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
@@ -25,7 +26,9 @@ public class WebPageController {
   }
 
   @GetMapping(value = "/chart")
-  public String displayChart(Model model) {
+  public String displayChart(Model model,@RequestParam(value = "stockcode") String stockCode) {
+    System.out.println(stockCode);
+    model.addAttribute("stockCode",stockCode);
     return "chart";
   }
 

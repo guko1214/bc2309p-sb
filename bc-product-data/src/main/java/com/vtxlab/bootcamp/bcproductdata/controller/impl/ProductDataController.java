@@ -73,6 +73,7 @@ public class ProductDataController implements ProductDataOperation {
 
   @Override
   public ApiResponse<List<TproductDailyDTO>> getTproductStocksDailyEntity(String stockCode)  throws JsonProcessingException {
+    System.out.println("stockcode: " + stockCode);
     TproductStockListEntity tproductStockListEntity = productDataService.getStockListByCode(stockCode);
     Long stockId = tproductStockListEntity.getId();
     List<TproductStocksDailyEntity> tproductStocksDailyEntities = redisService.bulkGetStocksDaily(stockId);
