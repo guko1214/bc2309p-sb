@@ -19,7 +19,7 @@ public class CoinsValidator implements ConstraintValidator<CoinsCheck, String> {
       return true;
     try {
       List<String> coinsList = coingeckoService.getConinsList();  
-      System.out.println(coinsList); 
+      // System.out.println(coinsList); 
       int startIdx = 0;
       StringBuilder coinId = new StringBuilder();
       char[] coinsCharArr = (coins + " ").toCharArray();
