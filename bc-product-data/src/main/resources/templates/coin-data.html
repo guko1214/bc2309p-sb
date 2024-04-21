@@ -92,7 +92,7 @@
                 [[${coinname}]]
             </p>
             <p th:class="${coinData.priceChangePercentage24h >= 0} ? 'pos-pct' : 'neg-pct'">
-                [[${coinData.priceChangePercentage24h}]]
+                [[${coinData.priceChangePercentage24h}]]%
                 
             </p>
           </div>
@@ -126,7 +126,7 @@
                 [[${coinname}]]
             </p>
             <p th:class="${coinData.priceChangePercentage24h >= 0} ? 'pos-pct' : 'neg-pct'">
-                [[${coinData.priceChangePercentage24h}]]
+                [[${coinData.priceChangePercentage24h}]]%
             </p>
           </div>
         </div>
@@ -262,6 +262,14 @@
         });
 
         console.log("ee");
+        </script>
+        <script>
+            var ourRequest = new XMLHttpRequest();
+            //ourRequest.open('GET', 'http://192.168.1.46:8092/data/api/v1/product/stock/daily?code=' + '[[${stockCode}]]' ); // Replace with your actual endpoint
+            ourRequest.open('GET', 'http://localhost:8092/data/api/v1/product/stock/daily?code=' + '[[${stockCode}]]' ); // Replace with your actual endpoint
+            ourRequest.onload = function() {
+              var candlestickData = JSON.parse(ourRequest.responseText);
+            }
         </script>
 
     </body>
