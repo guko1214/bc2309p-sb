@@ -2,6 +2,7 @@ package com.vtxlab.bootcamp.bcproductdata.entity;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,4 +41,6 @@ public class TproductStocksDailyEntity {
   private Double dayOpen;
   @Column(name = "day_close")
   private Double dayClose;
+  @Column(name = "update_time")
+  private LocalDateTime updateTime;
 }

@@ -164,6 +164,7 @@
                 <tr  class="text-sm hover:bg-gray-100 transition duration-300 coinRow" id = "currentRow"
                  th:each="coinData : ${coinsMKDatas}"
                  >
+                 
                  <!-- <script th:inline="javascript"> 
 
                   function comma_separator(value) {
@@ -206,6 +207,39 @@
         </div>
         <!-- Add JavaScript for filtering -->
         <script type="text/javascript" th:src="@{custom.js}"></script>
+        <script type="text/javascript"  src="https://unpkg.com/axios/dist/axios.min.js">
+          //const axios = require('axios/dist/browser/axios.cjs');
+          console.log("ee");
+          import axios from "axios";
+          console.log("ee");
+          export default {
+            name: "App",
+          setup() {
+          const retrieveCoins = async () => {
+            try {
+              const response = await axios.get(
+                //"http://localhost:8090/crypto/coingecko/api/v1/coins?currency=usd"
+                //"http://localhost:8092/data/api/v1/coins"
+                "http://192.168.1.46:8092/data/api/v1/coins"
+              );
+              console.log(response.data.data);
+              //coins.value = response.data.data;
+              const coinDs =  response.data.data
+            } catch (err) {
+              console.log(err);
+            }
+          };
+          setInterval(() => {
+            retrieveCoins();
+          }, 30000); // change to 5 minutes (i.e. 300000ms)
+          console.log(coins);
+          // for (i = 0; i < coins.length; i++) {
+          //   coins[i].currentPrice = 1;//comma_separator(coins[i].currentPrice)
+          // }
+          return {coinDs};
+          }
+        }
+        </script>
         <script>
             
             document.addEventListener('DOMContentLoaded',function () {
@@ -215,9 +249,9 @@
                     var filter = coinFilter.value.toUpperCase();
                     coinRows.forEach(function (row) {
                     var coinId = row.querySelector('td:nth-child(1)').textContent.toUpperCase();
-                    var coinPrice = row.querySelector('td:nth-child(3)');
+                    // var coinPrice = row.querySelector('td:nth-child(3)');
                     // coinPrice.value = comma_separator(coinPrice.value);
-                    coinPrice = 'ew';
+                    // coinPrice = 'ew';
                     if (coinId.indexOf(filter) > -1) {
                         row.style.display = '';
                     } else {
@@ -227,7 +261,8 @@
             });
         });
 
-
+        console.log("ee");
         </script>
+
     </body>
 </html>

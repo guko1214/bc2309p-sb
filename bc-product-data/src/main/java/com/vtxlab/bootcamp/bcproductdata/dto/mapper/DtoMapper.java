@@ -196,6 +196,7 @@ public class DtoMapper {
           .dayLow(e.getPriceDayLow())
           .dayOpen(e.getPriceOpen())
           .dayClose(e.getCurrPrice())
+          .updateTime(LocalDateTime.now())
           ;
         // if (tproductStocksDailyEntityId != null)
         //   tproductStocksDailyEntityBuilder.id(tproductStocksDailyEntityId);
