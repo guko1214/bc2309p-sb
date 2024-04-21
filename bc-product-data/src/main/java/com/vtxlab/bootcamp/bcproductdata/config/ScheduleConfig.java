@@ -227,6 +227,7 @@ public class ScheduleConfig {
 
   @Scheduled(cron = "0 0 6 * * *")
   //@Scheduled(fixedRate = 60000)
+  //@Scheduled(fixedRate = 1440000)
   public void updateTproductStocksDailyEntity() {
     System.out.println("updateTproductStocksDailyEntity");
     List<TproductStockListEntity> stockList = productDataService.getStockList();

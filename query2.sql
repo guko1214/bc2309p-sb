@@ -12,7 +12,8 @@ select * from tproduct_coins;
 
 select * from tproduct_stocks;
 
-select * from tproduct_stocks_daily;
+select * from tproduct_stocks_daily tsd
+order by tsd.id desc;
 
 select  * from tproduct_stocks_daily tsd
 where tsd.stock_id = 3

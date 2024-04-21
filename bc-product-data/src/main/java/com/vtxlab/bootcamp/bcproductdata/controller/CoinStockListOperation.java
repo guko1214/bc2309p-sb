@@ -12,11 +12,11 @@ import com.vtxlab.bootcamp.bcproductdata.entity.TproductStockListEntity;
 public interface CoinStockListOperation {
   
   @PostMapping(value = "/coinlist")
-  @ResponseStatus(value = HttpStatus.OK)
+  @ResponseStatus(value = HttpStatus.CREATED)
   List<TproductCoinListEntity> saveCoinListEntities(@RequestParam(value = "coincodes") String coinCodeCsv);
 
   @PostMapping(value = "/stocklist")
-  @ResponseStatus(value = HttpStatus.OK)
+  @ResponseStatus(value = HttpStatus.CREATED)
   List<TproductStockListEntity> saveStockListEntities(@RequestParam(value = "stockcodes") String stockCodeCsv);
   
   @DeleteMapping(value = "/coinlist")
