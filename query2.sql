@@ -58,5 +58,28 @@ where tccm.quote_coin_code = '0chain'
 order by tccm.id desc
 
 
-insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_data)
-values(170.85, )
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(169.890, 170.610,168.151,169.525,1,'2024-04-26')
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(399.040,399.890,388.030,394.030,2,'2024-04-26')
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(826.320,833.230 ,782.230,788.680,3,'2024-04-26')
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(170.180,170.880, 158.360,158.960,4,'2024-04-26')
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(156.000,156.490,150.870,156.490,5,'2024-04-26')
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(441.380,445.770,414.500,421.400,6,'2024-04-26')
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(173.670,173.920,166.320,169.680,7,'2024-04-26')
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(35.110,35.295,34.500,34.560,8,'2024-04-26')
+insert into tproduct_stocks_daily (day_close, day_high, day_low, day_open, stock_id, trade_date)
+values(153.760,155.140,146.750,149.150,9,'2024-04-26')
+
+update tproduct_stocks_daily
+set trade_date = '2024-04-27'
+where trade_date = '2024-04-28'
+
+delete from tproduct_stocks_daily
+where trade_date = '2024-04-20'

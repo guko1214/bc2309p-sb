@@ -42,5 +42,5 @@ public class TproductStocksDailyEntity {
   @Column(name = "day_close")
   private Double dayClose;
   @Column(name = "update_time")
-  private LocalDateTime updateTime;
+  private String updateTime;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.vtxlab.bootcamp.bcproductdata.dto.mapper.DtoMapper;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.CoinsMKDataDTO;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TexSkFinnhubQuoteEntity;
 import com.vtxlab.bootcamp.bcproductdata.service.ProductDataService;
 
 @Controller
@@ -18,11 +19,19 @@ public class WebPageController {
   ProductDataService productDataService;
 
   @GetMapping(value = "/coinsdata")
-  public String displayExternalData(Model model) {
+  public String displayExternalCoinsData(Model model) {
     List<TexCPCoingeckoMKEntity> texCPCoingeckoMKEntities = productDataService.findAllTexCPCoingeckoMKEntites();
     List<CoinsMKDataDTO> coinsMKDatas = DtoMapper.texCPCoingeckoMKEntityMap(texCPCoingeckoMKEntities.subList(texCPCoingeckoMKEntities.size()-13,texCPCoingeckoMKEntities.size()));
     model.addAttribute("coinsMKDatas", coinsMKDatas);
     return "coin-data";
+  }
+
+  @GetMapping(value = "/stocksdata")
+  public String displayExternalStocksData(Model model) {
+    List<TexSkFinnhubQuoteEntity> texSkFinnhubQuoteEntities = productDataService.findAllTexSkFinnhubQuoteEntities();
+    texSkFinnhubQuoteEntities = texSkFinnhubQuoteEntities.subList(texSkFinnhubQuoteEntities.size()-9,texSkFinnhubQuoteEntities.size());
+    model.addAttribute("texSkFinnhubQuoteEntities", texSkFinnhubQuoteEntities);
+    return "stock-data";
   }
 
   @GetMapping(value = "/chart")

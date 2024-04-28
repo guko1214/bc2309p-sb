@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>External API Data</title>
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <style>
+          #app {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        }
+        .marquee-content {
+        animation: scrolling 25s linear infinite;
+        }
+        .marquee-content li {
+        width: 19%;
+        }
+        .table-title {
+        font-size : 30px;
+        bottom: 30;
+        height: 1.5em;
+        }
+        .marquee:before,
+        .marquee:after {
+        position: absolute;
+        top: 0;
+        width: 10rem;
+        height: 3em;
+        content: "";
+        z-index: 1;
+        }
+        .marquee {
+        background: rgb(132, 191, 59);
+        }
+        .marquee:before {
+        left: 0;
+        background: linear-gradient(to right, rgb(26, 137, 165) 0%, transparent 30%);
+        }
+        .marquee:after {
+        right: 0;
+        background: linear-gradient(to left, rgb(26, 137, 165) 0%, transparent 30%);
+        }
+        @keyframes scrolling {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .pos-pct {
+          color: green;
+          font-size: 12px;
+        }
+
+        .neg-pct {
+          color: red;
+          font-size: 12px;
+        }
+        </style>
+    </head>
+    
+    <body>
+  <!-- ============ Marquee ============ -->
+  <div class="marquee w-full h-12 overflow-hidden position-relative" >
+    <ul class="marquee-content h-full flex" ref="mq">
+      <!-- main -->
+      <!-- 1 -->
+      <li class="flex justify-center items-center flex-shrink-0 text-white transform scale-75 lg:scale-100"
+      th:each="stockData : ${texSkFinnhubQuoteEntities}"
+      >
+        <div   class="flex justify-between w-3/4">
+          <!-- ticker -->
+          <div class="flex items-center">
+            <div class="hidden lg:block">
+              <p th:text="${stockData.quoteStockCode}" class="font-bold"></p>
+              </p>
+            </div>
+          </div>
+          <!-- price -->
+          <div>
+            <p class="font-bold text-xs lg:text-base flex justify-end "
+                th:with="coinname=${stockData.currPrice}" >
+                [[${stockData.currPrice}]]
+            </p>
+            <p th:class="${stockData.priceChgPct >= 0} ? 'pos-pct' : 'neg-pct'">
+                [[${stockData.priceChgPct}]]%
+                
+            </p>
+          </div>
+        </div>
+      </li>
+      
+      <!-- clones -->
+      <!-- 1 -->
+      <li class="flex justify-center items-center flex-shrink-0 text-white transform scale-75 lg:scale-100"
+      th:each="stockData : ${texSkFinnhubQuoteEntities}"
+      >
+        <div   class="flex justify-between w-3/4">
+          <!-- ticker -->
+          <div class="flex items-center">
+            <div class="hidden lg:block">
+              <p th:text="${stockData.quoteStockCode}" class="font-bold"></p>
+              </p>
+            </div>
+          </div>
+          <!-- price -->
+          <div>
+            <p class="font-bold flex justify-end text-xs lg:text-base"
+                th:with="coinname=${stockData.currPrice}" >
+                [[${stockData.currPrice}]]
+            </p>
+            <p th:class="${stockData.priceChgPct >= 0} ? 'pos-pct' : 'neg-pct'">
+              [[${stockData.priceChgPct}]]%
+            </p>
+          </div>
+        </div>
+      </li>      
+    </ul>
+  </div>
+
+
+        <!-- <div class="form-group">
+            <label for="coinFilter">Filter by ID:</label>
+            <input type="text" class="form-control" id="coinFilter" placeholder="Enter Coin ID">
+        </div> -->
+        <div class="container mx-auto pt-18 px-2">
+          <table class="table-fixed cursor-pointer">
+              <caption class="table-title font-bold text-gray-700  pb-2">Stock Exchange - Technology</caption>
+              <thead>
+                <tr class="relative text-left text-gray-600 text-sm">
+                  <td class="p-2"> 
+                    Search: 
+                    <!-- <input type="text" class="form-control border border-gray-500 rounded p-2"  -->
+                    <input type="text" class="border border-gray-500 rounded p-2" 
+                    id="coinFilter" placeholder="Enter Coin ID">
+                  </td> 
+                </tr>
+                <tr class="text-left bg-gray-100 text-gray-600 text-sm">
+                  <th class="w-1/4 p-4">Stock Code</th>
+                  <th class="w-1/4">Market Price</th>
+                  <th class="w-1/4">Change%(24 Hours)</th>
+                  <th></th>              
+                </tr>
+              </thead>
+  
+              <tbody class="divide-y">
+                <tr >
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td rowspan="300">
+                    <!-- <object id="candlechart" type="text/html" data="https://dragon32.duckdns.org/chart?stockcode=AMD" width="800px" height="600px" style="overflow:auto;border:5px ridge blue;float: right ; display: flex; justify-content: flex-end"> -->
+                    <object id="candlechart" type="text/html" data="https://dragon32.duckdns.org/chart?stockcode=MSFT" width="800px" height="600px" style="overflow:auto;border:5px;float: right ; display: flex; justify-content: flex-end"></object>
+                    </object>
+                  </td>
+                </tr>
+                  <tr  class="text-sm hover:bg-gray-100 transition duration-300 coinRow" id = "currentRow"
+                   th:each="stockData : ${texSkFinnhubQuoteEntities}"
+                   >
+                   
+  
+                    <td class="p-4 flex items-center">
+                      <p th:onclick="chartcontent([[${stockData.quoteStockCode}]])" class="font-bold p-1 mr-1" th:text="${stockData.quoteStockCode}"></p>
+                    </td>
+                    <!-- <td  class="font-bold text-gray-600"
+                    th:text="${coinData.currentPrice}"> -->
+                    <td  class="font-bold text-gray-600" id="dw">
+                      [[${stockData.currPrice}]]
+                    </td>
+                    <td class=" font-bold" th:text="${stockData.priceChgPct}+ '%'"
+                      th:class="${stockData.priceChgPct >= 0} ? 'pos-pct' : 'neg-pct'"></td>
+                  </tr>
+
+              </tbody>
+          </table>
+
+          </div>
+
+
+        <!-- Add JavaScript for filtering -->
+        <script type="text/javascript" th:src="@{custom.js}"></script>
+        <script type="text/javascript"  src="https://unpkg.com/axios/dist/axios.min.js">
+          //const axios = require('axios/dist/browser/axios.cjs');
+          console.log("ee");
+          import axios from "axios";
+          console.log("ee");
+          export default {
+            name: "App",
+          setup() {
+          const retrieveCoins = async () => {
+            try {
+              const response = await axios.get(
+                //"http://localhost:8090/crypto/coingecko/api/v1/coins?currency=usd"
+                //"http://localhost:8092/data/api/v1/coins"
+                "http://192.168.1.46:8092/data/api/v1/coins"
+              );
+              console.log(response.data.data);
+              //coins.value = response.data.data;
+              const coinDs =  response.data.data
+            } catch (err) {
+              console.log(err);
+            }
+          };
+          setInterval(() => {
+            retrieveCoins();
+          }, 30000); // change to 5 minutes (i.e. 300000ms)
+          console.log(coins);
+          // for (i = 0; i < coins.length; i++) {
+          //   coins[i].currentPrice = 1;//comma_separator(coins[i].currentPrice)
+          // }
+          return {coinDs};
+          }
+        }
+        </script>
+        <script>
+            
+            document.addEventListener('DOMContentLoaded',function () {
+                var coinFilter = document.getElementById('coinFilter');
+                var coinRows = document.querySelectorAll('.coinRow');
+                coinFilter.addEventListener('input',function () {
+                    var filter = coinFilter.value.toUpperCase();
+                    coinRows.forEach(function (row) {
+                    var coinId = row.querySelector('td:nth-child(1)').textContent.toUpperCase();
+                    // var coinPrice = row.querySelector('td:nth-child(3)');
+                    // coinPrice.value = comma_separator(coinPrice.value);
+                    // coinPrice = 'ew';
+                    if (coinId.indexOf(filter) > -1) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+        console.log("ee");
+        </script>
+        <script>
+          function chartcontent(value) {
+            var candlechart = document.getElementById('candlechart');
+            candlechart.data = "https://dragon32.duckdns.org/chart?stockcode=" + value;
+            }
+        </script>
+        <script>
+            var ourRequest = new XMLHttpRequest();
+            //ourRequest.open('GET', 'http://192.168.1.46:8092/data/api/v1/product/stock/daily?code=' + '[[${stockCode}]]' ); // Replace with your actual endpoint
+            ourRequest.open('GET', 'http://localhost:8092/data/api/v1/product/stock/daily?code=' + '[[${stockCode}]]' ); // Replace with your actual endpoint
+            ourRequest.onload = function() {
+              var candlestickData = JSON.parse(ourRequest.responseText);
+            }
+        </script>
+
+    </body>
+</html>

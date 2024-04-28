@@ -192,17 +192,17 @@ public class ScheduleConfig {
         .saveAllTexSKFinnhubProfile2Entities(stockProfile2sEntitiesList);
   }
 
-  @Scheduled(cron = "0 0 0 * * *")
+  @Scheduled(cron = "0 0 16 * * *")
   public void deleteTexternalCryptoCoingeckoMK() {
     productDataService.deleteAllTexCPCoingeckoMKEntites();
   }
 
-  @Scheduled(cron = "0 0 0 * * *")
+  @Scheduled(cron = "0 0 16 * * *")
   public void deleteTexternalStockFinnhubQuote() {
     productDataService.deleteAllTexSkFinnhubQuoteEntities();
   }
 
-  @Scheduled(cron = "0 0 0 * * *")
+  @Scheduled(cron = "0 0 16 * * *")
   public void deleteTexternalStockFinnhubProfile2() {
     productDataService.deleteAllTexSKFinnhubProfile2Entitiess();
   }
@@ -225,7 +225,7 @@ public class ScheduleConfig {
     productDataService.saveAllTproductStocksEntities(tproductStocksEntities);
   }
 
-  @Scheduled(cron = "0 0 6 * * *")
+  @Scheduled(cron = "0 0 22 * * MON-FRI")
   //@Scheduled(fixedRate = 60000)
   //@Scheduled(fixedRate = 1440000)
   public void updateTproductStocksDailyEntity() {
