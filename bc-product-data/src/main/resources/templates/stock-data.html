@@ -73,16 +73,22 @@
         <div   class="flex justify-between w-3/4">
           <!-- ticker -->
           <div class="flex items-center">
+            <img
+              th:src="${stockData.logo}"
+              alt="stock logo"
+              class="w-4 h-4 lg:w-6 lg:h-6 rounded-full mr-4 object-cover"
+            />
             <div class="hidden lg:block">
-              <p th:text="${stockData.quoteStockCode}" class="font-bold"></p>
+              <p th:text="${stockData.productId}" class="text-xs uppercase tracking-widest "></p>
+              <p th:text="${stockData.name}" class="text-xs"></p>
               </p>
             </div>
           </div>
           <!-- price -->
           <div>
             <p class="font-bold text-xs lg:text-base flex justify-end "
-                th:with="coinname=${stockData.currPrice}" >
-                [[${stockData.currPrice}]]
+                th:with="coinname=${stockData.currentPrice}" >
+                [[${stockData.currentPrice}]]
             </p>
             <p th:class="${stockData.priceChgPct >= 0} ? 'pos-pct' : 'neg-pct'">
                 [[${stockData.priceChgPct}]]%
@@ -100,16 +106,22 @@
         <div   class="flex justify-between w-3/4">
           <!-- ticker -->
           <div class="flex items-center">
+            <img
+              th:src="${stockData.logo}"
+              alt="stock logo"
+              class="w-4 h-4 lg:w-6 lg:h-6 rounded-full mr-4 object-cover"
+            />
             <div class="hidden lg:block">
-              <p th:text="${stockData.quoteStockCode}" class="font-bold"></p>
+              <p th:text="${stockData.productId}" class="font-bold"></p>
+              <p th:text="${stockData.name}" class="text-xs "></p>
               </p>
             </div>
           </div>
           <!-- price -->
           <div>
             <p class="font-bold flex justify-end text-xs lg:text-base"
-                th:with="coinname=${stockData.currPrice}" >
-                [[${stockData.currPrice}]]
+                th:with="coinname=${stockData.currentPrice}" >
+                [[${stockData.currentPrice}]]
             </p>
             <p th:class="${stockData.priceChgPct >= 0} ? 'pos-pct' : 'neg-pct'">
               [[${stockData.priceChgPct}]]%
@@ -134,7 +146,7 @@
                     Search: 
                     <!-- <input type="text" class="form-control border border-gray-500 rounded p-2"  -->
                     <input type="text" class="border border-gray-500 rounded p-2" 
-                    id="coinFilter" placeholder="Enter Coin ID">
+                    id="coinFilter" placeholder="Enter stock ID">
                   </td> 
                 </tr>
                 <tr class="text-left bg-gray-100 text-gray-600 text-sm">
@@ -161,13 +173,20 @@
                    >
                    
   
-                    <td class="p-4 flex items-center">
-                      <p th:onclick="chartcontent([[${stockData.quoteStockCode}]])" class="font-bold p-1 mr-1" th:text="${stockData.quoteStockCode}"></p>
+                    <td th:onclick="chartcontent([[${stockData.productId}]])" class="p-4 flex items-center">
+                      <img th:src="${stockData.logo}"
+                      alt="stock logo" 
+                      class="w-7 h-7 rounded-full mr-1"
+                      />
+                      <p  class="font-bold p-1 mr-1" th:text="${stockData.name}"></p>
+                      <p class="uppercase text-gray-500 hidden sm:table-cell"
+                      th:text="${stockData.productId}">
+                  </p>
                     </td>
                     <!-- <td  class="font-bold text-gray-600"
                     th:text="${coinData.currentPrice}"> -->
                     <td  class="font-bold text-gray-600" id="dw">
-                      [[${stockData.currPrice}]]
+                      [[${stockData.currentPrice}]]
                     </td>
                     <td class=" font-bold" th:text="${stockData.priceChgPct}+ '%'"
                       th:class="${stockData.priceChgPct >= 0} ? 'pos-pct' : 'neg-pct'"></td>

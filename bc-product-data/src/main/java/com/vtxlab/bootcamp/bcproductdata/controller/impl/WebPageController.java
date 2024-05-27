@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.vtxlab.bootcamp.bcproductdata.dto.mapper.DtoMapper;
 import com.vtxlab.bootcamp.bcproductdata.dto.request.CoinsMKDataDTO;
+import com.vtxlab.bootcamp.bcproductdata.dto.response.TproductsDTO;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexCPCoingeckoMKEntity;
 import com.vtxlab.bootcamp.bcproductdata.entity.TexSkFinnhubQuoteEntity;
+import com.vtxlab.bootcamp.bcproductdata.entity.TproductStocksEntity;
+import com.vtxlab.bootcamp.bcproductdata.infra.ApiResponse;
 import com.vtxlab.bootcamp.bcproductdata.service.ProductDataService;
 
 @Controller
@@ -28,8 +31,10 @@ public class WebPageController {
 
   @GetMapping(value = "/stocksdata")
   public String displayExternalStocksData(Model model) {
-    List<TexSkFinnhubQuoteEntity> texSkFinnhubQuoteEntities = productDataService.findAllTexSkFinnhubQuoteEntities();
-    texSkFinnhubQuoteEntities = texSkFinnhubQuoteEntities.subList(texSkFinnhubQuoteEntities.size()-9,texSkFinnhubQuoteEntities.size());
+    // List<TexSkFinnhubQuoteEntity> texSkFinnhubQuoteEntities = productDataService.findAllTexSkFinnhubQuoteEntities();
+    // texSkFinnhubQuoteEntities = texSkFinnhubQuoteEntities.subList(texSkFinnhubQuoteEntities.size()-9,texSkFinnhubQuoteEntities.size());
+    //List<TproductStocksEntity> texSkFinnhubQuoteEntities = productDataService.findAllTprodcutStocksEntities();
+    List<TproductsDTO> texSkFinnhubQuoteEntities = DtoMapper.tproductsMapfromTproductStocksEntity(productDataService.findAllTprodcutStocksEntities(),productDataService);
     model.addAttribute("texSkFinnhubQuoteEntities", texSkFinnhubQuoteEntities);
     return "stock-data";
   }
